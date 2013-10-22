@@ -1,4 +1,6 @@
 <?php
+
+require_once dirname(__DIR__) . '/Vendor/autoload.php';
 /**
  * This is core configuration file.
  *
@@ -377,3 +379,7 @@ Cache::config('_cake_model_', array(
 	'serialize' => ($engine === 'File'),
 	'duration' => $duration
 ));
+
+
+Configure::write('Routing.prefixes', array('admin'));
+Configure::write('App.defaultEmail', 'mymailcan@yahoo.com');

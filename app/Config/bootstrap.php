@@ -112,4 +112,14 @@ CakeLog::config('error', array(
  * linking up the debugger
  * @author abrar
  */
-CakePlugin::load('DebugKit');
+CakePlugin::loadAll();
+/**
+ * setting user roles
+ * @author abrar
+ */
+Configure::write('Acl.classname', 'DbAcl');
+Configure::write('Acl.database', 'default');
+Configure::write('Admin.aliases.administrator', 'Administrator');
+
+CakePlugin::load('Utility', array('bootstrap' => true, 'routes' => true));
+CakePlugin::load('Admin', array('bootstrap' => true, 'routes' => true));
