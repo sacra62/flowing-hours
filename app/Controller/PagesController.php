@@ -65,7 +65,7 @@ class PagesController extends AppController {
 			$title_for_layout = Inflector::humanize($path[$count - 1]);
 		}
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
-
+                
 		try {
 			$this->render(implode('/', $path));
 		} catch (MissingViewException $e) {
