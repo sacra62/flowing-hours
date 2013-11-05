@@ -112,14 +112,26 @@ CakeLog::config('error', array(
  * linking up the debugger
  * @author abrar
  */
-CakePlugin::loadAll();
+//CakePlugin::loadAll();
 /**
  * setting user roles
  * @author abrar
  */
-Configure::write('Acl.classname', 'DbAcl');
-Configure::write('Acl.database', 'default');
-Configure::write('Admin.aliases.administrator', 'Administrator');
 
-CakePlugin::load('Utility', array('bootstrap' => true, 'routes' => true));
-CakePlugin::load('Admin', array('bootstrap' => true, 'routes' => true));
+CakePlugin::load('DebugKit');
+//for admin panel
+//CakePlugin::load('Utility', array('bootstrap' => true, 'routes' => true));
+//CakePlugin::load('Admin', array('bootstrap' => true, 'routes' => true));
+//
+//Configure::write('Acl.classname', 'DbAcl');
+//Configure::write('Acl.database', 'default');
+//Configure::write('Admin.aliases.admin', 'Administrator');
+
+//User plugin
+CakePlugin::load('Search');
+CakePlugin::load('Utils');
+CakePlugin::load('Users', array('routes' => true));
+Configure::write('Users.roles', array('admin' => 'Admin', 'registered' => 'Registered'));
+Configure::write('Users.defaultRole', 'user_registered');
+
+
