@@ -76,6 +76,9 @@ $user = $this->Session->read('Auth');
 
             <?php
         }
+        if($this->params['controller']=="pages")
+            echo $this->Html->css('calendar.css'); 
+        
         echo $this->Html->css('default.css');
         ?>
     </head>

@@ -10,9 +10,6 @@ root {
     display: block;
 }
 
-body{
-    font-size: 62%;
-}
 .fleft{
     float: left;
 }
@@ -25,40 +22,3 @@ body{
     margin-right: 10px;
 }
 
-  /* resetting what cakephp' generic css has */
-  label {
-      font-size: 1em;
-  }
-  fieldset{
-      margin: 0;
-  }
-  form {
-display: block;
-margin: 0;
-width: auto;
-}
-table tr td,table {
-    padding: 0;
-    margin: 0;
-    vertical-align: auto;
-    border: none;
-    width: auto;
-    border-bottom: 0;
-}
-.ui-dialog-content table tr td{
-    vertical-align: middle;
-}
-form div{
-    clear: both;
-margin-bottom: 0;
-padding: 0;
-}
-td, th {
-display: table-cell;
-vertical-align: inherit;
-}
-.flowinghours input, .flowinghours textarea{
-  
-    width: auto;
-    padding: 0;
-}
