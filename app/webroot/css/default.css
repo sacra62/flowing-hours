@@ -21,4 +21,20 @@ root {
     margin-left: 10px;
     margin-right: 10px;
 }
+#accordion .ui-accordion-content {
+height: auto!important;
+}
+
+#accordion h3{
+    font-weight: bold;
+    font-size: 130%;
+}
+#accordion .task label{
+    font-weight: bold!important;
+    display: inline!important;
+}
+#accordion .task a.task_edit{
+    cursor: pointer;
+}
+
 

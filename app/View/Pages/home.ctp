@@ -72,6 +72,69 @@ echo $this->Html->script('calendar.custom');
 
             <p>&nbsp;</p>
         </div><!-- end tab 1 -->
-        <div id="tabs-2">Coming soon</div>
+        <div id="tabs-2">
+            <script>
+  $(function() {
+    $( "#accordion") .accordion({   collapsible: true, header: 'h3',       active: true, height: 'fill'}).sortable({
+    });
+    $('#accordion').on('accordionactivate', function (event, ui) {
+                $(".text_edit").on("click", switchToInput);
+
+        if (ui.newPanel.length) {
+            $('#accordion').sortable('disable');
+        } else {
+            $('#accordion').sortable('enable');
+        }
+    });
+//    $(".task_edit").click(function(){
+//        //clone the task_ and put cancel and save buttons - upon cancel put back the clone on save, save chanegs. discard the clone
+//        var id = "#task_"+$(this).attr("id");
+//        $(id).find(".date").datepicker();
+//    });
+    
+    
+    var switchToInput = function () {
+        var $input = $("<input>", {
+            val: $(this).text(),
+            type: "text"
+        });
+        $input.addClass("text_edit");
+        $(this).replaceWith($input);
+        $input.on("blur", switchToSpan);
+        $input.select();
+    };
+    var switchToSpan = function () {
+        var $span = $("<span>", {
+            text: $(this).val()
+        });
+        $span.addClass("text_edit");
+        $(this).replaceWith($span);
+        $span.on("click", switchToInput);
+    }
+    
+  });
+  </script>
+            <div id="accordion" style="width: 500px;">
+                <?php 
+                foreach ($this->data as $task): ?>
+                <div class="task" id="task_<?php  echo $task['Tasks']['id'];?>">
+  <h3><?php echo $task['Tasks']['title']; ?></h3>
+  <div>
+    <p>
+<!--        <a class="task_edit" id="<?php  echo $task['Tasks']['id'];?>">Edit</a><br/>-->
+        <span id="task_desc" class="text_edit"><?php echo $task['Tasks']['desc']; ?></span>
+    </p>
+    <hr/>
+    <p><label>Status:</label> <span class="text_edit" id="task_status"><?php echo $status = $task['Tasks']['status'] ? "Done": "Unfinished"; ?></span></p>
+    <p><label>Estimated Hours:</label> <span class="text_edit" id="task_estimated_hours"><?php echo $task['Tasks']['estimated_hours']; ?></span></p>
+    <p><label>Reported Hours:</label> <span class="text_edit" id="task_reported_hours"><?php echo $task['Tasks']['reported_hours']; ?></span></p>
+    <hr/>
+    <p><label>Start Date:</label> <span class="text_edit" id="task_start_date" class="date"><?php echo $this->Time->format('F jS, Y h:i A',$task['Tasks']['start_date']); ?></span></p>
+    <p><label>End Date:</label> <span class="text_edit" id="task_end_date" class="date"><?php echo $this->Time->format('F jS, Y h:i A',$task['Tasks']['end_date']); ?></span></p>
+  </div>
+                </div>
+  <?php  endforeach;?>
+            
+        </div>
     </div>
 </div>

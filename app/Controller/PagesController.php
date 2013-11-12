@@ -37,15 +37,15 @@ class PagesController extends AppController {
      *
      * @var array
      */
-    public $uses = array();
+    public $uses = array('Tasks');
     var $components = array(
         'Session',
-    'Auth'=>array(
-        'loginRedirect'=> array('controller'=>'users', 'action'=>'index'),
-        'logoutRedirect'=> array('controller'=>'users', 'action'=>'index'),
-        'authError' => "You can't access that page",
-        'authorize'=> array('Controller')
-    )
+        'Auth' => array(
+            'loginRedirect' => array('controller' => 'users', 'action' => 'index'),
+            'logoutRedirect' => array('controller' => 'users', 'action' => 'index'),
+            'authError' => "You can't access that page",
+            'authorize' => array('Controller')
+        )
             //'Cookie' => array('name' => 'CookieMonster')
     );
 
@@ -86,13 +86,27 @@ class PagesController extends AppController {
             throw new NotFoundException();
         }
     }
+
 //determines what logged in users have access to
-    public function isAuthorized($user){
+    public function isAuthorized($user) {
         return true;
     }
-    function beforeFilter () {
-        $this->Auth->allow('index','view');
-       // $this->Auth->authorize = 'Users';
+
+    function beforeFilter() {
+        $this->Auth->allow('index', 'view');
+        $user = $this->Session->read('Auth');
+
+        //load user tasks
+        if (isset($user['User'])) {
+            $this->loadTasks($user['User']);
+        }
     }
-    
+
+    function loadTasks($user) {
+        $this->loadModel('Tasks');
+        $userdata = $this->Tasks->findAllByUsersId($user['id']);
+        $this->data = $userdata;
+        //$this->set('tasks', $userdata);
+    }
+
 }
