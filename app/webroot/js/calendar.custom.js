@@ -488,6 +488,11 @@ $(document).ready(function(){
 	 * Initialize our tabs
 	 */
 	$("#tabs").tabs({
+            show: function(event, ui) { 
+                
+            console.log(ui.tab.hash);
+    window.location.hash = ui.tab.hash;
+}
 		/*
 		 * Our calendar is initialized in a closed tab so we need to resize it when the example tab opens.
 		 */

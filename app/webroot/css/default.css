@@ -16,25 +16,69 @@ root {
 .fright{
     float: right;
 }
-
+.clear{
+    clear: both;
+}
 .marginLR10{
     margin-left: 10px;
     margin-right: 10px;
 }
+
+/* task list css */
 #accordion .ui-accordion-content {
-height: auto!important;
+    height: auto!important;
 }
 
 #accordion h3{
     font-weight: bold;
-    font-size: 130%;
+    font-size: 120%;
+    margin-top: 10px;
 }
-#accordion .task label{
+#tasklistcontainer  label{
     font-weight: bold!important;
     display: inline!important;
 }
-#accordion .task a.task_edit{
+#accordion .task a{
     cursor: pointer;
 }
+#accordion .task a:hover{
+    color: orange;
+}
+#tasklistcontainer hr{
+    margin-bottom: 10px;
+}
+#tasklistcontainer #newtask{
+    padding: 1em 2.2em;
+    overflow: auto;
+    width: 436px;
+    margin: 10px 0;
+}
+#tasklistcontainer input[type=radio]{
+    float: none;
+    margin: 0 5px;
+}
+.flowingdefaultText { width: 300px; }
+.flowingdefaultTextActive { color: #a1a1a1; font-style: italic; }
 
-
+#newtask_title{
+    font-size: 130%;
+    font-weight: bold;
+}
+#newtask_desc{
+    font-size: 110%;
+}
+#newtask_title, #newtask_desc{
+    border: none;
+    width: 100%;
+    padding-left: 0;
+}
+#newtask_title:focus, #newtask_desc:focus{
+    outline: 0;
+}
+.newtask_controls{
+    float: right;
+}
+.newtask_controls a{
+    margin-top: 10px;
+    margin-right: 10px;
+}
