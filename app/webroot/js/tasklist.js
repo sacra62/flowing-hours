@@ -1,3 +1,13 @@
+
+
+function resetNewTaskDialog(){
+    $("#newtask").hide("slow");
+    $("#newtaskButton").toggle();
+    $("#newtask textarea, #newtask input.text_edit").each(function() {
+        $(this).val("");  
+    });
+    _init();
+}
 function _init(){
     //for default text
     $(".defaultText").focus(function(srcc)
@@ -19,158 +29,12 @@ function _init(){
     });
     $(".defaultText").blur(); //activate the function  
     $(".jQbutton").button();  
-      
 }
-    
+
 $(function() {
-    _init();
-    $( "#accordion") .accordion({
-        collapsible: true, 
-        header: 'h3',       
-        active: true, 
-        height: 'fill'
-    }).sortable({
-        }); 
- 
-    $('#accordion').on('accordionactivate', function (event, ui) {
-
-        if (ui.newPanel.length) {
-            $('#accordion').sortable('disable');
-        } else {
-            $('#accordion').sortable('enable');
-        }
-    });
-                    
-    //Text to span and span to text script 
-    $.fn.spantoinput = function(id) {
-        
-        var $thisid = $(this).attr("rel");
-        var $thisval = $(this).html();
-        if($thisid=="desc") {
-            var input = $('<textarea />', {
-                'name': $thisid, 
-                'value': $thisval,
-                'id': "newtask_"+$thisid+"_"+id
-            }); 
-            input.val($thisval);
-        }else if($thisid=="status"){
-            var checked_done = 'checked="checked"';
-            var checked_notdone= 'checked="checked"';
-            if($thisval=="Unfinished") checked_done = ""; else checked_notdone = "";
-            var input = '<input type="radio" value="0" '+checked_notdone+' name="'+$thisid+'">Unfinished'+'<input type="radio" value="1" '+checked_done+'  name="'+$thisid+'">Done';
-        }
-        else{
-            var input = $('<input />', {
-                'type': 'text', 
-                'name': $thisid, 
-                'value': $thisval,
-                'id': "newtask_"+$thisid+"_"+id
-            });
-        }
-        
-        $(this).parent().append(input);
-        $(this).remove();
-        if($thisid=="estimated_hours" || $thisid=="reported_hours") input.attr("size","2");
-        if($thisid=="start_date" || $thisid=="end_date") {
-            input.datetimepicker({
-                dateFormat: "d MM, yy",
-                timeFormat: "HH:mm"
-            });
-            input.datetimepicker('setDate', $thisval);
-        }
-        if($thisid=="desc")input.focus();
-    };
-
-    $.fn.inputospan= function() {
-        $(this).parent().append($('<span />').html($(this).val()));
-        $(this).remove();
-    };
-    //edit task function 
-                    
-    $(".task_edit").on('click',function(){
-        $(this).toggle();
-        var id = $(this).attr("id");
-        var task = "#task_"+id.replace("task_edit_", "");
-        $(task).find(".edittask_controls").toggle();
-
-        $(task).find(".text_edit").each(function(){
-            
-            $(this).spantoinput(id);
-
-        });
-    });
     
-    $(".task .edittask_controls .edittask_save").on('click',function(e){
-        e.preventDefault();
-        var allGood = true;
-        var $task = $(this).parents().find("div.task").attr("id");
-        
-        $("#"+$task+" textarea, #"+$task+" input[type='text']:not([name='reported_hours'])").each(function() {
-            var val = $(this).val();
-            $(this).css({
-                backgroundColor:'transparent'
-            });//reset every time
-            if(val == "" || val == 0) {
-                $(this).css({
-                    backgroundColor:'orange'
-                });
-                allGood = false;
-            }
-        });
-        if(!allGood){
-            $( "#incompleteform" ).dialog({
-                modal: true, 
-                zIndex: 10000, 
-                autoOpen: true,
-                width: 'auto', 
-                resizable: false,
-                buttons: {
-                    Ok: function () {
-                        $(this).dialog("close");
-                    }
-                },
-                close: function (event, ui) {
-                    $(this).dialog("close");
-                }
-            });
-            return false;
-        }
-        
-        //all good so save it
-        $.ajax({
-        type: "POST",
-        url: "tasks/updateTask",
-        dataType: "HTML",
-        data: $("#"+$task).find( ".edittaskForm" ).serialize(),
-        success:function( result ) {
-            if(result=="0"){
-                //remove data and cancel
-                $( "#failuredialog" ).dialog({
-                    modal: true, 
-                    zIndex: 10000, 
-                    autoOpen: true,
-                    width: 'auto', 
-                    resizable: false,
-                    buttons: {
-                        Ok: function () {
-                            $(this).dialog("close");
-                        }
-                    },
-                    close: function (event, ui) {
-                        $(this).dialog("close");
-                    }
-                });
-            }
-            else {
-                //success - add the task to the list
-                $("#"+$task).find(".task_inner").html($('.task_inner', result).html());
-                $("#accordion").accordion( "refresh" );
-                _init();//so that the default text works,
-
-            }
-        }
-    });
-    $( "#newtaskButton" ).click(function(){
+    _init();
+    $( "#newtaskButton" ).on('click',function(){
         $("#newtask").insertAfter($(this)).show("slow");
         $("#newtask").find(".date").datetimepicker({
             dateFormat: "d MM, yy",
@@ -178,8 +42,8 @@ $(function() {
         });
         $(this).toggle();
     });
-   
-    $("#newtask_save").click(function(){
+    
+    $("#newtask_save").on('click',function(){
         var allGood = true;
         $("#newtask textarea, #newtask input.text_edit").each(function() {
             var val = $(this).val();
@@ -232,26 +96,17 @@ $(function() {
             }
             else {
                 //success - add the task to the list
-                resetNewTaskDialog();
                 $("#accordion").append(result);
                 $("#accordion").accordion( "refresh" );
-                _init();
+                resetNewTaskDialog();
+            
             }
-                        
+        
         });
     // no issues go ahead and save.
     });
-                    
-    function resetNewTaskDialog(){
-        $("#newtask").hide("slow");
-        $("#newtaskButton").toggle();
-        $("#newtask textarea, #newtask input.text_edit").each(function() {
-            $(this).val("");  
-        });
-    //$("#newtask .defaultText").blur(); 
-    }
-                    
-                    
+    
+    
     $("#newtask_cancel").click(function(){
         var cancel = true;
         $("#newtask textarea, #newtask input.text_edit").each(function() {
@@ -261,7 +116,7 @@ $(function() {
             }
         });
         if(!cancel){
-                           
+            
             //remove data and cancel
             $( "#confirmdialog" ).dialog({
                 modal: true, 
@@ -286,9 +141,239 @@ $(function() {
         }
         else {
             resetNewTaskDialog();
+        
         }
     
     });
-  
-});
+    
+    
+    
+    
+    $( "#accordion") .accordion({
+        collapsible: true, 
+        header: 'h3',       
+        active: true, 
+        heightStyle: 'content'
+    }).sortable(); 
+    
+    //disable sorting when an accordion is active - why? - just for now dont know
+    $('#accordion').on('accordionactivate', function (event, ui) {
+        
+        if (ui.newPanel.length) {
+            $('#accordion').sortable('disable');
+        } else {
+            $('#accordion').sortable('enable');
+        }
+    });
+    
+    //Text to span and span to text script 
+    $.fn.spantoinput = function(id) {
+        
+        var $thisid = $(this).attr("rel");
+        var $thisval = $(this).html();
+        if($thisid=="desc") {
+            var input = $('<textarea />', {
+                'name': $thisid, 
+                'value': $thisval
+                ,
+                'class':'text_edit'
+            }); 
+            input.val($thisval);
+        }else if($thisid=="status"){
+            var checked_done = 'checked="checked"';
+            var checked_notdone= 'checked="checked"';
+            if($thisval=="Unfinished") checked_done = ""; else checked_notdone = "";
+            var input = '<input class="text_edit" type="radio" value="0" '+checked_notdone+' name="'+$thisid+'">Unfinished'+'<input class="text_edit" type="radio" value="1" '+checked_done+'  name="'+$thisid+'">Done';
+        }
+        else{
+            var input = $('<input />', {
+                'type': 'text', 
+                'name': $thisid, 
+                'value': $thisval
+                ,
+                'class':'text_edit'
+            });
+        }
+        
+        $(this).parent().append(input);
+        $(this).remove();
+        if($thisid=="estimated_hours" || $thisid=="reported_hours") input.attr("size","2");
+        if($thisid=="start_date" || $thisid=="end_date") {
+            input.datetimepicker({
+                dateFormat: "d MM, yy",
+                timeFormat: "HH:mm"
+            });
+            input.datetimepicker('setDate', $thisval);
+        }
+        if($thisid=="desc")input.focus();
+    };
+    
+    //edit task function - for ajax html to work we need to define a top level scope like the container element
+    //or the click wont register
+    $("#tasklistcontainer").on("click", ".task_edit",function(){
+        $(this).toggle();
+        var id = $(this).attr("id");
+        var task = "#task_"+id.replace("task_edit_", "");
+        $(task).find(".edittask_controls").toggle();
+        
+        $(task).find(".text_edit").each(function(){
+            
+            $(this).spantoinput(id);
+        
+        });
+    });
+    
+    //cancel task
+    
+    $("#tasklistcontainer").on("click", ".edittask_cancel",function(){
+        var $task = $(this).closest("div.task").attr("id");
+        $("#"+$task).find(".edittask_controls").toggle();
+        $("#"+$task+" .text_edit").each(function() {
+            //exception for the staus radio buttons - we will make it a simple trigger later
+            if($(this).attr("type")=="radio"){
+                if($(this).is(":checked")){
+                    $(this).parent().html("").html('<label>Status:</label><span class="text_edit" rel="status"> '+($(this).val()=="0" ? "Unfinished" : "Done")+'</span>');
+                }
+                else return;
+            }
+            $(this).parent().append($('<span />',{
+                'class': 'text_edit', 
+                'rel': $(this).attr("name")
+            }).html($(this).val()));
+            $(this).remove();
+        });
+        $("#"+$task).find(".task_edit").toggle();
+    //$($task).find(".edittask_controls").toggle();
+    });
+    $("#tasklistcontainer").on("click", ".task_delete",function(){
+        var $this = $(this);
+        //remove data and cancel
+        $( "#deletedialog" ).dialog({
+            modal: true, 
+            zIndex: 10000, 
+            autoOpen: true,
+            width: 'auto', 
+            resizable: false,
+            buttons: {
+                Yes: function () {
+                    $(this).dialog("close");
+                    $.ajax({
+                        type: "POST",
+                        url: "tasks/deleteTask",
+                        dataType: "HTML",
+                        data: {
+                            "id":$this.closest("div.task").attr("id").replace("task_","")
+                        },
+                        success:function( result ) {
+                            if(result=="0"){
+                                $( "#failuredialog" ).dialog({
+                                    modal: true, 
+                                    zIndex: 10000, 
+                                    autoOpen: true,
+                                    width: 'auto', 
+                                    resizable: false,
+                                    buttons: {
+                                        Ok: function () {
+                                            $(this).dialog("close");
+                                        }
+                                    },
+                                    close: function (event, ui) {
+                                        $(this).dialog("close");
+                                    }
+                                });
+                            }
+                            else{
+                                $this.closest("div.task").hide('slow');
+                            //maybe we can use the undo feature this way :) - we will just show the task again
+                            //$("#accordion").accordion( "refresh" );
+                            }
+                        
+                        }
+                    });
+                },
+                No: function () {
+                    $(this).dialog("close");
+                }
+            },
+            close: function (event, ui) {
+                $(this).dialog("close");
+            }
+        });
+        return true;
+    });
+    
+    $("#tasklistcontainer").on("click", ".edittask_save",function(){
+        var allGood = true;
+        var $task = $(this).closest("div.task").attr("id");
+        //input[type='text']:not([name='reported_hours'])
+        $("#"+$task+" textarea, #"+$task+" input[type='text']").each(function() {
+            var val = $(this).val();
+            $(this).css({
+                backgroundColor:'transparent'
+            });//reset every time
+            if(val == "" || val == 0) {
+                $(this).css({
+                    backgroundColor:'orange'
+                });
+                allGood = false;
+            }
+        });
+        if(!allGood){
+            $( "#incompleteform" ).dialog({
+                modal: true, 
+                zIndex: 10000, 
+                autoOpen: true,
+                width: 'auto', 
+                resizable: false,
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog("close");
+                    }
+                },
+                close: function (event, ui) {
+                    $(this).dialog("close");
+                }
+            });
+            return false;
+        }
+        
+        //all good so save it
+        $.ajax({
+            type: "POST",
+            url: "tasks/updateTask",
+            dataType: "HTML",
+            data: $("#"+$task).find( ".edittaskForm" ).serialize(),
+            success:function( result ) {
+                if(result=="0"){
+                    //remove data and cancel
+                    $( "#failuredialog" ).dialog({
+                        modal: true, 
+                        zIndex: 10000, 
+                        autoOpen: true,
+                        width: 'auto', 
+                        resizable: false,
+                        buttons: {
+                            Ok: function () {
+                                $(this).dialog("close");
+                            }
+                        },
+                        close: function (event, ui) {
+                            $(this).dialog("close");
+                        }
+                    });
+                }
+                else {
+                    //success - add the task to the list
+                    $("#"+$task).find(".task_inner").html($('.task_inner', result).html());
+                    $("#accordion").accordion( "refresh" );
+                    _init();//so that the default text works,
+                
+                }
+            }
+        });
+    
+    
+    
+    
+    });
 });

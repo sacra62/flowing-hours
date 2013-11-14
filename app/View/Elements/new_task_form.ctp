@@ -23,3 +23,4 @@
     <div style="display:none;" id="confirmdialog" title="Confirmation">You were in the middle of it, are you sure you want to cancel?</div>
         <div style="display:none;" id="failuredialog" title="Oops">Something went wrong, try again.</div>
         <div style="display:none;" id="incompleteform" title="Not too fast">Some fields have invalid/missing values.</div>
+        <div style="display:none;" id="deletedialog" title="Are you sure?">Are you sure you want to delete this task?</div>

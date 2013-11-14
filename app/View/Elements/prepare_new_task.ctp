@@ -8,7 +8,7 @@
             <input type="hidden" value="<?php echo $task['id']; ?>" name="id">
             <?php
             if (isset($edit)) {
-                echo '<p><a class="jQbutton  task_edit" id="task_edit_' . $task['id'] . '">Edit</a></p>';
+                echo '<p><a class="jQbutton  task_edit" id="task_edit_' . $task['id'] . '">Edit</a> <a class="jQbutton  task_delete" id="task_delete_' . $task['id'] . '">Delete</a></p>';
             }
             ?>
             <p>

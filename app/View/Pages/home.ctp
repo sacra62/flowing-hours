@@ -78,12 +78,11 @@ echo $this->Html->script('calendar.custom');
 <!--  <p><a class="jQbutton newtaskButton" href="javascript:void(0)">Add a task</a></p>-->
             <div id="tasklistcontainer">
                 <div id="accordion" style="width: 500px;">
-                    <?php foreach ($this->data as $task): 
+                    <?php if(count($this->data)): foreach ($this->data as $task): 
                         echo $this->element('prepare_new_task', array("task" => $task['Tasks'],"edit"=>true));
                     endforeach; 
+                   endif;
                         ?>
-                    
-
                 </div>
                 <p><br/><a class="jQbutton" id="newtaskButton" href="javascript:void(0)">Add a task</a></p>
 
