@@ -53,6 +53,9 @@ root {
     width: 436px;
     margin: 10px 0;
 }
+#tasklistcontainer .hasDatepicker{
+    width: 200px;
+}
 #tasklistcontainer input[type=radio]{
     float: none;
     margin: 0 5px;
@@ -64,21 +67,34 @@ root {
     font-size: 130%;
     font-weight: bold;
 }
-#newtask_desc{
+#newtask_desc,div.task textarea{
     font-size: 110%;
 }
-#newtask_title, #newtask_desc{
+#newtask_title, #newtask_desc,div.task textarea{
     border: none;
     width: 100%;
     padding-left: 0;
 }
-#newtask_title:focus, #newtask_desc:focus{
+#newtask_title:focus, #newtask_desc:focus,div.task textarea:focus{
     outline: 0;
 }
-.newtask_controls{
+.newtask_controls,.edittask_controls{
     float: right;
 }
 .newtask_controls a{
     margin-top: 10px;
     margin-right: 10px;
 }
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 45%; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
+.ui-timepicker-rtl dl dt{ float: right; clear: right; }
+.ui-timepicker-rtl dl dd { margin: 0 45% 10px 10px; }

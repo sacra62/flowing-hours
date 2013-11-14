@@ -1,4 +1,4 @@
-$(function() {
+function _init(){
     //for default text
     $(".defaultText").focus(function(srcc)
     {
@@ -17,18 +17,21 @@ $(function() {
             $(this).val($(this)[0].title);
         }
     });
-    
     $(".defaultText").blur(); //activate the function  
-    ///default text behavior
+    $(".jQbutton").button();  
+      
+}
     
-    $(".jQbutton").button();
+$(function() {
+    _init();
     $( "#accordion") .accordion({
         collapsible: true, 
         header: 'h3',       
         active: true, 
         height: 'fill'
     }).sortable({
-        });
+        }); 
+ 
     $('#accordion').on('accordionactivate', function (event, ui) {
 
         if (ui.newPanel.length) {
@@ -39,35 +42,42 @@ $(function() {
     });
                     
     //Text to span and span to text script 
-    $.fn.spantoinput = function() {
+    $.fn.spantoinput = function(id) {
         
-        var $thisid = $(this).attr("id");
+        var $thisid = $(this).attr("rel");
+        var $thisval = $(this).html();
         if($thisid=="desc") {
             var input = $('<textarea />', {
                 'name': $thisid, 
-                'value': $(this).html(),
-                'id': "newtask_"+$thisid
+                'value': $thisval,
+                'id': "newtask_"+$thisid+"_"+id
             }); 
-            input.val($(this).html());
+            input.val($thisval);
         }else if($thisid=="status"){
             var checked_done = 'checked="checked"';
             var checked_notdone= 'checked="checked"';
-            if($(this).html()=="Unfinished") checked_done = ""; else checked_notdone = "";
+            if($thisval=="Unfinished") checked_done = ""; else checked_notdone = "";
             var input = '<input type="radio" value="0" '+checked_notdone+' name="'+$thisid+'">Unfinished'+'<input type="radio" value="1" '+checked_done+'  name="'+$thisid+'">Done';
         }
         else{
             var input = $('<input />', {
                 'type': 'text', 
                 'name': $thisid, 
-                'value': $(this).html(),
-                'id': "newtask_"+$thisid
+                'value': $thisval,
+                'id': "newtask_"+$thisid+"_"+id
             });
         }
         
         $(this).parent().append(input);
         $(this).remove();
         if($thisid=="estimated_hours" || $thisid=="reported_hours") input.attr("size","2");
-        if($thisid=="start_date" || $thisid=="end_date") input.datepicker({ dateFormat: "d MM, yy" } );
+        if($thisid=="start_date" || $thisid=="end_date") {
+            input.datetimepicker({
+                dateFormat: "d MM, yy",
+                timeFormat: "HH:mm"
+            });
+            input.datetimepicker('setDate', $thisval);
+        }
         if($thisid=="desc")input.focus();
     };
 
@@ -77,30 +87,98 @@ $(function() {
     };
     //edit task function 
                     
-    $(".task_edit").click(function(){
-        //clone the task_ and put cancel and save buttons - upon cancel put back the clone on save, save chanegs. discard the clone
-        var id = "#task_"+$(this).attr("id").replace("task_edit_", "");
-        $(id).find(".text_edit").each(function(){
+    $(".task_edit").on('click',function(){
+        $(this).toggle();
+        var id = $(this).attr("id");
+        var task = "#task_"+id.replace("task_edit_", "");
+        $(task).find(".edittask_controls").toggle();
+
+        $(task).find(".text_edit").each(function(){
             
-            $(this).spantoinput();
+            $(this).spantoinput(id);
 
         });
-    //$(id).find(".date").datepicker();
-                                                    
-
     });
     
-    
+    $(".task .edittask_controls .edittask_save").on('click',function(e){
+        e.preventDefault();
+        var allGood = true;
+        var $task = $(this).parents().find("div.task").attr("id");
+        
+        $("#"+$task+" textarea, #"+$task+" input[type='text']:not([name='reported_hours'])").each(function() {
+            var val = $(this).val();
+            $(this).css({
+                backgroundColor:'transparent'
+            });//reset every time
+            if(val == "" || val == 0) {
+                $(this).css({
+                    backgroundColor:'orange'
+                });
+                allGood = false;
+            }
+        });
+        if(!allGood){
+            $( "#incompleteform" ).dialog({
+                modal: true, 
+                zIndex: 10000, 
+                autoOpen: true,
+                width: 'auto', 
+                resizable: false,
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog("close");
+                    }
+                },
+                close: function (event, ui) {
+                    $(this).dialog("close");
+                }
+            });
+            return false;
+        }
+        
+        //all good so save it
+        $.ajax({
+        type: "POST",
+        url: "tasks/updateTask",
+        dataType: "HTML",
+        data: $("#"+$task).find( ".edittaskForm" ).serialize(),
+        success:function( result ) {
+            if(result=="0"){
+                //remove data and cancel
+                $( "#failuredialog" ).dialog({
+                    modal: true, 
+                    zIndex: 10000, 
+                    autoOpen: true,
+                    width: 'auto', 
+                    resizable: false,
+                    buttons: {
+                        Ok: function () {
+                            $(this).dialog("close");
+                        }
+                    },
+                    close: function (event, ui) {
+                        $(this).dialog("close");
+                    }
+                });
+            }
+            else {
+                //success - add the task to the list
+                $("#"+$task).find(".task_inner").html($('.task_inner', result).html());
+                $("#accordion").accordion( "refresh" );
+                _init();//so that the default text works,
+
+            }
+        }
+    });
     $( "#newtaskButton" ).click(function(){
         $("#newtask").insertAfter($(this)).show("slow");
-        $("#newtask").find(".date").datepicker({dateFormat: "d MM, yy"});
+        $("#newtask").find(".date").datetimepicker({
+            dateFormat: "d MM, yy",
+            timeFormat: "HH:mm"
+        });
         $(this).toggle();
     });
-    //seee if something has been changed in the dialog box 
-    //                    $("#newtask").find("texarea, input.text_edit").on('input', function() {
-    //                        console.log("something changed.");
-    //                    });
-
+   
     $("#newtask_save").click(function(){
         var allGood = true;
         $("#newtask textarea, #newtask input.text_edit").each(function() {
@@ -157,6 +235,7 @@ $(function() {
                 resetNewTaskDialog();
                 $("#accordion").append(result);
                 $("#accordion").accordion( "refresh" );
+                _init();
             }
                         
         });
@@ -169,7 +248,7 @@ $(function() {
         $("#newtask textarea, #newtask input.text_edit").each(function() {
             $(this).val("");  
         });
-        $("#newtask .defaultText").blur(); 
+    //$("#newtask .defaultText").blur(); 
     }
                     
                     
@@ -211,4 +290,5 @@ $(function() {
     
     });
   
+});
 });

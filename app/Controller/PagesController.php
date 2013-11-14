@@ -100,6 +100,7 @@ class PagesController extends AppController {
         if (isset($user['User'])) {
             $this->loadTasks($user['User']);
         }
+        
     }
 
     function loadTasks($user) {

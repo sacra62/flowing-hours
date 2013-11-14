@@ -74,12 +74,12 @@ echo $this->Html->script('calendar.custom');
         </div><!-- end tab 1 -->
         <div id="tabs-2">
         <script type="text/javascript" src="js/tasklist.js"></script>
-
+        <script type="text/javascript" src="js/timepicker_addon.js"></script>
 <!--  <p><a class="jQbutton newtaskButton" href="javascript:void(0)">Add a task</a></p>-->
             <div id="tasklistcontainer">
                 <div id="accordion" style="width: 500px;">
                     <?php foreach ($this->data as $task): 
-                        echo $this->element('prepare_new_task', array("task" => $task['Tasks'],"edit"=>1));
+                        echo $this->element('prepare_new_task', array("task" => $task['Tasks'],"edit"=>true));
                     endforeach; 
                         ?>
                     
