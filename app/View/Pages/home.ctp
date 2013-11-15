@@ -17,16 +17,16 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 //init calendar
-echo $this->Html->script('calendar.custom');
+//echo $this->Html->script('calendar.custom');
 ?>
 <div class="flowinghours">
 
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Calendar</a></li>
-            <li><a href="#tabs-2">Task List</a></li>
+            <li><a href="#calendar">Calendar</a></li>
+            <li><a href="#tasklist">Task List</a></li>
         </ul>
-        <div id="tabs-1">
+        <div id="calendar">
             <div id="example" style="margin: auto; width:80%;">
 
                 <br>
@@ -72,7 +72,7 @@ echo $this->Html->script('calendar.custom');
 
             <p>&nbsp;</p>
         </div><!-- end tab 1 -->
-        <div id="tabs-2">
+        <div id="tasklist">
         <script type="text/javascript" src="js/tasklist.js"></script>
         <script type="text/javascript" src="js/timepicker_addon.js"></script>
 <!--  <p><a class="jQbutton newtaskButton" href="javascript:void(0)">Add a task</a></p>-->

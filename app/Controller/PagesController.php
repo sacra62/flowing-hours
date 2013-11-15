@@ -89,6 +89,7 @@ class PagesController extends AppController {
 
 //determines what logged in users have access to
     public function isAuthorized($user) {
+        //TO DO - security, check the users_id of the task and the logged in user
         return true;
     }
 

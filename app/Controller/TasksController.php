@@ -12,7 +12,7 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class TasksController extends Controller {
-
+    var $layout = null ;
     var $components = array(
         'Session',
         'Auth' => array(
@@ -23,12 +23,15 @@ class TasksController extends Controller {
             ));
 
     public function isAuthorized($user) {
+      //TO DO - security, check the users_id of the task and the logged in user
+
         return true;
     }
 
     function saveTask() {
         if ($this->request->is('ajax') && count($this->request->data)) {
             $user = $this->Session->read('Auth');
+            
             $this->request->data['users_id'] = $user['User']['id'];
             //date time needs to be fixed
             $this->request->data['start_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['start_date'])));
@@ -45,44 +48,57 @@ class TasksController extends Controller {
             die("0"); //something went wrong
         }
     }
+
     function updateTask() {
         if ($this->request->is('ajax') && count($this->request->data)) {
-            
+
             $task = $this->Task->findById($this->request->data['id']);
             if (!$task) {
                 die("0"); //something went wrong
             }
-            
+
             $user = $this->Session->read('Auth');
             $this->request->data['users_id'] = $user['User']['id'];
             //date time needs to be fixed
-            $this->request->data['start_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['start_date'])));
-            $this->request->data['end_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['end_date'])));
-            if ($this->Task->save($this->request->data)) {
+            $this->request->data['start_date'] = date("Y-m-d G:i", strtotime(str_replace(",", "", $this->request->data['start_date'])));
+            $this->request->data['end_date'] = date("Y-m-d G:i", strtotime(str_replace(",", "", $this->request->data['end_date'])));
+            if ($newtask = $this->Task->save($this->request->data)) {
                 $view = new View($this, false);
-                echo $view->element('prepare_new_task', array("task" => $task['Task'], "edit" => true));
+                echo $view->element('prepare_new_task', array("task" => $newtask['Task'], "edit" => true));
                 exit;
             }
             die("0"); //something went wrong
         }
     }
+
     function deleteTask() {
         if ($this->request->is('ajax') && count($this->request->data)) {
-            
+
             $task = $this->Task->findById($this->request->data['id']);
             if (!$task) {
                 die("0"); //something went wrong
-            }
-            //TO DO - security, check the users_id of the task and the logged in user
-            //$user = $this->Session->read('Auth');
-            //$this->request->data['users_id'] = $user['User']['id'];
-            
+            }            
             if ($this->Task->delete($this->request->data['id'])) {
                 die("1");
             }
             die("0"); //something went wrong
         }
     }
+    function loadTasks() {
+        if ($this->request->is('ajax')) {
+            $user = $this->Session->read('Auth');
+            $userdata = $this->Task->find("all",array('users_id' => $user['User']['id']));
+            foreach($userdata as &$task){
+                $task['Task']['start_date'] = date('j F, Y G:i', strtotime($task['Task']['start_date']));
+                $task['Task']['end_date'] = date('j F, Y G:i', strtotime($task['Task']['end_date']));
+            }
+            echo json_encode($userdata);
+
+            die();
+        }
+        die("snooping around?");
+    }
+
 }
 
 ?>

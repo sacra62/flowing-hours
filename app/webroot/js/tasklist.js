@@ -38,7 +38,14 @@ $(function() {
         $("#newtask").insertAfter($(this)).show("slow");
         $("#newtask").find(".date").datetimepicker({
             dateFormat: "d MM, yy",
-            timeFormat: "HH:mm"
+            timeFormat: "HH:mm",
+            minDate: 0,
+            onSelect:
+            function (dateText, inst) {
+                var thisdate = $(this);
+                if(thisdate.attr("name")=="start_date")
+                    $('#newtask_end_date').datepicker("option", 'minDate', new Date(dateText));
+            }
         });
         $(this).toggle();
     });
@@ -50,11 +57,26 @@ $(function() {
             $(this).css({
                 backgroundColor:'transparent'
             });//reset every time
-            if(val == "" || val == 0 ||  val==$(this).attr("title")) {
+            //check for date fields
+            //            if($(this).attr("name")=="end_date"){
+            //                var startdate = $("#newtask_start_date").datepicker( "getDate" );
+            //                var enddate = $(this).datepicker( "getDate" );
+            //                var begD = $.datepicker.parseDate('d MM, yy HH:mm', startdate);
+            //                var endD = $.datepicker.parseDate('d MM, yy HH:mm',enddate);
+            //                if (begD > endD) {
+            //                    alert('Begin date must be before End date');
+            //                    $(this).focus();
+            //                    return false;
+            //                }
+            //            }
+            
+            if(val == "" || val <=0 ||  val==$(this).attr("title")) {
+               
                 $(this).css({
                     backgroundColor:'orange'
                 });
                 allGood = false;
+                
             }
         });
         if(!allGood){
@@ -201,7 +223,8 @@ $(function() {
         if($thisid=="start_date" || $thisid=="end_date") {
             input.datetimepicker({
                 dateFormat: "d MM, yy",
-                timeFormat: "HH:mm"
+                timeFormat: "HH:mm",
+                minDate: 0
             });
             input.datetimepicker('setDate', $thisval);
         }
@@ -311,11 +334,16 @@ $(function() {
             $(this).css({
                 backgroundColor:'transparent'
             });//reset every time
-            if(val == "" || val == 0) {
-                $(this).css({
-                    backgroundColor:'orange'
-                });
-                allGood = false;
+            if(val == "" || val <= 0) {
+                if($(this).attr("name")=="reported_hours" && val==0){
+                //never mind
+                }
+                else{
+                    $(this).css({
+                        backgroundColor:'orange'
+                    });
+                    allGood = false;
+                }
             }
         });
         if(!allGood){
