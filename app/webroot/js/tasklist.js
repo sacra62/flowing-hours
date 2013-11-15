@@ -4,7 +4,10 @@ function resetNewTaskDialog(){
     $("#newtask").hide("slow");
     $("#newtaskButton").toggle();
     $("#newtask textarea, #newtask input.text_edit").each(function() {
-        $(this).val("");  
+        $(this).val("");
+        $(this).css({
+                backgroundColor:'transparent'
+            });
     });
     _init();
 }
