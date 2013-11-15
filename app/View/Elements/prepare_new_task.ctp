@@ -1,8 +1,8 @@
 <!-- @abrar - Template TASK - used as a template for the task list and to inject after saving a new form -->
 
-<div class="task" id="task_<?php echo $task['id']; ?>">
+<div class="task" id="task_<?php echo $task['id']; ?>" >
 
-    <h3 ><?php echo $task['title']; ?></h3>
+    <h3><?php echo $task['title']; ?></h3>
     <div><div class="task_inner">
             <form class="edittaskForm" action="">
             <input type="hidden" value="<?php echo $task['id']; ?>" name="id">

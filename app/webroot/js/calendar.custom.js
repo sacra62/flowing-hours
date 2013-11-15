@@ -51,7 +51,8 @@ $(document).ready(function(){
                     endate,
                     alldayValue,
                     {
-                        task: data[i].Task
+                        task: data[i].Task,
+                        editTaskId:data[i].Task.id //to help us keep the id of the task in the task list
                     },
                     {
                         backgroundColor: $("#colorBackground").val(),
@@ -491,7 +492,14 @@ $(document).ready(function(){
                 $(this).dialog('close');
             },
             'Edit': function() {
-                alert("Make your own edit screen or dialog!");
+                //set the id in session and reload the page to taskslist
+                $.ajax({type: "POST",
+                    url: 'tasks/setEditTaskIdInSession',data:{"editTaskId":$(this).find(".editaskid").attr("rel")},
+                    success:function(data){
+                        window.location.href = "#tasklist";
+                        location.reload();
+                    }
+                });
             }
         //            ,
         //            'Delete': function() {
@@ -516,7 +524,8 @@ $(document).ready(function(){
                 var allDay = clickAgendaItem.allDay;
                 // in our example add agenda modal form we put some fake data in the agenda data. we can retrieve it here.
                 $("#display-event-form").append(
-                    "<br><b>" + title+ "</b><br><br>"+data.task.desc+ "<br><br>"	
+                    "<br><b>" + title+ "</b><br><br>"+data.task.desc+ "<br><br>"
+                    +"<span class='editaskid' rel='"+data.editTaskId+"' style='hidden'></span>"//this id to help open the correct task for editing
                     );				
                 if(allDay){
                     $("#display-event-form").append(
@@ -524,7 +533,7 @@ $(document).ready(function(){
                         );				
                 }else{
                     $("#display-event-form").append(
-                        "<b>Starts:</b> " + startDate + "<br>" +
+                        "<b>Starts:</b> " + startDate + "<br><br>" +
                         "<b>Ends:</b> " + endDate + "<br><br>"
                         + "<b>Status:</b> " + (data.task.status=="0" ? "Unfinished": "Done")+ "<br><br>"
                         + "<b>Estimated Hours:</b> " + data.task.estimated_hours+ "<br><br>"
@@ -558,14 +567,16 @@ $(document).ready(function(){
         });
     $( "#tabs" ).on( "tabsactivate", function( e,ui ) {
         
-//        if(ui.index == 1){
-//            jfcalplugin.doResize("#mycal");
-//        }
+        //        if(ui.index == 1){
+        //            jfcalplugin.doResize("#mycal");
+        //        }
         location.hash = ui.newTab.find( "[href]" ).get( 0 ).hash;
-        window.location.href = location.hash;
+        location.href = location.hash;
+        //refresh the calendar forcefully
+        if(location.hash=="#calendar"){
         window.scrollTo(0, 0);
         location.reload();
-        console.log(location.hash);
+        }
     });
 
     

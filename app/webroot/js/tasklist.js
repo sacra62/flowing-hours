@@ -171,8 +171,8 @@ $(function() {
     
     
     
-    $( "#accordion") .accordion({
-        collapsible: true, 
+    var $accordion = $( "#accordion") .accordion({
+        collapsible: false, 
         header: 'h3',       
         active: true, 
         heightStyle: 'content'
@@ -180,14 +180,31 @@ $(function() {
     
     //disable sorting when an accordion is active - why? - just for now dont know
     $('#accordion').on('accordionactivate', function (event, ui) {
-        
         if (ui.newPanel.length) {
             $('#accordion').sortable('disable');
         } else {
             $('#accordion').sortable('enable');
         }
     });
-    
+    //if tab is #tasklist then check if an editask is set, if yes, then set its id
+    if(location.hash=="#tasklist"){ 
+        var editid = $("#editaskid").attr("rel");
+        if(editid) {
+            //find the accordion for this id
+            var panelitem = $("div#task_"+editid);
+            var panelindex = $( "div.task" ).index( panelitem );
+            $accordion.accordion("option","active",panelindex);
+            //open for editing
+            $("#task_edit_"+editid)[0].click();
+            //not working, but thats fine :(
+            //found so destory it now
+            $.ajax({
+                url: 'tasks/destoryEditTaskIdInSession',
+                success:function(data){
+                }
+            });
+        }
+    }
     //Text to span and span to text script 
     $.fn.spantoinput = function(id) {
         

@@ -85,6 +85,7 @@
                         ?>
                 </div>
                 <p><br/><a class="jQbutton" id="newtaskButton" href="javascript:void(0)">Add a task</a></p>
+                <span style="display:none;" rel="<?php echo $this->Session->read('Tasks.editTaskId') ? $this->Session->read('Tasks.editTaskId') : ""; ?>" id="editaskid"></span>
 
             </div>
         </div>

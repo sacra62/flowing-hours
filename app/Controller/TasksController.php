@@ -98,6 +98,20 @@ class TasksController extends Controller {
         }
         die("snooping around?");
     }
+    
+    function setEditTaskIdInSession(){
+        if ($this->request->is('ajax')) {
+            $this->Session->write('Tasks.editTaskId', $this->request->data['editTaskId']);
+            die("1");
+        }
+    }
+    function destoryEditTaskIdInSession(){
+        if ($this->request->is('ajax')) {
+            $this->Session->delete('Tasks.editTaskId');
+            die("1");
+        }
+    }
+    
 
 }
 
