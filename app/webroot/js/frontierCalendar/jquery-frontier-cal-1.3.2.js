@@ -4388,32 +4388,7 @@ http://noteslog.com/post/how-to-fix-the-resize-event-in-ie/
  
         function resizeOnce()  
         { 
-            if ( $.browser.msie ) 
-            { 
-                if ( ! wresize.fired ) 
-                { 
-                    wresize.fired = true; 
-                } 
-                else  
-                { 
-                    var version = parseInt( $.browser.version, 10 ); 
-                    wresize.fired = false; 
-                    if ( version < 7 ) 
-                    { 
-                        return false; 
-                    } 
-                    else if ( version == 7 ) 
-                    { 
-                        //a vertical resize is fired once, an horizontal resize twice 
-                        var width = $( window ).width(); 
-                        if ( width != wresize.width ) 
-                        { 
-                            wresize.width = width; 
-                            return false; 
-                        } 
-                    } 
-                } 
-            } 
+            
  
             return true; 
         } 
