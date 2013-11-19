@@ -87,7 +87,8 @@ class TasksController extends Controller {
     function loadTasks() {
         if ($this->request->is('ajax')) {
             $user = $this->Session->read('Auth');
-            $userdata = $this->Task->find("all",array('users_id' => $user['User']['id']));
+           
+            $userdata = $this->Task->find("all",array('conditions' => array('Task.users_id =' => $user['User']['id'])));
             foreach($userdata as &$task){
                 $task['Task']['start_date'] = date('j F, Y G:i', strtotime($task['Task']['start_date']));
                 $task['Task']['end_date'] = date('j F, Y G:i', strtotime($task['Task']['end_date']));
