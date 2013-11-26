@@ -21,21 +21,6 @@ var myRevealingModule = function() {
         });
 
         $("#dialog").dialog("option", "closeOnEscape", true);
-
-        $("#dialog-message").dialog({
-            autoOpen: false,
-            modal: true,
-            buttons: {
-                OK: function() {
-                    $(this).dialog("close");
-                }
-            }
-        });
-
-        $("#btnExp2").on('click', function() {
-            $("#dialog-message").dialog("open");
-        });
-        $("#dialog-message").dialog("option", "closeOnEscape", true);
     };
     return {
         init: initial
@@ -73,7 +58,7 @@ var msgBox = function(data) {
 
 $(function() {
     //        $(document).on(data.eventType, data.jQueryPath, function(data){....}
-                myRevealingModule.init(data);
+                myRevealingModule.init();
 
                 $("#newtask_save").on('click', function() {
                     var estimatedHours = document.getElementById("newtask_estimated_hours").value;
