@@ -74,6 +74,8 @@ $user = $this->Session->read('Auth');
             <!-- tooltip and drag - only when calendar is active-->
             <script type="text/javascript" src="js/frontierCalendar/tooltip.drag.js"></script>
             <script type="text/javascript" src="js/calendar.custom.js"></script>
+            
+        <script type="text/javascript" src="js/feedback/feedback.js"></script>
 
             <?php
         }
@@ -126,3 +128,6 @@ $user = $this->Session->read('Auth');
             ?>
     </body>
 </html>
+<div id="dialog" title="Task Alert">
+                        <p id="btnExp1Para"></p>
+                    </div>
