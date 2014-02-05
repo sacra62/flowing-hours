@@ -78,7 +78,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'login' => 'root',
 		'password' => '',
-		'database' => 'flowing_hours',
+		'database' => 'flowing_hours_test2',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);

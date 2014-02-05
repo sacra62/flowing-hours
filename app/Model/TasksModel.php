@@ -4,12 +4,20 @@ App::uses('Model', 'Model');
 
 class TasksModel extends Model {
     public $name = 'Tasks';
+    public $belongsTo = array(
+        'TaskLists' => array(
+            'className' => 'TaskLists',
+            'foreignKey' => 'tasklists_id'
+        )
+    );
     public $findMethods = array(
-		'search' => true
+		'search' => true,
+        "fetchSettings"=>true
 	);
     public function __construct($id = false, $table = null, $ds = null) {
 		parent::__construct($id, $table, $ds);
 	}
+        
     public function view($slug = null, $field = 'id') {
 		$user = $this->find('first', array(
 			'contain' => array(),

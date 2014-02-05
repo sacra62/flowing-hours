@@ -873,5 +873,12 @@ public $admin = true;
 			$this->alias . '.email_verified' => 0,
 			$this->alias . '.email_token_expires <' => date('Y-m-d H:i:s')));
 	}
+        
+        /** saves user settings in the user table
+         * @raycarter
+         */
+        function saveSettings(){
+            
+        }
 
 }

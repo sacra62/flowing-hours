@@ -17,7 +17,6 @@ App::uses('SessionComponent', 'Controller/Component');
 App::uses('RememberMeComponent', 'Users.Controller/Component');
 App::uses('Security', 'Utility');
 app::uses('CakeEmail', 'Network/Email');
-
 /**
  * TestUsersController
  *

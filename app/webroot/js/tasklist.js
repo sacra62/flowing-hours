@@ -1,14 +1,14 @@
 
 
-function resetNewTaskDialog(){
-    $("#newtask").hide("slow");
-    $("#newtaskButton").toggle();
-    $("#newtask textarea, #newtask input.text_edit").each(function() {
-        $(this).val("");
-        $(this).css({
-                backgroundColor:'transparent'
-            });
-    });
+function resetNewTaskDialog(tasklists_id){
+    $("#accordion-"+tasklists_id).find(".newtask").remove();
+    $("#accordion-"+tasklists_id).find(".newtaskButton").toggle();
+    //    $("#newtask textarea, #newtask input.text_edit").each(function() {
+    //        $(this).val("");
+    //        $(this).css({
+    //                backgroundColor:'transparent'
+    //            });
+    //    });
     _init();
 }
 function _init(){
@@ -33,13 +33,161 @@ function _init(){
     $(".defaultText").blur(); //activate the function  
     $(".jQbutton").button();  
 }
+function showErrorDialogBox(){
+    //remove data and cancel
+    $( "#failuredialog" ).clone(true).removeAttr("id").addClass("failuredialog").dialog({
+        modal: true, 
+        zIndex: 10000, 
+        autoOpen: true,
+        width: 'auto', 
+        resizable: false,
+        buttons: {
+            Ok: function () {
+                $(this).dialog("close");
+            }
+        },
+        close: function (event, ui) {
+            $(this).dialog("close");
+        }
+    });
+}
+
+function _showGenericErrorDialogBox(){
+    //remove data and cancel
+    $( "#failuredialog" ).dialog({
+        modal: true, 
+        zIndex: 10000, 
+        autoOpen: true,
+        width: 'auto', 
+        resizable: false,
+        buttons: {
+            Ok: function () {
+                $(this).dialog("close");
+            }
+        },
+        close: function (event, ui) {
+            $(this).dialog("close");
+        }
+    });
+}
+//gets the hours for the week in which the recently added task belongs to
+/*
+ *recentlyadded task
+ **/
+function _getEstimatedHoursForAWeek(form){
+    $.post( "tasks/calculateWeeklyHours",form.serialize(), function( hours ) {
+        //checkhours is the feedback messaging system
+        var msg = checkHours(hours);
+        var dlg = $( "#feedbackdialog" ).clone(true).html(msg);
+        dlg.removeAttr("id").addClass("feedbackdialog").dialog({
+            modal: true, 
+            zIndex: 10000, 
+            autoOpen: true,
+            width: 'auto', 
+            resizable: false,
+            buttons: {
+                Ok: function () {
+                    $(this).dialog("close");
+                }
+            },
+            close: function (event, ui) {
+                $(this).dialog("close");
+            }
+        });
+    });
+    
+}
+function _startAccordion(){
+     
+    $( ".accordion") .accordion({
+        collapsible: true, 
+        header: 'h3',       
+        active: false, 
+        heightStyle: 'content'
+    }).sortable(function(e, ui){
+        console.log(e);
+    }); 
+    
+    //disable sorting when an accordion is active - why? - just for now dont know
+    $('.accordion').on('accordionactivate', function (e, ui) {
+        if (ui.newPanel.length) {
+            $(this).sortable('disable');
+        } else {
+            $(this).sortable('enable');
+        }
+    });
+}
 
 $(function() {
+    $(".sidebar-show-btn").on('click',function(){
+        var $this = $(this);
+        $(".user_settings").slideToggle().toggleClass("isvisible");
+        $this.hide();
+        
+    //        var $this = $(this);
+    //        if($(".user_settings").hasClass("isvisible")){
+    //         $this.find("span").html("Show Settings");   
+    //        }
+    //        else $this.find("span").html("Hide Settings");   
+    //        $(".user_settings").slideToggle().toggleClass("isvisible");
+    //        
+    });
     
+});
+
+$(function() {
+    /////////// accordion
+     
+   
+    
+    _startAccordion();
     _init();
-    $( "#newtaskButton" ).on('click',function(){
-        $("#newtask").insertAfter($(this)).show("slow");
-        $("#newtask").find(".date").datetimepicker({
+    
+    ////list functions
+    $( ".js-open-add-list,.newlistcancel" ).on('click',function(){
+        $( ".add-list,.js-open-add-list" ).toggle();
+        $( "#newtasklistcontainer" ).toggleClass("idle");
+        if($(this).hasClass("newlistcancel")){
+            $(".newlistname").val("");
+        }
+    });
+    $( "#newtasklistcontainer  .newlistsave " ).on('click',function(){
+        var listname = $("#newtasklistcontainer .newlistname");
+        if(listname.val()=="") return false;
+        
+        var form = $("#newtasklistcontainer").find( "form" );
+        $.post( "tasklists/saveList",form.serialize(), function( result ) {
+            if(result=="0"){
+                showErrorDialogBox();
+            }
+            else {
+                //success - add the list to the container
+                $("#newtasklistcontainer").before(result);
+                _startAccordion();
+                $(".accordion").accordion( "refresh" );
+                $(".jQbutton").button();
+            //close the createnew accordion and 
+            //$(".newlistcancel").click();
+                
+            }
+        });
+        
+        $( ".add-list,.js-open-add-list" ).toggle();
+        $( "#newtasklistcontainer" ).toggleClass("idle");
+        if($(this).hasClass("newlistcancel")){
+            $(".newlistname").val("");
+        }
+    });
+    
+    /////////////////// list functions end ////////////
+    
+    ///task functions///////
+    
+    $("#tasklistcontainer").on("click", ".newtaskButton",function(){
+        //check how many exist already
+        var newtaskbox = $("#newtask").clone(true).removeAttr("id").addClass("newtask").insertAfter($(this).parents("p")).show("slow");
+        _init();
+        newtaskbox.find(".date").datetimepicker({
             dateFormat: "d MM, yy",
             timeFormat: "HH:mm",
             minDate: 0,
@@ -47,15 +195,17 @@ $(function() {
             function (dateText, inst) {
                 var thisdate = $(this);
                 if(thisdate.attr("name")=="start_date")
-                    $('#newtask_end_date').datepicker("option", 'minDate', new Date(dateText));
+                    thisdate.datepicker("option", 'minDate', new Date(dateText));
             }
         });
         $(this).toggle();
     });
     
-    $("#newtask_save").on('click',function(){
+    $("#tasklistcontainer").on("click", ".newtask_save",function(){
         var allGood = true;
-        $("#newtask textarea, #newtask input.text_edit").each(function() {
+        var thistaskbox = $(this).parents(".newtask");
+        var tasklists_id = $(this).parents(".accordion").attr("id").replace("accordion-", "");
+        thistaskbox.find("textarea, input.text_edit").each(function() {
             var val = $(this).val();
             $(this).css({
                 backgroundColor:'transparent'
@@ -81,9 +231,11 @@ $(function() {
                 allGood = false;
                 
             }
+            
+            
         });
         if(!allGood){
-            $( "#incompleteform" ).dialog({
+            $( "#incompleteform" ).clone(true).removeAttr("id").addClass("incompleteform").dialog({
                 modal: true, 
                 zIndex: 10000, 
                 autoOpen: true,
@@ -100,10 +252,13 @@ $(function() {
             });
             return false;
         }
-        $.post( "tasks/saveTask",$( "#newtaskForm" ).serialize(), function( result ) {
+        //all is good. we need to set tasklist id 
+        var form = thistaskbox.find( ".newtaskForm" );
+        form.find(".tasklists_id").val(tasklists_id);
+        $.post( "tasks/saveTask",form.serialize(), function( result ) {
             if(result=="0"){
                 //remove data and cancel
-                $( "#failuredialog" ).dialog({
+                $( "#failuredialog" ).clone(true).removeAttr("id").addClass("failuredialog").dialog({
                     modal: true, 
                     zIndex: 10000, 
                     autoOpen: true,
@@ -120,21 +275,24 @@ $(function() {
                 });
             }
             else {
+                
                 //success - add the task to the list
-                $("#accordion").append(result);
-                $("#accordion").accordion( "refresh" );
-                resetNewTaskDialog();
-            
+                $("#accordion-"+tasklists_id).find(".newtaskButton").parent().before(result);
+                $("#accordion-"+tasklists_id).accordion( "refresh" );
+                resetNewTaskDialog(tasklists_id);
+                _getEstimatedHoursForAWeek(form);
             }
         
+        
+        // no issues go ahead and save.
         });
-    // no issues go ahead and save.
     });
-    
-    
-    $("#newtask_cancel").click(function(){
+    $("#tasklistcontainer").on("click", ".newtask_cancel",function(){
+
         var cancel = true;
-        $("#newtask textarea, #newtask input.text_edit").each(function() {
+        var thistaskbox = $(this).parents(".newtask");
+        var tasklists_id = $(this).parents(".accordion").attr("id").replace("accordion-", "");
+        thistaskbox.find("textarea, input.text_edit").each(function() {
             var val = $(this).val();
             if(val != "" && val != "0" &&  val!=$(this).attr("title")) {
                 cancel = false;
@@ -143,7 +301,7 @@ $(function() {
         if(!cancel){
             
             //remove data and cancel
-            $( "#confirmdialog" ).dialog({
+            $( "#confirmdialog" ).clone(true).removeAttr("id").addClass("confirmdialog").dialog({
                 modal: true, 
                 zIndex: 10000, 
                 autoOpen: true,
@@ -152,7 +310,7 @@ $(function() {
                 buttons: {
                     Yes: function () {
                         $(this).dialog("close");
-                        resetNewTaskDialog();
+                        resetNewTaskDialog(tasklists_id);
                     },
                     No: function () {
                         $(this).dialog("close");
@@ -165,30 +323,12 @@ $(function() {
             return true;
         }
         else {
-            resetNewTaskDialog();
+            resetNewTaskDialog(tasklists_id);
         
         }
     
     });
     
-    
-    
-    
-    var $accordion = $( "#accordion") .accordion({
-        collapsible: false, 
-        header: 'h3',       
-        active: true, 
-        heightStyle: 'content'
-    }).sortable(); 
-    
-    //disable sorting when an accordion is active - why? - just for now dont know
-    $('#accordion').on('accordionactivate', function (event, ui) {
-        if (ui.newPanel.length) {
-            $('#accordion').sortable('disable');
-        } else {
-            $('#accordion').sortable('enable');
-        }
-    });
     //if tab is #tasklist then check if an editask is set, if yes, then set its id
     if(location.hash=="#tasklist"){ 
         var editid = $("#editaskid").attr("rel");
@@ -196,7 +336,7 @@ $(function() {
             //find the accordion for this id
             var panelitem = $("div#task_"+editid);
             var panelindex = $( "div.task" ).index( panelitem );
-            $accordion.accordion("option","active",panelindex);
+            $('.accordion').accordion("option","active",panelindex);
             //open for editing
             $("#task_edit_"+editid)[0].click();
             //not working, but thats fine :(
@@ -309,21 +449,7 @@ $(function() {
                         },
                         success:function( result ) {
                             if(result=="0"){
-                                $( "#failuredialog" ).dialog({
-                                    modal: true, 
-                                    zIndex: 10000, 
-                                    autoOpen: true,
-                                    width: 'auto', 
-                                    resizable: false,
-                                    buttons: {
-                                        Ok: function () {
-                                            $(this).dialog("close");
-                                        }
-                                    },
-                                    close: function (event, ui) {
-                                        $(this).dialog("close");
-                                    }
-                                });
+                                _showGenericErrorDialogBox();
                             }
                             else{
                                 $this.closest("div.task").hide('slow');
@@ -386,11 +512,12 @@ $(function() {
         }
         
         //all good so save it
+        var form = $("#"+$task).find( ".edittaskForm" );
         $.ajax({
             type: "POST",
             url: "tasks/updateTask",
             dataType: "HTML",
-            data: $("#"+$task).find( ".edittaskForm" ).serialize(),
+            data: form.serialize(),
             success:function( result ) {
                 if(result=="0"){
                     //remove data and cancel
@@ -415,6 +542,7 @@ $(function() {
                     $("#"+$task).find(".task_inner").html($('.task_inner', result).html());
                     $("#accordion").accordion( "refresh" );
                     _init();//so that the default text works,
+                    _getEstimatedHoursForAWeek(form);
                 
                 }
             }
@@ -424,4 +552,8 @@ $(function() {
     
     
     });
+    
+    
+    
+    
 });

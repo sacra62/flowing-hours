@@ -29,58 +29,50 @@ $user = $this->Session->read('Auth');
         </title>
         <?php
         echo $this->Html->meta('icon');
-
         echo $this->Html->css('cake.generic');
-
+        echo $this->Html->css('default.css');
         echo $this->fetch('meta');
         echo $this->fetch('css');
         echo $this->fetch('script');
-        if (isset($user['User'])) {
+        if (isset($user['User']) && $this->params['controller'] == "pages") {
             ?>
             <!-- Include CSS for JQuery Frontier Calendar plugin (Required for calendar plugin) -->
             <link rel="stylesheet" type="text/css" href="css/frontierCalendar/jquery-frontier-cal-1.3.2.css" />
-
             <!-- Include CSS for color picker plugin (Not required for calendar plugin. Used for example.) -->
             <link rel="stylesheet" type="text/css" href="css/colorpicker/colorpicker.css" />
-
             <!-- Include CSS for JQuery UI (Required for calendar plugin.) -->
             <link rel="stylesheet" type="text/css" href="css/jquery-ui/smoothness/jquery-ui-1.10.3.custom.css" />
-
             <!--
             Include JQuery Core (Required for calendar plugin)
             ** This is our IE fix version which enables drag-and-drop to work correctly in IE. See README file in js/jquery-core folder. **
             -->
             <script type="text/javascript" src="js/jquery-core/jquery-1.9.1.js"></script>
-
             <!-- Include JQuery UI (Required for calendar plugin.) -->
             <script type="text/javascript" src="js/jquery-ui/smoothness/jquery-ui-1.10.3.custom.min.js"></script>
-
             <!-- Include color picker plugin (Not required for calendar plugin. Used for example.) -->
             <script type="text/javascript" src="js/colorpicker/colorpicker.js"></script>
-
             <!-- Include jquery tooltip plugin (Not required for calendar plugin. Used for example.) -->
             <script type="text/javascript" src="js/jquery-qtip-1.0.0-rc3140944/jquery.qtip-1.0.js"></script>
-
             <!--
                     (Required for plugin)
                     Dependancies for JQuery Frontier Calendar plugin.
                 ** THESE MUST BE INCLUDED BEFORE THE FRONTIER CALENDAR PLUGIN. **
             -->
             <script type="text/javascript" src="js/lib/jshashtable-2.1.js"></script>
-
             <!-- Include JQuery Frontier Calendar plugin -->
             <script type="text/javascript" src="js/frontierCalendar/jquery-frontier-cal-1.3.2.js"></script>
-            
             <!-- tooltip and drag - only when calendar is active-->
             <script type="text/javascript" src="js/frontierCalendar/tooltip.drag.js"></script>
             <script type="text/javascript" src="js/calendar.custom.js"></script>
-
+            <script type="text/javascript" src="js/tasklist.js"></script>
+            <script type="text/javascript" src="js/timepicker_addon.js"></script>
+            <script type="text/javascript" src="js/energybar.js"></script>
+            
             <?php
+            //custom css at the end
+            echo $this->Html->css('tasklists.css');
+            echo $this->Html->css('calendar.css');
         }
-        if($this->params['controller']=="pages")
-            echo $this->Html->css('calendar.css'); 
-        
-        echo $this->Html->css('default.css');
         ?>
     </head>
     <body>
@@ -99,30 +91,22 @@ $user = $this->Session->read('Auth');
                     ?></div>
             </div>
             <div id="content">
-
                 <?php echo $this->Session->flash(); ?>
-
-
                 <?php
-                //if the user is logged in - show his calendar-
-                //pick up the css from default.css
-                //for every layout make a different css - pages_default.css, pages_tasklist.css
-
-                  
-                    echo $this->fetch('content'); 
-                   
-                    ?>
-
-                </div>
-                <div id="footer">
-
-                </div>
+//if the user is logged in - show his calendar-
+//pick up the css from default.css
+//for every layout make a different css - pages_default.css, pages_tasklist.css
+                echo $this->fetch('content');
+                ?>
             </div>
-            <?php
-            //echo $this->element('sql_dump');  
-            //@abrar
-            //By default scripts are cached, and you must explicitly print out the cache. To do this at the end of each page, include this line just before the ending </body> tag:
-            //echo $this->Js->writeBuffer(); // Write cached scripts
-            ?>
+            <div id="footer">
+            </div>
+        </div>
+        <?php
+//echo $this->element('sql_dump');  
+//@abrar
+//By default scripts are cached, and you must explicitly print out the cache. To do this at the end of each page, include this line just before the ending </body> tag:
+//echo $this->Js->writeBuffer(); // Write cached scripts
+        ?>
     </body>
 </html>

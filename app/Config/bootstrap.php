@@ -133,5 +133,3 @@ CakePlugin::load('Utils');
 CakePlugin::load('Users', array('routes' => true));
 Configure::write('Users.roles', array('admin' => 'Admin', 'registered' => 'Registered'));
 Configure::write('Users.defaultRole', 'user_registered');
-
-
