@@ -118,18 +118,15 @@ class TasksController extends Controller {
 
             $user = $this->Session->read('Auth');
             //date time needs to be fixed
-            $this->loadModel('User');            
+            $this->loadModel('User');
             $olduser = $this->User->findById($user['User']['id']);
 
-            print_r($olduser);
-            exit;
-            if ($newtask = $this->User->save($olduser)) {
-                $newtask['Task']['title'] = $task['task']['title'];
-                $view = new View($this, false);
-                echo $view->element('prepare_new_task', array("task" => $newtask['Task'], "edit" => true));
-                exit;
+            //update settings
+            $settings = $this->saveSettings($user['User']['id'], array("energy_hours" => $this->request->data['energy_hours']));
+            $olduser['User']['settings'] = $settings;
+            if ($olduserupdated = $this->User->save($olduser)) {
+                die("1"); //something went wrong
             }
-            die("0"); //something went wrong
         }
         die("0");
     }
@@ -137,16 +134,26 @@ class TasksController extends Controller {
     /**
      * takes userid, and a single setting value pair
      */
-    
-    function saveSettings($userid,$setting){
-        
-        $settings = $this->Tasks->query("SELECT settings FROM users WHERE id='".$userid . "'");
-        $settings = $settings[0]['users']['settings'];
-        $settings = !empty($settings) ? json_decode($settings) : array();
-        
-        $this->set('settings', $settings);
-        
+    function saveSettings($userid, $dupsetting) {
+
+        $User = $this->loadModel('User');
+        $olduser = $this->User->findById($userid);
+        $settings = $olduser['User']['settings'];
+        $settings = !empty($settings) ? $settings : array();
+        //new - no previous settings found
+        if (!count($settings)) {
+            return "";
+        }
+        //updating
+        $settings = (array) json_decode($settings);
+        foreach ($dupsetting as $key => $set) {
+            $settings[$key] = $set;
+        }
+
+
+        return json_encode($settings);
     }
+
     function updateTask() {
 
         if ($this->request->is('ajax') && count($this->request->data)) {

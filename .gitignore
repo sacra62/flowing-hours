@@ -1,2 +1,4 @@
 /nbproject/private/
 /app/Config/database.php
+/app/tmp/
+.gitignore

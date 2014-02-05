@@ -6,17 +6,24 @@ $(function() {
             type: "POST",
             url: "tasks/updateEnergy",
             dataType: "HTML",
-            data: {"energyhours":hours},
+            data: {"energy_hours":hours},
             success:function( result ) {
                 if(result=="0"){
                     _showGenericErrorDialogBox();
                 }
                 else {
-                    $this.animate({
+                    var oldcolor = $this.find("span").css("color");
+                    $this.find("span").animate({
                         backgroundColor: "#008000",
                         color: "#fff"
-                    }, 1000 );
-      
+                    }, 1000,"swing",function(){
+                        $this.find("span").animate({
+                        backgroundColor: "transparent",
+                        color: oldcolor
+                    }, 1, "swing",function(){$this.hide("slow")});
+                    } );
+                    
+                    
                 }
             }
         });
