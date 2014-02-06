@@ -18,6 +18,8 @@
  */
 //init calendar
 //echo $this->Html->script('calendar.custom');
+
+$wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpaper." "."wallpaper" : ""; 
 ?>
 <div class="flowinghours">
 
@@ -30,7 +32,7 @@
             <li><a href="#calendar">Calendar</a></li>
         </ul>
         <div id="calendar">
-            <div id="example" style="margin: auto; width:80%;">
+            <div id="calendar_container" style="margin: auto; width: 100%;">
                 <br>
                 <div id="toolbar" class="ui-widget-header ui-corner-all" style="padding:3px; vertical-align: middle; white-space:nowrap; overflow: hidden;">
                     <button id="BtnPreviousMonth">Previous Month</button>
@@ -48,7 +50,7 @@
                 Height will be calculated by aspect ratio. Basically all day cells will be as tall
                 as they are wide.
                 -->
-                <div id="mycal"></div>
+                <div id="mycal" class="<?php echo $wallpaper ?>"></div>
             </div>
             <div id="calDebug"></div>
             <?php echo $this->element('add_event_form'); ?>
