@@ -7,9 +7,9 @@
 */
 
 /* resetting what cakephp' generic css has */
-label {
+/*label {
     font-size: 1em;
-}
+}*/
 fieldset{
     margin: 0;
 }
