@@ -140,10 +140,7 @@ class TasksController extends Controller {
         $olduser = $this->User->findById($userid);
         $settings = $olduser['User']['settings'];
         $settings = !empty($settings) ? $settings : array();
-        //new - no previous settings found
-        if (!count($settings)) {
-            return "";
-        }
+        
         //updating
         $settings = (array) json_decode($settings);
         foreach ($dupsetting as $key => $set) {
