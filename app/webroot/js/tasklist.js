@@ -223,11 +223,20 @@ $(function() {
             }
         });
         
+        //increase width
+        var width = parseInt($("#tasklistcontainer").css("width").replace("px",""));
+        var totalwidth = parseInt($("#accordionwidth").attr("rel"))+width;//can be just picked up dynamically
+        $("#tasklistcontainer").css("width",totalwidth+"px");
+        
+        ////
+        
         $( "#newtasklistcontainer .add-list,.js-open-add-list" ).toggle();
         $( "#newtasklistcontainer" ).toggleClass("idle");
         if($(this).hasClass("newlistcancel")){
             $("#newtasklistcontainer .newlistname").val("");
         }
+        
+        
     });
     
     /////////////////// list functions end ////////////

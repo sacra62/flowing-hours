@@ -29,8 +29,6 @@
     </div>
 </div>
 
-</div>
-
 <script>
     $(function() {
         $("#slider-horizontal").slider({
