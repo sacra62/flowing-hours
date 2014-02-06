@@ -26,6 +26,11 @@ table tr td,table {
     width: auto;
     border-bottom: 0;
 }
+.flowinghours input, .flowinghours textarea{
+  
+    width: auto;
+    padding: 0;
+}
 .ui-dialog-content table tr td{
     vertical-align: middle;
 }
@@ -54,4 +59,8 @@ root {
 .marginLR10{
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.invisible{
+    display: none;
 }

@@ -119,23 +119,6 @@ function _startAccordion(){
 }
 
 $(function() {
-    $(".sidebar-show-btn").on('click',function(){
-        var $this = $(this);
-        $(".user_settings").slideToggle().toggleClass("isvisible");
-        $this.hide();
-        
-    //        var $this = $(this);
-    //        if($(".user_settings").hasClass("isvisible")){
-    //         $this.find("span").html("Show Settings");   
-    //        }
-    //        else $this.find("span").html("Hide Settings");   
-    //        $(".user_settings").slideToggle().toggleClass("isvisible");
-    //        
-    });
-    
-});
-
-$(function() {
     /////////// accordion
      
    
@@ -144,11 +127,81 @@ $(function() {
     _init();
     
     ////list functions
-    $( ".js-open-add-list,.newlistcancel" ).on('click',function(){
-        $( ".add-list,.js-open-add-list" ).toggle();
+    
+    //edit title functions 
+    
+    $( ".tasklisttitle_container" ).on("click", ".newlistcancel",function(){
+        var parent = $(this).parents(".tasklisttitle_container");
+        parent.removeClass("active").find(".tasklist_title").show("slow");
+        parent.find(".edittitlecontainer").hide("slow");
+        
+    //        if($(this).hasClass("newlistcancel")){
+    //            $(".newlistname").val("");
+    //        }
+    });
+    $(".accordion").on('mouseenter  mouseleave'," .tasklisttitle_container",function(){
+        var $this = $(this);
+        $this.find(".edit_title").toggleClass("invisible");
+    });
+    //this syntax of ON on("click", ".edit_title",function() seems to work with newly added,cloned elements
+    $(".accordion .tasklisttitle_container").on("click", ".edit_title",function(){
+        //clone add list form
+        //if already has a form open, return
+        var $this = $(this);
+        if($this.parents(".tasklisttitle_container").hasClass(".active")) return;
+        $this.parents(".tasklisttitle_container").addClass("active")
+        var $titleh2 = $this.siblings("h2");
+        $titleh2.hide();
+        if($this.parents(".tasklisttitle_container").find(".edittitlecontainer").length){
+            $this.parents(".tasklisttitle_container").find(".edittitlecontainer").show();   
+        }
+        else{
+            var clone = $("#newtasklistcontainer .add-list:last-child").clone().show().attr("class","edittitlecontainer");
+            clone.find(".newlistname").attr("placeholder",$titleh2.html());
+            $this.after(clone);
+        }
+        
+    });
+    
+    
+    
+    $(".accordion .tasklisttitle_container").on("click", ".newlistsave",function(){
+        var parent = $(this).parents(".tasklisttitle_container");
+        var listname = parent.find(".newlistname");
+        if(listname.val()=="") return false;
+        
+        //send tasklist id for updation
+        var id = parent.find(".tasklist_title").attr("id");
+        var tasklist_id = id.replace("tasklist_title-", "");
+        
+        var form = parent.find( "form" );
+        
+        var data = form.serializeArray();
+        data.push({
+            name: 'tasklist_id', 
+            value: tasklist_id
+        });
+        $.post( "tasklists/saveListTitle",data, function( result ) {
+            if(result!="1"){
+                showErrorDialogBox();
+            }
+            else {
+                parent.find("h2").html(listname.val());
+                parent.removeClass("active");
+                parent.find(".tasklist_title").show("slow");
+                parent.find(".edittitlecontainer").hide("slow");
+            
+            }
+        });
+    });
+    
+    ///edit title functions end ///////////
+    
+    $( "#newtasklistcontainer .js-open-add-list,#newtasklistcontainer .newlistcancel" ).on('click',function(){
+        $( "#newtasklistcontainer .add-list,#newtasklistcontainer .js-open-add-list" ).toggle();
         $( "#newtasklistcontainer" ).toggleClass("idle");
         if($(this).hasClass("newlistcancel")){
-            $(".newlistname").val("");
+            $("#newtasklistcontainer .newlistname").val("");
         }
     });
     $( "#newtasklistcontainer  .newlistsave " ).on('click',function(){
@@ -166,16 +219,14 @@ $(function() {
                 _startAccordion();
                 $(".accordion").accordion( "refresh" );
                 $(".jQbutton").button();
-            //close the createnew accordion and 
-            //$(".newlistcancel").click();
-                
+            
             }
         });
         
-        $( ".add-list,.js-open-add-list" ).toggle();
+        $( "#newtasklistcontainer .add-list,.js-open-add-list" ).toggle();
         $( "#newtasklistcontainer" ).toggleClass("idle");
         if($(this).hasClass("newlistcancel")){
-            $(".newlistname").val("");
+            $("#newtasklistcontainer .newlistname").val("");
         }
     });
     
@@ -519,24 +570,7 @@ $(function() {
             dataType: "HTML",
             data: form.serialize(),
             success:function( result ) {
-                if(result=="0"){
-                    //remove data and cancel
-                    $( "#failuredialog" ).dialog({
-                        modal: true, 
-                        zIndex: 10000, 
-                        autoOpen: true,
-                        width: 'auto', 
-                        resizable: false,
-                        buttons: {
-                            Ok: function () {
-                                $(this).dialog("close");
-                            }
-                        },
-                        close: function (event, ui) {
-                            $(this).dialog("close");
-                        }
-                    });
-                }
+                if(result=="0") _showGenericErrorDialogBox();
                 else {
                     //success - add the task to the list
                     $("#"+$task).find(".task_inner").html($('.task_inner', result).html());

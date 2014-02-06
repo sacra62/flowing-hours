@@ -29,7 +29,6 @@ class TasklistsController extends Controller {
         return true;
     }
 
-
     function saveList() {
         if ($this->request->is('ajax') && count($this->request->data)) {
             $this->loadModel('TaskList');
@@ -58,7 +57,25 @@ class TasklistsController extends Controller {
             }
         }
     }
-    
+
+    function saveListTitle() {
+        if ($this->request->is('ajax') && count($this->request->data)) {
+            $this->loadModel('TaskList');
+            $user = $this->Session->read('Auth');
+            $this->request->data['users_id'] = $user['User']['id'];
+            
+            $tasklist = $this->Tasklist->findById($this->request->data['tasklist_id']);
+            $tasklist['Tasklist']['title'] = $this->request->data['newlist_title'];
+            try {
+                if ($this->Tasklist->save($tasklist)) {
+                    die("1");
+                }
+            } catch (Exception $e) {
+                die ($e->getMessage());
+            }
+            die("something went wrong");
+        }
+    }
 
 }
 

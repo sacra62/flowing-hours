@@ -6,15 +6,27 @@ div.accordion h3.ui-accordion-header{
     margin-top: 10px;
 }
 div.accordion h2{
-    display: inline;
     font-size: 130%;
     line-height: 18px;
-    margin: 0 3px 0 10px;
+    margin: 0 10px;
     min-height: 19px;
     min-width: 30px;
-    color: black;
+    color: #000;
     background: none;
     font-weight: bold;
+    display: inline;
+    cursor: pointer;
+}
+div.accordion span.edit_title{
+    float: right;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 110%;
+    margin-top: 2px;
+    cursor: pointer;
+}
+div.accordion span.edit_title:hover{
+    color: green;
 }
 #tasklistcontainer  label{
     font-weight: bold!important;
@@ -61,12 +73,12 @@ div#tasklist{
     margin: 0 5px;
 }
 
-#tasklistcontainer #newtasklistcontainer{
+#tasklistcontainer #newtasklistcontainer, #tasklistcontainer.edittitlecontainer{
     width: 245px;
     padding: 10px;
 
 }
-#tasklistcontainer #newtasklistcontainer .placeholder{
+#tasklistcontainer #newtasklistcontainer .placeholder,  #tasklistcontainer .edittitlecontainer .placeholder{
     display: block;
     padding: 7px;
     cursor: pointer;
@@ -74,7 +86,7 @@ div#tasklist{
     transition: color 85ms ease-in;
     font-size: 110%;
 }
-#tasklistcontainer #newtasklistcontainer .newlistname {
+#tasklistcontainer #newtasklistcontainer .newlistname,  #tasklistcontainer .edittitlecontainer .newlistname{
     background: rgba(0, 0, 0, 0.05);
     border-color: #AAA;
     -webkit-box-shadow: inset 0 1px 8px rgba(0, 0, 0, 0.15);
@@ -94,13 +106,14 @@ div#tasklist{
     margin-bottom: 10px;
 
 }
-#tasklistcontainer #newtasklistcontainer.idle{
+#tasklistcontainer #newtasklistcontainer.idle {
     background: rgba(0, 0, 0, 0.12);
     cursor: pointer;
     min-height: 30px;
     padding: 0!important;
 
 }
+ 
 #tasklistcontainer #newtasklistcontainer.idle:hover{
     background: #D3DCE3;
     cursor: pointer;
@@ -110,8 +123,10 @@ div#tasklist{
     -webkit-transition: background 85ms ease-in,opacity 40ms ease-in,border-color 85ms ease-in;
     transition: background 85ms ease-in,opacity 40ms ease-in,border-color 85ms ease-in;
 }
-
-#tasklistcontainer #newtasklistcontainer{
+#tasklistcontainer .edittitlecontainer{
+    width: 87%;
+}
+#tasklistcontainer #newtasklistcontainer,  #tasklistcontainer .edittitlecontainer{
     background: #D3DCE3;
 }
 
@@ -140,7 +155,9 @@ div#tasklist{
     margin-top: 10px;
     margin-right: 10px;
 }
-
+.tasklisttitle_container.active .edit_title{
+    display: none;
+}
 /* css for timepicker */
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 .ui-timepicker-div dl { text-align: left; }

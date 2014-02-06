@@ -18,6 +18,7 @@
  */
 //init calendar
 //echo $this->Html->script('calendar.custom');
+//@abrar - settings come from the PagesController set in the loadTasks function
 
 $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpaper." "."wallpaper" : ""; 
 ?>
@@ -34,13 +35,13 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
         <div id="calendar">
             <div id="calendar_container" style="margin: auto; width: 100%;">
                 <br>
-                <div id="toolbar" class="ui-widget-header ui-corner-all" style="padding:3px; vertical-align: middle; white-space:nowrap; overflow: hidden;">
+                <div id="toolbar" class="ui-widget-header ui-corner-all" >
                     <button id="BtnPreviousMonth">Previous Month</button>
                     <button id="BtnNextMonth">Next Month</button>
                     &nbsp;&nbsp;&nbsp;
                     Date: <input type="text" id="dateSelect" size="20"/>
                     &nbsp;&nbsp;&nbsp;
-                    <button id="BtnDeleteAll">Delete All</button>
+<!--                    <button id="BtnDeleteAll">Delete All</button>-->
                     <!--            <button id="BtnICalTest">iCal Test</button>
                                 <input type="text" id="iCalSource" size="30" value="extra/fifa-world-cup-2010.ics"/>-->
                 </div>
@@ -87,7 +88,7 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
                         if ($tmptasklistid != $tasklistid) {
                             $tasklistid = $tmptasklistid;
                             $output.='<div id="accordion-' . $tasklistid . '" class="accordion">';
-                            $tasklisttitle = '<h2 id="tasklist_title-' . $tasklistid . '" class="tasklist_title">' . $task['tasklist']['title'] . '</h2>';
+                            $tasklisttitle = '<div class="tasklisttitle_container"><h2 id="tasklist_title-' . $tasklistid . '" class="tasklist_title">' . $task['tasklist']['title'] . '</h2><span class="edit_title invisible">Edit</span></div>';
                         }
                         else
                             $tasklisttitle = "";
