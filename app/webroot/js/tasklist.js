@@ -77,6 +77,7 @@ function _showGenericErrorDialogBox(){
 function _getEstimatedHoursForAWeek(form){
     $.post( "tasks/calculateWeeklyHours",form.serialize(), function( hours ) {
         //checkhours is the feedback messaging system
+        //flowingfeedback.showSaveAfterFeedback();
         var msg = checkHours(hours);
         var dlg = $( "#feedbackdialog" ).clone(true).html(msg);
         dlg.removeAttr("id").addClass("feedbackdialog").dialog({

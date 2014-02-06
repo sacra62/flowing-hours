@@ -218,6 +218,13 @@ class TasksController extends Controller {
             die("1");
         }
     }
+    
+    function getUserPref(){
+        //user prefs
+        $array = array("g_punctual"=>"0");
+        echo json_encode($array);
+        die();
+    }
 
 }
 
