@@ -493,8 +493,12 @@ $(document).ready(function(){
             },
             'Edit': function() {
                 //set the id in session and reload the page to taskslist
-                $.ajax({type: "POST",
-                    url: 'tasks/setEditTaskIdInSession',data:{"editTaskId":$(this).find(".editaskid").attr("rel")},
+                $.ajax({
+                    type: "POST",
+                    url: 'tasks/setEditTaskIdInSession',
+                    data:{
+                        "editTaskId":$(this).find(".editaskid").attr("rel")
+                        },
                     success:function(data){
                         window.location.href = "#tasklist";
                         location.reload();
@@ -559,11 +563,11 @@ $(document).ready(function(){
         /*
 		 * Our calendar is initialized in a closed tab so we need to resize it when the example tab opens.
 		 */
-        //		show: function(event, ui){
-        //			if(ui.index == 1){
-        //				jfcalplugin.doResize("#mycal");
-        //			}
-        //		}	
+        //        		show: function(event, ui){
+        //        			if(ui.index == 1){
+        //        				jfcalplugin.doResize("#mycal");
+        //        			}
+        //        		}	
         });
     $( "#tabs" ).on( "tabsactivate", function( e,ui ) {
         
@@ -574,13 +578,28 @@ $(document).ready(function(){
         location.href = location.hash;
         //refresh the calendar forcefully
         if(location.hash=="#calendar"){
-        window.scrollTo(0, 0);
-        location.reload();
+            window.scrollTo(0, 0);
+            location.reload();
         }
+        
+        //dont show settings on any page but tasklist
+        
+        if(location.hash=="#tasklist"){ 
+            $(".settings_top_container").removeClass("invisible");
+        }
+        else $(".settings_top_container").addClass("invisible");
     });
+    
+    //resizsing the calendar
+    if(location.hash=="#calendar" ){ 
+        jfcalplugin.doResize("#mycal");
+    }
 
-    
-    
+    //everytime a page is loaded - check for the settings container
+    if(location.hash=="#tasklist" || location.hash==""){ 
+        $(".settings_top_container").removeClass("invisible");
+    }
+    else $(".settings_top_container").addClass("invisible");
 	
 });
 

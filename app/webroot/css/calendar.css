@@ -22,9 +22,14 @@ background-color: #CCF;
 /* for user wallpapers 
 */
 
+
 .JFrontierCal.wallpaper .JFrontierCal-Day-Cell{
     background: none!important;
+}
+.JFrontierCal.wallpaper  .JFrontierCal-Day-Cell-Today{
+    background-color: #333 !important;
 }
 .JFrontierCal.scenica{
     background: url('../img/wallpapers/scenica.jpg');
 }
+

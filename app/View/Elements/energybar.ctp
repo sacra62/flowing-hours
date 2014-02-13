@@ -1,7 +1,7 @@
 <?php $energyhours = isset($settings->energy_hours) ? $settings->energy_hours : 0; ?>
 <div class="settings_top_container">
     <div class="settings_container">
-        <div class="fleft">Misc Icons will be here.</div>
+        <div class="fleft invisible" >Misc Icons will be here.</div>
         <div class="fright filtercontainer">
             <div class="fright"><a class="jQbutton">Week Filter</a></div>
             <div class="fright"><a class="jQbutton">Month Filter</a></div>
