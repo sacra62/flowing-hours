@@ -10,15 +10,24 @@
  */
 ?>
 <div class="users index">
-    <?php
+    <table width="100%">
+
+        <tr>
+         <td style="text-align: left">   
+             <img id="logo" src="<?php echo $this->Html->url( '/', true );?>img/528f1e1e0b1cdc75eb000001.gif">
+         </td>   
+
+   
+       <?php
     $user = $this->Session->read('Auth');
     if (isset($user['User'])) {
         echo "<h2>Hello ".$user['User']['username'].'</h2>';
     } else {
-        ?> 
-        <h2><?php echo __d('users', 'Login'); ?></h2>
-        <?php echo $this->Session->flash('auth'); ?>
-        <fieldset>
+        ?>   
+        <?php echo $this->Session->flash('auth'); ?> 
+          
+         <td style="text-align: left">
+    <fieldset>
             <?php
             echo $this->Form->create($model, array(
                 'action' => 'login',
@@ -36,6 +45,11 @@
             echo $this->Form->end(__d('users', 'Submit'));
             ?>
         </fieldset>
+         </td>
     <?php } ?>
+         </tr>
+ </table>
+
 </div>
-<?php echo $this->element('Users.Users/sidebar'); ?>
+
+    <?php echo $this->element('Users.Users/sidebar'); ?>
