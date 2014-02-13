@@ -186,7 +186,7 @@ $(function() {
         
     });
     
-     $(".accordion .tasklisttitle_container").on("click", ".remove_list",function(){
+    $(".accordion .tasklisttitle_container").on("click", ".remove_list",function(){
         //clone add list form
         //if already has a form open, return
         var $this = $(this);
@@ -198,7 +198,7 @@ $(function() {
             modal: true, 
             zIndex: 10000, 
             autoOpen: true,
-            width: 'auto', 
+            width: '400px', 
             resizable: false,
             buttons: {
                 Yes: function () {
@@ -216,6 +216,11 @@ $(function() {
                             }
                             else{
                                 $this.parents(".accordion").hide('slow');
+                                //decrease width
+                                var width = parseInt($("#tasklistcontainer").css("width").replace("px",""));
+                                var totalwidth = width-parseInt($("#accordionwidth").attr("rel"));//can be just picked up dynamically
+                                $("#tasklistcontainer").css("width",totalwidth+"px");
+        
                             //maybe we can use the undo feature this way :) - we will just show the list again
                             //$("#accordion").accordion( "refresh" );
                             }
@@ -225,6 +230,7 @@ $(function() {
                 },
                 No: function () {
                     $(this).dialog("close");
+                    $container.removeClass("active");
                 }
             },
             close: function (event, ui) {

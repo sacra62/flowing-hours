@@ -78,12 +78,7 @@ class TasklistsController extends Controller {
     }
 
     function deleteList() {
-        if ($this->request->is('ajax') && count($this->request->data)) {
-            $tasklist = $this->Tasklist->findById($this->request->data['id']);
-            print_r($tasklist);exit;
-            if (!$tasklist) {
-                die("No such list"); //something went wrong
-            }
+        if ($this->request->is('ajax') && count($this->request->data)) {           
             try {
                 if ($this->Tasklist->delete($this->request->data['id'])) {
                     die("1");
