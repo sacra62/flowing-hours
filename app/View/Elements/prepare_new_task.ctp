@@ -1,6 +1,6 @@
 <?php if (isset($tasklisttitle)) echo $tasklisttitle; ?>
 
-<div>
+<div class="task_container">
     <?php if (!empty($task['id'])): ?>
         <div class="task" id="task_<?php echo $task['id']; ?>" >
 

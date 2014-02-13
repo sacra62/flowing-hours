@@ -140,7 +140,7 @@ class TasksController extends Controller {
         $olduser = $this->User->findById($userid);
         $settings = $olduser['User']['settings'];
         $settings = !empty($settings) ? $settings : array();
-        
+
         //updating
         $settings = (array) json_decode($settings);
         foreach ($dupsetting as $key => $set) {
@@ -172,6 +172,27 @@ class TasksController extends Controller {
                 exit;
             }
             die("0"); //something went wrong
+        }
+    }
+
+    function updateTaskListBelonging() {
+
+        if ($this->request->is('ajax') && count($this->request->data)) {
+
+            $task = $this->Task->findById($this->request->data['id']);
+            if (!$task) {
+                die("task not found"); //something went wrong
+            }
+
+            $user = $this->Session->read('Auth');
+            $this->request->data['users_id'] = $user['User']['id'];
+            try {
+                if ($this->Task->save($this->request->data)) {
+                    die("1");
+                }
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
         }
     }
 
@@ -218,10 +239,10 @@ class TasksController extends Controller {
             die("1");
         }
     }
-    
-    function getUserPref(){
+
+    function getUserPref() {
         //user prefs
-        $array = array("g_punctual"=>"0");
+        $array = array("g_punctual" => "0");
         echo json_encode($array);
         die();
     }

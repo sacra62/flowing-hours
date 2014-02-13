@@ -117,7 +117,6 @@ class PagesController extends AppController {
         $this->set('listcount', $total);
         
         
-        
         //get user settings
         $this->loadModel('Tasks');
         $settings = $this->Tasks->query("SELECT settings FROM users WHERE id='".$user['id'] . "'");

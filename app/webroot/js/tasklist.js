@@ -124,11 +124,38 @@ function _startAccordion(){
         header: 'h3',       
         active: false, 
         heightStyle: 'content'
-    }).sortable(function(e, ui){
-        console.log(e);
-    }); 
+    });
     
-    //disable sorting when an accordion is active - why? - just for now dont know
+    $(".accordion .task").draggable({
+        helper: "clone"
+    });
+    
+    $(".accordion").droppable({
+        drop: function (event, ui) {
+            var content = ui.draggable.next();
+            ui.draggable.appendTo(this);
+            content.appendTo(this);return true;
+            var taskid = ui.draggable.attr("id").replace("task_","");
+//            ui.draggable.addClass("task_container");//somehow this is removed. we need this.
+            var tasklistid = ui.draggable.parents(".accordion").attr("id").replace("accordion-","");
+            $.ajax({
+                type: "POST",
+                url: "tasks/updateTaskListBelonging",
+                dataType: "HTML",
+                data: {
+                    "id":taskid,"tasklists_id":tasklistid
+                },
+                success:function( result ) {
+                    if(result!="1") _showErrorMsgDialogBox(result);
+                    
+                }
+            });
+        //get task id and update it
+            
+            
+        }
+    });
+    //disable sorting when an accordion is active so that the user can not drag and drop it into another accordion
     $('.accordion').on('accordionactivate', function (e, ui) {
         if (ui.newPanel.length) {
             $(this).sortable('disable');
