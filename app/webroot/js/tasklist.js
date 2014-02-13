@@ -51,7 +51,26 @@ function showErrorDialogBox(){
         }
     });
 }
-
+function _showErrorMsgDialogBox(msg){
+    //remove data and cancel
+    var $dialog = $( "#failuremsgdialog" ).clone(true).removeAttr("id").addClass("failuremsgdialog");
+    $dialog.html(msg);
+    $dialog.dialog({
+        modal: true, 
+        zIndex: 10000, 
+        autoOpen: true,
+        width: 'auto', 
+        resizable: false,
+        buttons: {
+            Ok: function () {
+                $(this).dialog("close");
+            }
+        },
+        close: function (event, ui) {
+            $(this).dialog("close");
+        }
+    });
+}
 function _showGenericErrorDialogBox(){
     //remove data and cancel
     $( "#failuredialog" ).dialog({
@@ -142,29 +161,78 @@ $(function() {
     });
     $(".accordion").on('mouseenter  mouseleave'," .tasklisttitle_container",function(){
         var $this = $(this);
-        $this.find(".edit_title").toggleClass("invisible");
+        $this.find(".list_controls").toggleClass("invisible");
     });
     //this syntax of ON on("click", ".edit_title",function() seems to work with newly added,cloned elements
     $(".accordion .tasklisttitle_container").on("click", ".edit_title",function(){
         //clone add list form
         //if already has a form open, return
         var $this = $(this);
-        if($this.parents(".tasklisttitle_container").hasClass(".active")) return;
-        $this.parents(".tasklisttitle_container").addClass("active")
-        var $titleh2 = $this.siblings("h2");
+        
+        var $container = $this.parents(".tasklisttitle_container");
+        var $listcontrols = $container.find(".list_controls");
+        if($container.hasClass(".active")) return;
+        $container.addClass("active")
+        var $titleh2 = $container.find("h2");
         $titleh2.hide();
-        if($this.parents(".tasklisttitle_container").find(".edittitlecontainer").length){
-            $this.parents(".tasklisttitle_container").find(".edittitlecontainer").show();   
+        if($container.find(".edittitlecontainer").length){
+            $container.find(".edittitlecontainer").show();   
         }
         else{
             var clone = $("#newtasklistcontainer .add-list:last-child").clone().show().attr("class","edittitlecontainer");
             clone.find(".newlistname").attr("placeholder",$titleh2.html());
-            $this.after(clone);
+            $listcontrols.after(clone);
         }
         
     });
     
-    
+     $(".accordion .tasklisttitle_container").on("click", ".remove_list",function(){
+        //clone add list form
+        //if already has a form open, return
+        var $this = $(this);
+        var $listid = $this.parents(".accordion").attr("id").replace("accordion-","");
+        var $container = $this.parents(".tasklisttitle_container");
+        if($container.hasClass(".active")) return;
+        $container.addClass("active")
+        $( "#deletelist" ).dialog({
+            modal: true, 
+            zIndex: 10000, 
+            autoOpen: true,
+            width: 'auto', 
+            resizable: false,
+            buttons: {
+                Yes: function () {
+                    $(this).dialog("close");
+                    $.ajax({
+                        type: "POST",
+                        url: "tasklists/deleteList",
+                        dataType: "HTML",
+                        data: {
+                            "id":$listid
+                        },
+                        success:function( result ) {
+                            if(result!="1"){
+                                _showErrorMsgDialogBox(result);
+                            }
+                            else{
+                                $this.parents(".accordion").hide('slow');
+                            //maybe we can use the undo feature this way :) - we will just show the list again
+                            //$("#accordion").accordion( "refresh" );
+                            }
+                        
+                        }
+                    });
+                },
+                No: function () {
+                    $(this).dialog("close");
+                }
+            },
+            close: function (event, ui) {
+                $(this).dialog("close");
+            }
+        });
+        
+    });
     
     $(".accordion .tasklisttitle_container").on("click", ".newlistsave",function(){
         var parent = $(this).parents(".tasklisttitle_container");

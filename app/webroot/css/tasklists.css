@@ -17,17 +17,25 @@ div.accordion h2{
     display: inline;
     cursor: pointer;
 }
-div.accordion span.edit_title{
+div.accordion .list_controls{
     float: right;
     margin-right: 10px;
+}
+/* hide list controls when list is being edited etc */
+.tasklisttitle_container.active .list_controls{
+    display: none;
+}
+div.accordion span.edit_title,div.accordion span.remove_list{
+    margin-left: 10px;
     font-weight: bold;
     font-size: 110%;
     margin-top: 2px;
     cursor: pointer;
 }
-div.accordion span.edit_title:hover{
+div.accordion span.edit_title:hover,div.accordion span.remove_list:hover{
     color: green;
 }
+
 #tasklistcontainer  label{
     font-weight: bold!important;
     display: inline!important;
@@ -155,9 +163,7 @@ div#tasklist{
     margin-top: 10px;
     margin-right: 10px;
 }
-.tasklisttitle_container.active .edit_title{
-    display: none;
-}
+
 /* css for timepicker */
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 .ui-timepicker-div dl { text-align: left; }

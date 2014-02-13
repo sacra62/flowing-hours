@@ -63,7 +63,7 @@ class TasklistsController extends Controller {
             $this->loadModel('TaskList');
             $user = $this->Session->read('Auth');
             $this->request->data['users_id'] = $user['User']['id'];
-            
+
             $tasklist = $this->Tasklist->findById($this->request->data['tasklist_id']);
             $tasklist['Tasklist']['title'] = $this->request->data['newlist_title'];
             try {
@@ -71,9 +71,28 @@ class TasklistsController extends Controller {
                     die("1");
                 }
             } catch (Exception $e) {
-                die ($e->getMessage());
+                die($e->getMessage());
             }
             die("something went wrong");
+        }
+    }
+
+    function deleteList() {
+        if ($this->request->is('ajax') && count($this->request->data)) {
+            $tasklist = $this->Tasklist->findById($this->request->data['id']);
+            print_r($tasklist);exit;
+            if (!$tasklist) {
+                die("No such list"); //something went wrong
+            }
+            try {
+                if ($this->Tasklist->delete($this->request->data['id'])) {
+                    die("1");
+                }
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
+
+            die("1"); //all good
         }
     }
 

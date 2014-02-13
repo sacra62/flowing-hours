@@ -88,7 +88,7 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
                         if ($tmptasklistid != $tasklistid) {
                             $tasklistid = $tmptasklistid;
                             $output.='<div id="accordion-' . $tasklistid . '" class="accordion">';
-                            $tasklisttitle = '<div class="tasklisttitle_container"><h2 id="tasklist_title-' . $tasklistid . '" class="tasklist_title">' . $task['tasklist']['title'] . '</h2><span class="edit_title invisible">Edit</span></div>';
+                            $tasklisttitle = '<div class="tasklisttitle_container"><h2 id="tasklist_title-' . $tasklistid . '" class="tasklist_title">' . $task['tasklist']['title'] . '</h2><div class="list_controls invisible"><span class="edit_title">Edit</span><span class="remove_list">Delete List</span></div></div>';
                         }
                         else
                             $tasklisttitle = "";

@@ -26,4 +26,6 @@
         <div style="display:none;" id="incompleteform" title="Not too fast">Some fields have invalid/missing values.</div>
         <div style="display:none;" id="deletedialog" title="Are you sure?">Are you sure you want to delete this task?</div>
         <div style="display:none;" id="feedbackdialog" title="Hey you!">Alert!</div>
+        <div style="display:none;" id="deletelist" title="Are you sure?">Are you sure you want to delete this list? All the tasks in this list will be removed. You can always drag and drop the tasks to another list.</div>
+                <div style="display:none;" id="failuremsgdialog" title="Something went wrong"></div>
 
