@@ -27,7 +27,7 @@
 						'isUnique' => __d('users', 'An account with that email already exists'))));
 				
 				echo $this->Form->input('email', array(
-					'label' => __d('users', 'E-mail (used as login)'),
+					'label' => __d('users', 'E-mail (confirm)'),
 					'error' => array('isValid' => __d('users', 'Must be a valid email address'),
 						'isUnique' => __d('users', 'An account with that email already exists'))));
 				echo $this->Form->input('password', array(

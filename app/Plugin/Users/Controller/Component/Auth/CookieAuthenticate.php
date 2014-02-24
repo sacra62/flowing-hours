@@ -69,6 +69,7 @@ class CookieAuthenticate extends BaseAuthenticate {
 		}
 
 		$user = $this->_findUser($data[$username], $data[$password]);
+                
 		if ($user) {
 			$this->_Collection->Session->write(AuthComponent::$sessionKey, $user);
 			return $user;

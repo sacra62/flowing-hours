@@ -279,7 +279,24 @@ class UsersController extends UsersAppController {
      * @param string $id User ID
      * @return void
      */
-    public function edit() {
+    public function edit($userId = null) {
+         try {
+            $result = $this->{$this->modelClass}->edit($userId, $this->request->data);
+            if ($result === true) {
+                $this->Session->setFlash(__d('users', 'User saved'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->request->data = $result;
+            }
+        } catch (OutOfBoundsException $e) {
+            $this->Session->setFlash($e->getMessage());
+            $this->redirect(array('action' => 'index'));
+        }
+
+        if (empty($this->request->data)) {
+            $this->request->data = $this->{$this->modelClass}->read(null, $userId);
+        }
+        $this->set('roles', Configure::read('Users.roles'));
         // @todo replace this with something better than the user details that were removed
 //        $userse = $this->Session->read('Auth');
 //
