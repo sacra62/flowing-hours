@@ -134,27 +134,79 @@ function _startAccordion(){
         drop: function (event, ui) {
             var content = ui.draggable.next();
             ui.draggable.appendTo(this);
-            content.appendTo(this);return true;
+            content.appendTo(this);
+            
             var taskid = ui.draggable.attr("id").replace("task_","");
-//            ui.draggable.addClass("task_container");//somehow this is removed. we need this.
+            //            ui.draggable.addClass("task_container");//somehow this is removed. we need this.
             var tasklistid = ui.draggable.parents(".accordion").attr("id").replace("accordion-","");
             $.ajax({
                 type: "POST",
                 url: "tasks/updateTaskListBelonging",
                 dataType: "HTML",
                 data: {
-                    "id":taskid,"tasklists_id":tasklistid
+                    "id":taskid,
+                    "tasklists_id":tasklistid
                 },
                 success:function( result ) {
                     if(result!="1") _showErrorMsgDialogBox(result);
                     
                 }
-            });
-        //get task id and update it
-            
-            
+            });    
         }
     });
+    
+    $('.accordion').sortable({
+        start: function(e, ui) {
+            console.log(e);
+console.log(ui);
+console.log("casdasd");
+            container = $(e.target);
+console.log(e);
+console.log(ui);
+return;
+            var parent_id = container.parent().parent().attr('id');
+            expanded_ones = [];
+            var count = 0;
+            var summary = '';
+            var child = '';
+            var active = '';
+
+            // now close all other sections
+            $.each($('#' + parent_id + ' .accordion'), function() {
+                // get the child element since that has the div id I need
+                child = $(this).children('div');
+
+                // get the active information to see if it is open or closed
+                active = $(this).accordion('option', 'active');
+
+                // check to see if this one is expanded
+                if (parseInt(active, 10) == active) {
+                    // store this id so we can open it later
+                    expanded_ones[count] = $(child).attr('id');
+                    count++;
+
+                    // and close the accordion
+                    $(this).accordion({
+                        active: false
+                    });
+                } // end if(parseInt(active) == active)
+            }); // end $.each($('#' + parent_id + ' .accordion'), function()
+        },
+        // end start: function(e, ui)
+        stop: function(e, ui) {
+            container = $(e.target);
+
+            var parent_elem = '';
+
+            // expand the ones that were originally expanded
+            for (var i = 0; i < expanded_ones.length; i++) {
+                parent_elem = $('#' + expanded_ones[i]).parent();
+                $(parent_elem).accordion('option', 'active', 0);
+            } // end for(var i = 0; i < expanded_ones; i++)
+        } // end stop: function(e, ui)
+    }); // end $('.sortable').sortable
+    //
+    //
     //disable sorting when an accordion is active so that the user can not drag and drop it into another accordion
     $('.accordion').on('accordionactivate', function (e, ui) {
         if (ui.newPanel.length) {

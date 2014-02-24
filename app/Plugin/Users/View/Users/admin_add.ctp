@@ -16,6 +16,16 @@
 			<?php
 				echo $this->Form->input('username', array(
 					'label' => __d('users', 'Username')));
+                                echo $this->Form->input('first_name', array(
+					'label' => __d('users', 'First Name'),
+					'error' => array('isValid' => __d('users', 'Must be a valid name'))));
+				echo $this->Form->input('last_name', array(
+					'label' => __d('users', 'Last Name')));
+                                echo $this->Form->input('email', array(
+					'label' => __d('users', 'E-mail (used as login)'),
+					'error' => array('isValid' => __d('users', 'Must be a valid email address'),
+						'isUnique' => __d('users', 'An account with that email already exists'))));
+				
 				echo $this->Form->input('email', array(
 					'label' => __d('users', 'E-mail (used as login)'),
 					'error' => array('isValid' => __d('users', 'Must be a valid email address'),
@@ -38,4 +48,4 @@
 		</fieldset>
 	<?php echo $this->Form->end('Submit'); ?>
 </div>
-<?php echo $this->element('Users.Users/admin_sidebar'); ?>
+<?php //@abrar for admin show admin sidebar?> <?php  if($this->Session->read('Auth.User.is_admin')) : echo $this->element('Users.Users/admin_sidebar');  ?> <?php else: echo $this->element('Users.Users/sidebar');?> <?php endif; ?>

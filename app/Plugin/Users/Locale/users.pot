@@ -524,3 +524,8 @@ msgstr ""
 msgid "You must agree to the terms of use."
 msgstr ""
 
+#@abrar - newly added
+msgid "Last Name"
+msgstr ""
+msgid "First Name"
+msgstr ""

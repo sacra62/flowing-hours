@@ -15,6 +15,10 @@
 	<h3><?php echo __d('users', 'Filter'); ?></h3>
 	<?php 
 	echo $this->Form->create($model, array('action' => 'index'));
+        echo $this->Form->input('first_name', array(
+			'label' => __d('users', 'First Name'),'required' => false));
+                echo $this->Form->input('last_name', array(
+			'label' => __d('users', 'Last Name')));
 		echo $this->Form->input('username', array('label' => __d('users', 'Username')));
 		echo $this->Form->input('email', array('label' => __d('users', 'Email')));
 	echo $this->Form->end(__d('users', 'Search'));
@@ -24,6 +28,8 @@
 	<?php echo $this->element('Users.pagination'); ?>
 	<table cellpadding="0" cellspacing="0">
 		<tr>
+                    <th><?php echo $this->Paginator->sort('first_name'); ?></th>
+                    <th><?php echo $this->Paginator->sort('last_name'); ?></th>
 			<th><?php echo $this->Paginator->sort('username'); ?></th>
 			<th><?php echo $this->Paginator->sort('email'); ?></th>
 			<th><?php echo $this->Paginator->sort('email_verified'); ?></th>
@@ -40,6 +46,12 @@
 				}
 			?>
 			<tr<?php echo $class;?>>
+                            <td>
+					<?php echo $user[$model]['first_name']; ?>
+				</td>
+                                <td>
+					<?php echo $user[$model]['last_name']; ?>
+				</td>
 				<td>
 					<?php echo $user[$model]['username']; ?>
 				</td>
@@ -65,4 +77,4 @@
 	</table>
 	<?php echo $this->element('Users.pagination'); ?>
 </div>
-<?php echo $this->element('Users.Users/admin_sidebar'); ?>
+<?php //@abrar for admin show admin sidebar?> <?php  if($this->Session->read('Auth.User.is_admin')) : echo $this->element('Users.Users/admin_sidebar');  ?> <?php else: echo $this->element('Users.Users/sidebar');?> <?php endif; ?>

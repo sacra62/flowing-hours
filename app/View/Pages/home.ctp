@@ -87,7 +87,7 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
                         $addending = false;
                         if ($tmptasklistid != $tasklistid) {
                             $tasklistid = $tmptasklistid;
-                            $output.='<div id="accordion-' . $tasklistid . '" class="accordion">';
+                            $output.='<div class="accordion_container"><div id="accordion-' . $tasklistid . '" class="accordion">';
                             $tasklisttitle = '<div class="tasklisttitle_container"><h2 id="tasklist_title-' . $tasklistid . '" class="tasklist_title">' . $task['tasklist']['title'] . '</h2><div class="list_controls invisible"><span class="edit_title">Edit</span><span class="remove_list">Delete List</span></div></div>';
                         }
                         else
@@ -103,7 +103,7 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
                         if ($key == $end)
                             $addending = true;
 
-                        $output.= $addending ? $endtasklisthtml . "</div>" : "";
+                        $output.= $addending ? $endtasklisthtml . "</div></div>" : "";
 
 
                     endforeach;

@@ -237,8 +237,16 @@ class UsersController extends UsersAppController {
      * @return void
      */
     public function index() {
-        $this->set('users', $this->Paginator->paginate($this->modelClass));
+        if ($this->Session->read('Auth.User.is_admin')) :
+                    $this->set('users', $this->Paginator->paginate($this->modelClass));
+
+            $this->render("/users/index_admin");
+        else:
+            $this->render("/users/index");
+        endif;
     }
+
+   
 
     /**
      * The homepage of a users giving him an overview about everything
@@ -549,8 +557,11 @@ class UsersController extends UsersAppController {
             $searchTerm = $this->request->params['named']['email'];
             $by = 'email';
         }
+        if (!empty($this->request->params['named']['first_name'])) {
+            $searchTerm = $this->request->params['named']['first_name'];
+            $by = 'first_name';
+        }
         $this->request->data[$this->modelClass]['search'] = $searchTerm;
-
         $this->Paginator->settings = array(
             'search',
             'limit' => 12,

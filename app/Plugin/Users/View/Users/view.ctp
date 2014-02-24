@@ -17,6 +17,21 @@
 			<?php echo $user[$model]['username']; ?>
 			&nbsp;
 		</dd>
+                <dt<?php if ($i % 2 == 0) echo $class; ?>><?php echo __d('users', 'First Name'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class; ?>>
+			<?php echo $user[$model]['first_name']; ?>
+			&nbsp;
+		</dd>
+                <dt<?php if ($i % 2 == 0) echo $class; ?>><?php echo __d('users', 'Last Name'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class; ?>>
+			<?php echo $user[$model]['last_name']; ?>
+			&nbsp;
+		</dd>
+                 <dt<?php if ($i % 2 == 0) echo $class; ?>><?php echo __d('users', 'Email Address'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class; ?>>
+			<?php echo $user[$model]['email']; ?>
+			&nbsp;
+		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class; ?>><?php echo __d('users', 'Created'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class; ?>>
 			<?php echo $user[$model]['created']; ?>
@@ -34,4 +49,4 @@
 		?>
 	</dl>
 </div>
-<?php echo $this->element('Users.Users/sidebar'); ?>
+<?php //@abrar for admin show admin sidebar?> <?php  if($this->Session->read('Auth.User.is_admin')) : echo $this->element('Users.Users/admin_sidebar');  ?> <?php else: echo $this->element('Users.Users/sidebar');?> <?php endif; ?>

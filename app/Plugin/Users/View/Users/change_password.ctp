@@ -26,4 +26,4 @@
 		echo $this->Form->end(__d('users', 'Submit'));
 	?>
 </div>
-<?php echo $this->element('Users.Users/sidebar'); ?>
+<?php //@abrar for admin show admin sidebar?> <?php  if($this->Session->read('Auth.User.is_admin')) : echo $this->element('Users.Users/admin_sidebar');  ?> <?php else: echo $this->element('Users.Users/sidebar');?> <?php endif; ?>

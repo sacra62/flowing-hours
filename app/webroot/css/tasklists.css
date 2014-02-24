@@ -44,6 +44,9 @@ div.accordion span.edit_title:hover,div.accordion span.remove_list:hover{
     overflow: auto;
     min-height: 300px;
 }
+.accordion_container{
+    float: left;
+}
 div.accordion{
     float: left;
     width: 330px;/*must be the same as in the $accordionwidth variable in the home.ctp*/

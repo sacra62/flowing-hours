@@ -10,22 +10,10 @@
  */
 ?>
 <div class="users index">
+    <?php if($this->Session->read('Auth.User.is_admin')): ?>
+    
 	<h2><?php echo __d('users', 'Users'); ?></h2>
-	<?php
-		echo $this->Form->create($model, array(
-			'action' => 'search'));
-		echo $this->Form->input('username', array(
-			'label' => __d('users', 'Username')));
-                 echo $this->Form->input('first_name', array(
-			'label' => __d('users', 'First Name'),'required' => false));
-                echo $this->Form->input('last_name', array(
-			'label' => __d('users', 'Last Name')));
-		echo $this->Form->input('email', array(
-			'label' => __d('users', 'Email')));
-		echo $this->Form->input('Profile.name', array(
-			'label' => __d('users', 'Name')));
-		echo $this->Form->end(__d('users', 'Search'));
-	?>
+
 	<p><?php
 	echo $this->Paginator->counter(array(
 		'format' => __d('users', 'Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%')
@@ -49,23 +37,21 @@
 		}
 		?>
 		<tr<?php echo $class; ?>>
-                    <td><?php echo $user[$model]['first_name']; ?></td>
-                    <td><?php echo $user[$model]['last_name']; ?></td>
-			<td><?php echo $user[$model]['username']; ?></td>
+                    			<td><?php echo $this->Html->link($user[$model]['first_name'], array('action' => 'view', $user[$model]['id'])); ?></td>
+                    			<td><?php echo $this->Html->link($user[$model]['last_name'], array('action' => 'view', $user[$model]['id'])); ?></td>
+
+			<td><?php echo $this->Html->link($user[$model]['username'], array('action' => 'view', $user[$model]['id'])); ?></td>
 			<td><?php echo $user[$model]['created']; ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__d('users', 'View'), array('action' => 'view', $user[$model]['id'])); ?>
-				<?php echo $this->Html->link(__d('users', 'Edit'), array('action' => 'edit', $user[$model]['id'])); ?>
-				<?php echo $this->Html->link(
-					__d('users', 'Delete'),
-					array('action' => 'delete', $user[$model]['id']),
-					null,
-					sprintf(__d('users', 'Are you sure you want to delete # %s?'), $user[$model]['id'])
-				); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
 	</table>
-	<?php echo $this->element('Users.paging'); ?>
+	<?php echo $this->element('Users.pagination'); ?>
+        
+       
+        
+         <?php endif; ?>
 </div>
-<?php //@abrar for admin show admin sidebar?> <?php  if($this->Session->read('Auth.User.is_admin')) : echo $this->element('Users.Users/admin_sidebar');  ?> <?php else: echo $this->element('Users.Users/sidebar');?> <?php endif; ?>
+<?php echo $this->element('Users.Users/admin_sidebar');  ?>

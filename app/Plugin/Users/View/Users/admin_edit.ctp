@@ -17,6 +17,10 @@
 				echo $this->Form->input('id');
 				echo $this->Form->input('username', array(
 					'label' => __d('users', 'Username')));
+                                echo $this->Form->input('first_name', array(
+					'label' => __d('users', 'First Name')));
+                                echo $this->Form->input('last_name', array(
+					'label' => __d('users', 'Last Name')));
 				echo $this->Form->input('email', array(
 					'label' => __d('users', 'Email')));
                 if (!empty($roles)) {
@@ -31,4 +35,4 @@
 		</fieldset>
 	<?php echo $this->Form->end('Submit'); ?>
 </div>
-<?php echo $this->element('Users.Users/admin_sidebar'); ?>
+<?php //@abrar for admin show admin sidebar?> <?php  if($this->Session->read('Auth.User.is_admin')) : echo $this->element('Users.Users/admin_sidebar');  ?> <?php else: echo $this->element('Users.Users/sidebar');?> <?php endif; ?>
