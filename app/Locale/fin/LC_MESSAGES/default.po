@@ -1,0 +1,5 @@
+msgid "MY_PROFILE"
+msgstr "Oma profiili"
+
+msgid "LANGUAGE_CODE"
+msgstr "In English"

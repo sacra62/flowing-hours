@@ -1,13 +1,23 @@
+<h1 class="fleft">
     <?php
-        if (isset($user['User'])) {
-            echo "(Hello " . $user['User']['first_name'] ." ".$user['User']['last_name']. ')';
-            echo $this->Html->link(
-                    'My Profile', array('controller' => 'users', 'action' => 'index'), array('class' => 'marginLR10'));
-            echo $this->Html->link(
-                    'Logout', "/users/logout", array('class' => 'marginLR10'), "Are you sure you want to logout?"
-            );
-        } else {
-//            echo $this->Html->link(
-//                    'Login', array('controller' => 'users', 'action' => 'login'));
-        }
+    echo $this->Html->link(
+            'Flowing Hours', '/', array('class' => 'marginLR10'));
+    ?></h1>
+
+<div class="fleft"><?php
+    $ses_lang = $this->Session->read('Config.language') == "fi" ? "en" : "fi";
+    echo $this->Html->link(
+            __("LANGUAGE_CODE"), array('controller' => 'pages', 'action' => 'display', "?" => array("lang" => $ses_lang)), array('class' => 'marginLR10'));
+    ?></div>
+<div class="fright">
+    <?php
+    if (isset($user['User'])) {
+        echo "(Hello " . $user['User']['first_name'] . " " . $user['User']['last_name'] . ')';
+        echo $this->Html->link(
+                __("MY_PROFILE"), array('controller' => 'users', 'action' => 'index'), array('class' => 'marginLR10'));
+        echo $this->Html->link(
+                'Logout', "/users/logout", array('class' => 'marginLR10'), "Are you sure you want to logout?"
+        );
+    }
     ?>
+</div>

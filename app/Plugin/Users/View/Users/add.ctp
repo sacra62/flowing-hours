@@ -16,6 +16,11 @@
 			echo $this->Form->create($model);
 			echo $this->Form->input('username', array(
 				'label' => __d('users', 'Username')));
+                        echo $this->Form->input('first_name', array(
+					'label' => __d('users', 'First Name'),
+					'error' => array('isValid' => __d('users', 'Must be a valid name'))));
+				echo $this->Form->input('last_name', array(
+					'label' => __d('users', 'Last Name')));
 			echo $this->Form->input('email', array(
 				'label' => __d('users', 'E-mail (used as login)'),
 				'error' => array('isValid' => __d('users', 'Must be a valid email address'),

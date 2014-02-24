@@ -67,7 +67,7 @@ $user = $this->Session->read('Auth');
             <script type="text/javascript" src="js/tasklist.js"></script>
             <script type="text/javascript" src="js/timepicker_addon.js"></script>
             <script type="text/javascript" src="js/energybar.js"></script>
-            
+
             <?php
             //custom css at the end
             echo $this->Html->css('tasklists.css');
@@ -78,17 +78,11 @@ $user = $this->Session->read('Auth');
     <body>
         <div id="container">
             <div id="header">
-                <h1 class="fleft">
-                    <?php
-                    echo $this->Html->link(
-                            'Flowing Hours', '/', array('class' => 'marginLR10'));
-                    ?></h1>
-                <div class="fright"><?php
-                    if (isset($user['User'])) {
-                        //calling on the login bar element /view/elements/login_bar
-                        echo $this->element('login_bar', array("user" => $user));
-                    }
-                    ?></div>
+
+                <?php
+                //calling on the login bar element /view/elements/login_bar
+                echo $this->element('login_bar', array("user" => $user));
+                ?>
             </div>
             <div id="content">
                 <?php echo $this->Session->flash(); ?>
