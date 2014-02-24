@@ -3,22 +3,22 @@
     <div class="settings_container">
         <div class="fleft invisible" >Misc Icons will be here.</div>
         <div class="fright filtercontainer">
-            <div class="fright"><a class="jQbutton">Week Filter</a></div>
-            <div class="fright"><a class="jQbutton">Month Filter</a></div>
-            <div class="fright"><a class="jQbutton">Yearly Filter</a></div>
+            <div class="fright"><a class="jQbutton"><?php echo __("FILTER_WEEK")?></a></div>
+            <div class="fright"><a class="jQbutton"><?php echo __("FILTER_MONTH")?></a></div>
+            <div class="fright"><a class="jQbutton"><?php echo __("FILTER_YEAR")?></a></div>
         </div>
         <div class="energybar fright">
         
         <div class="fleft">
-            <label for="energybar_hours">Energy Level (hours/week):</label>
+            <label for="energybar_hours"><?php echo __("ENERGYLEVEL_HOURSWEEK")?></label>
             <span id="energybar_hours" class="fleft" rel="<?php echo $energyhours ?>"><?php echo $energyhours ?></span>
             <span class="jQbutton fright" id="save_energy" style="display: none;">Save</span>
         </div>
         <div class="energy_def fleft">
             <div id="slider-horizontal" style="height:12px; width:250px"></div>
-            <label class="fleft" id="lbl1" style="color: blue">Low</label><span class="fleft">|</span>
-            <label class="fleft" id="lbl2" style="color: green">Medium</label><span class="fleft">|</span>
-            <label class="fleft" id="lbl3" style="color: red">High</label>
+            <label class="fleft" id="lbl1" style="color: blue"><?php echo __("LOW")?></label><span class="fleft">|</span>
+            <label class="fleft" id="lbl2" style="color: green"><?php echo __("MEDIUM")?></label><span class="fleft">|</span>
+            <label class="fleft" id="lbl3" style="color: red"><?php echo __("HIGH")?></label>
         </div>
         <div class="clear"></div>
         </div>

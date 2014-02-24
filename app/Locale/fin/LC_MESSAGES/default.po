@@ -1,5 +1,132 @@
 msgid "MY_PROFILE"
 msgstr "Oma profiili"
 
+msgid "LOGOUT"
+msgstr "Ulos"
+
 msgid "LANGUAGE_CODE"
-msgstr "In English"
+msgstr "Englaneski"
+
+msgid "LOGOUT_QUESTION"
+msgstr "Oletko varma, että haluat kirjautua ulos?"
+
+msgid "HELLO"
+msgstr "Mories"
+
+msgid "TASKLIST"
+msgstr "Tehtäväluettelo"
+
+msgid "CALENDAR"
+msgstr "Kalenteri"
+
+msgid "PREV_MONTH"
+msgstr "Edellinen kuukausi"
+
+msgid "NEXT_MONTH"
+msgstr "Ensi kuussa "
+
+msgid "VIEW_AGENDA"
+msgstr "Katso esityslistan kohta "
+
+msgid "ADD_TASK"
+msgstr "Lisää tehtävä"
+
+msgid "EDIT"
+msgstr "Muokata"
+
+msgid "DELETE_LIST"
+msgstr "Poista lista"
+
+msgid "FILTER_WEEK"
+msgstr "Viikko suodatin"
+
+msgid "FILTER_MONTH"
+msgstr "Kuukausi suodatin"
+
+msgid "FILTER_YEAR"
+msgstr "Vuosi suodatin"
+
+msgid "ENERGYLEVEL_HOURSWEEK"
+msgstr "Energiataso (tuntia / viikko):"
+
+msgid "LOW"
+msgstr "Alhainen"
+
+msgid "MEDIUM"
+msgstr "Keskikokoinen"
+
+msgid "HIGH"
+msgstr "Korkea"
+
+msgid "NAME_TASK"
+msgstr "Nimeä tehtävä ..."
+
+msgid "DESCRIBE_TASK"
+msgstr "Kuvata sitä ..."
+
+msgid "ESTIMATED_HOURS"
+msgstr "Arvioitu aika:"
+
+msgid "REPORTED_HOURS"
+msgstr "Raportoitu Tunnit:"
+
+msgid "START_DATE"
+msgstr "Aloituspäivä:"
+
+msgid "END_DATE"
+msgstr "Päättymispäivä:"
+
+msgid "SAVE"
+msgstr "Tallentaa"
+
+msgid "CANCEL"
+msgstr "Peruuttaa"
+
+msgid "CONFIRMATION"
+msgstr "Vahvistus"
+
+msgid "CANCEL_MESSAGE_MIDDLEOFSOMETHING"
+msgstr "Olit keskellä, oletko varma että haluat perua?"
+
+
+msgid "OOPS"
+msgstr "Oho"
+
+msgid "MSG_SOMETHINGWENTWRONG"
+msgstr "Jokin meni pieleen, yritä uudelleen."
+
+msgid "MSG_NOT_TOO_FAST"
+msgstr "Ei liian nopeasti"
+
+msgid "MSG_MISSINGVALUES"
+msgstr "Joillakin aloilla on virheellinen / puuttuvat arvot."
+
+msgid "MSG_AREYOUSURE"
+msgstr "Oletko varma?"
+
+msgid "MSG_AREYOUSURE_DELETETASK"
+msgstr "Oletko varma, että haluat poistaa tämän tehtävän?"
+
+msgid "MSG_HEYYOU"
+msgstr "Hei!"
+
+msgid "ALERT"
+msgstr "Alert!"
+
+msgid "MSG_AREYOURSURE_DELETELIST"
+msgstr "Oletko varma, että haluat poistaa tämän listan? Kaikki tehtävät tässä luettelossa poistetaan. Voit aina vetää ja pudottaa tehtäviä toiseen listaan​​."
+
+msgid "MSG_SOMETHING_WENTWRONG"
+msgstr "Jokin meni pieleen"
+
+msgid "ADD_LIST"
+msgstr "Lisää lista ..."
+
+msgid "ADD_TASK"
+msgstr "Lisää tehtävä"
+
+msgid "DELETE"
+msgstr "Poistaa"
+
+msgid "STATUS"
+msgstr "Tila:"

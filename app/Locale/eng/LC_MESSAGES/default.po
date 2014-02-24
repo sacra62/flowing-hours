@@ -1,5 +1,235 @@
 msgid "MY_PROFILE"
 msgstr "My Profile"
 
+msgid "LOGOUT"
+msgstr "Logout"
+
 msgid "LANGUAGE_CODE"
 msgstr "In Finnish"
+
+msgid "LOGOUT_QUESTION"
+msgstr "Are you sure you want to logout?"
+
+msgid "HELLO"
+msgstr "Hello"
+
+msgid "TASKLIST"
+msgstr "Task List"
+
+msgid "CALENDAR"
+msgstr "Calendar"
+
+msgid "PREV_MONTH"
+msgstr "Previous Month"
+
+msgid "NEXT_MONTH"
+msgstr "Next Month"
+
+msgid "VIEW_AGENDA"
+msgstr "View Agenda Item"
+
+msgid "ADD_TASK"
+msgstr "Add a task"
+
+msgid "EDIT"
+msgstr "Edit"
+
+msgid "DELETE_LIST"
+msgstr "Delete List"
+
+msgid "FILTER_WEEK"
+msgstr "Week Filter"
+
+msgid "FILTER_MONTH"
+msgstr "Month Filter"
+
+msgid "FILTER_YEAR"
+msgstr "Yearly Filter"
+
+msgid "ENERGYLEVEL_HOURSWEEK"
+msgstr "Energy Level (hours/week):"
+
+msgid "LOW"
+msgstr "Low"
+
+msgid "MEDIUM"
+msgstr "Medium"
+
+msgid "HIGH"
+msgstr "High"
+
+msgid "NAME_TASK"
+msgstr "Name your task..."
+
+msgid "DESCRIBE_TASK"
+msgstr "Describe it..."
+
+msgid "ESTIMATED_HOURS"
+msgstr "Estimated Hours:"
+
+msgid "REPORTED_HOURS"
+msgstr "Reported Hours:"
+
+msgid "START_DATE"
+msgstr "Start Date:"
+
+msgid "END_DATE"
+msgstr "End Date:"
+
+msgid "SAVE"
+msgstr "Save"
+
+msgid "CANCEL"
+msgstr "Cancel"
+
+msgid "CONFIRMATION"
+msgstr "Confirmation"
+
+msgid "CANCEL_MESSAGE_MIDDLEOFSOMETHING"
+msgstr "You were in the middle of it, are you sure you want to cancel?"
+
+
+msgid "OOPS"
+msgstr "Oops"
+
+msgid "MSG_SOMETHINGWENTWRONG"
+msgstr "Something went wrong, try again."
+
+msgid "MSG_NOT_TOO_FAST"
+msgstr "Not too fast"
+
+msgid "MSG_MISSINGVALUES"
+msgstr "Some fields have invalid/missing values."
+
+msgid "MSG_AREYOUSURE"
+msgstr "Are you sure?"
+
+msgid "MSG_AREYOUSURE_DELETETASK"
+msgstr "Are you sure you want to delete this task?"
+
+msgid "MSG_HEYYOU"
+msgstr "Hey you!"
+
+msgid "ALERT"
+msgstr "Alert!"
+
+msgid "MSG_AREYOURSURE_DELETELIST"
+msgstr "Are you sure you want to delete this list? All the tasks in this list will be removed. You can always drag and drop the tasks to another list."
+
+msgid "MSG_SOMETHING_WENTWRONG"
+msgstr "Something went wrong"
+
+msgid "ADD_LIST"
+msgstr "Add a list…"
+
+msgid "ADD_TASK"
+msgstr "Add a task"
+
+msgid "DELETE"
+msgstr "Delete"
+
+msgid "STATUS"
+msgstr "Status:"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"
+
+msgid "Sttt"
+msgstr "assss"

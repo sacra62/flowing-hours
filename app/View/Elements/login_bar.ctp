@@ -12,11 +12,11 @@
 <div class="fright">
     <?php
     if (isset($user['User'])) {
-        echo "(Hello " . $user['User']['first_name'] . " " . $user['User']['last_name'] . ')';
+        echo "(" .__("HELLO")." ". $user['User']['first_name'] . " " . $user['User']['last_name'] . ')';
         echo $this->Html->link(
                 __("MY_PROFILE"), array('controller' => 'users', 'action' => 'index'), array('class' => 'marginLR10'));
         echo $this->Html->link(
-                'Logout', "/users/logout", array('class' => 'marginLR10'), "Are you sure you want to logout?"
+                __("LOGOUT"), "/users/logout", array('class' => 'marginLR10'), __("LOGOUT_QUESTION")
         );
     }
     ?>

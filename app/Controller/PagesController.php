@@ -145,7 +145,4 @@ class PagesController extends AppController {
 
     }
     
-    function changeLanguage($code=""){
-        
-    }
 }

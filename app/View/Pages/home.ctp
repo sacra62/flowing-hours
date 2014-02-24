@@ -29,15 +29,15 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
 
     <div id="tabs">
         <ul>
-            <li><a href="#tasklist">Task List</a></li>
-            <li><a href="#calendar">Calendar</a></li>
+            <li><a href="#tasklist"><?php echo __("TASKLIST")?></a></li>
+            <li><a href="#calendar"><?php echo __("CALENDAR")?></a></li>
         </ul>
         <div id="calendar">
             <div id="calendar_container" style="margin: auto; width: 100%;">
                 <br>
                 <div id="toolbar" class="ui-widget-header ui-corner-all" >
-                    <button id="BtnPreviousMonth">Previous Month</button>
-                    <button id="BtnNextMonth">Next Month</button>
+                    <button id="BtnPreviousMonth"><?php echo __("PREV_MONTH")?></button>
+                    <button id="BtnNextMonth"><?php echo __("NEXT_MONTH")?></button>
                     &nbsp;&nbsp;&nbsp;
                     Date: <input type="text" id="dateSelect" size="20"/>
                     &nbsp;&nbsp;&nbsp;
@@ -55,7 +55,7 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
             </div>
             <div id="calDebug"></div>
             <?php echo $this->element('add_event_form'); ?>
-            <div id="display-event-form" title="View Agenda Item">
+            <div id="display-event-form" title="<?php echo __("VIEW_AGENDA")?>">
             </div>		
             <p>&nbsp;</p>
         </div><!-- end tab 1 -->
@@ -80,7 +80,7 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
                     $tasklisttitle = '';
                     $realcount = count($data);
                     $end = $realcount - 1;
-                    $endtasklisthtml = '<p><br/><a class="jQbutton newtaskButton" href="javascript:void(0)">Add a task</a></p>';
+                    $endtasklisthtml = '<p><br/><a class="jQbutton newtaskButton" href="javascript:void(0)">'.__("ADD_TASK").'</a></p>';
 
                     foreach ($data as $key => $task):
                         $tmptasklistid = $task['tasklist']['id'];
@@ -88,7 +88,7 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
                         if ($tmptasklistid != $tasklistid) {
                             $tasklistid = $tmptasklistid;
                             $output.='<div class="accordion_container"><div id="accordion-' . $tasklistid . '" class="accordion">';
-                            $tasklisttitle = '<div class="tasklisttitle_container"><h2 id="tasklist_title-' . $tasklistid . '" class="tasklist_title">' . $task['tasklist']['title'] . '</h2><div class="list_controls invisible"><span class="edit_title">Edit</span><span class="remove_list">Delete List</span></div></div>';
+                            $tasklisttitle = '<div class="tasklisttitle_container"><h2 id="tasklist_title-' . $tasklistid . '" class="tasklist_title">' . $task['tasklist']['title'] . '</h2><div class="list_controls invisible"><span class="edit_title">'.__("EDIT").'</span><span class="remove_list">'.__("DELETE_LIST").'</span></div></div>';
                         }
                         else
                             $tasklisttitle = "";
