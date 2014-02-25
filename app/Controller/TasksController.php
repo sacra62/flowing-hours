@@ -246,7 +246,11 @@ class TasksController extends Controller {
         echo json_encode($array);
         die();
     }
-
+    function beforeFilter() {
+        
+        parent::beforeFilter();
+        
+    }
 }
 
 ?>

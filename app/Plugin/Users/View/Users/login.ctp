@@ -21,7 +21,7 @@
        <?php
     $user = $this->Session->read('Auth');
     if (isset($user['User'])) {
-        echo "<h2>Hello ".$user['User']['username'].'</h2>';
+        echo "<h2>".__("HELLO")." ".$user['User']['first_name']." ".$user['User']['last_name'].'</h2>';
     } else {
         ?>   
         <?php echo $this->Session->flash('auth'); ?> 
@@ -33,16 +33,16 @@
                 'action' => 'login',
                 'id' => 'LoginForm'));
             echo $this->Form->input('email', array(
-                'label' => __d('users', 'Email')));
+                'label' => __("EMAIL")));
             echo $this->Form->input('password', array(
-                'label' => __d('users', 'Password')));
+                'label' => __('PASSWORD')));
 
-            echo '<p>' . $this->Form->input('remember_me', array('type' => 'checkbox', 'label' => __d('users', 'Remember Me'))) . '</p>';
-            echo '<p>' . $this->Html->link(__d('users', 'I forgot my password'), array('action' => 'reset_password')) . '</p>';
+            echo '<p>' . $this->Form->input('remember_me', array('type' => 'checkbox', 'label' => __("REMEMBER_ME"))) . '</p>';
+            echo '<p>' . $this->Html->link(__("FORGOT_PASSWORD"), array('action' => 'reset_password')) . '</p>';
 
             echo $this->Form->hidden('User.return_to', array(
                 'value' => '/'));
-            echo $this->Form->end(__d('users', 'Submit'));
+            echo $this->Form->end(__("SUBMIT"));
             ?>
         </fieldset>
          </td>

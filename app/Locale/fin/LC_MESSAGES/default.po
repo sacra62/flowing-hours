@@ -5,7 +5,7 @@ msgid "LOGOUT"
 msgstr "Ulos"
 
 msgid "LANGUAGE_CODE"
-msgstr "Englaneski"
+msgstr "Englaneksi"
 
 msgid "LOGOUT_QUESTION"
 msgstr "Oletko varma, että haluat kirjautua ulos?"

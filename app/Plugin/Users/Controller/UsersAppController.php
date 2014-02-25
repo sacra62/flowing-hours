@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010 - 2013, Cake Development Corporation (http://cakedc.com)
  *
@@ -8,16 +9,19 @@
  * @copyright Copyright 2010 - 2013, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
 /**
  * Users App Controller
  *
  * @package users
  * @subpackage users.controllers
  */
-
 App::uses('AppController', 'Controller');
 
 class UsersAppController extends AppController {
+
+    function beforeFilter() {
+
+        parent::beforeFilter();
+    }
 
 }

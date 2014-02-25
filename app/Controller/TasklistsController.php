@@ -90,7 +90,11 @@ class TasklistsController extends Controller {
             die("1"); //all good
         }
     }
-
+    function beforeFilter() {
+        
+        parent::beforeFilter();
+        
+    }
 }
 
 ?>

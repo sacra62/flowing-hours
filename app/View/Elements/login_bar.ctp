@@ -4,10 +4,11 @@
             'Flowing Hours', '/', array('class' => 'marginLR10'));
     ?></h1>
 
-<div class="fleft"><?php
+<div class="fleft"><?php 
+
     $ses_lang = $this->Session->read('Config.language') == "fi" ? "en" : "fi";
-    echo $this->Html->link(
-            __("LANGUAGE_CODE"), array('controller' => 'pages', 'action' => 'display', "?" => array("lang" => $ses_lang)), array('class' => 'marginLR10'));
+ echo $this->Html->link(
+            __("LANGUAGE_CODE"), FULL_BASE_URL.$this->webroot."index.php?lang=".$ses_lang, array('class' => 'marginLR10'));
     ?></div>
 <div class="fright">
     <?php

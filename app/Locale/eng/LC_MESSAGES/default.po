@@ -131,32 +131,33 @@ msgstr "Delete"
 msgid "STATUS"
 msgstr "Status:"
 
-msgid "Sttt"
-msgstr "assss"
 
-msgid "Sttt"
-msgstr "assss"
+msgid "LOGIN"
+msgstr "Login"
 
-msgid "Sttt"
-msgstr "assss"
+msgid "REGISTER_ACCOUNT"
+msgstr "Register an account"
 
-msgid "Sttt"
-msgstr "assss"
+msgid "EMAIL"
+msgstr "Email"
 
-msgid "Sttt"
-msgstr "assss"
+msgid "PASSWORD"
+msgstr "Password"
 
-msgid "Sttt"
-msgstr "assss"
+msgid "REMEMBER_ME"
+msgstr "Remember me"
 
-msgid "Sttt"
-msgstr "assss"
+msgid "FORGOT_PASSWORD"
+msgstr "I forgot my password"
 
-msgid "Sttt"
-msgstr "assss"
+msgid "SUBMIT"
+msgstr "Submit"
 
-msgid "Sttt"
-msgstr "assss"
+msgid "MY_ACCOUNT"
+msgstr "My Account"
+
+msgid "CHANGE_PASSWORD"
+msgstr "Change password"
 
 msgid "Sttt"
 msgstr "assss"
