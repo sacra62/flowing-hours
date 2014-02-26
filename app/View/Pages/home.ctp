@@ -20,7 +20,7 @@
 //echo $this->Html->script('calendar.custom');
 //@abrar - settings come from the PagesController set in the loadTasks function
 
-$wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpaper." "."wallpaper" : ""; 
+$wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpaper . " " . "wallpaper" : "";
 ?>
 <div class="flowinghours">
 
@@ -29,19 +29,19 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
 
     <div id="tabs">
         <ul>
-            <li><a href="#tasklist"><?php echo __("TASKLIST")?></a></li>
-            <li><a href="#calendar"><?php echo __("CALENDAR")?></a></li>
+            <li><a href="#tasklist"><?php echo __("TASKLIST") ?></a></li>
+            <li><a href="#calendar"><?php echo __("CALENDAR") ?></a></li>
         </ul>
         <div id="calendar">
             <div id="calendar_container" style="margin: auto; width: 100%;">
                 <br>
                 <div id="toolbar" class="ui-widget-header ui-corner-all" >
-                    <button id="BtnPreviousMonth"><?php echo __("PREV_MONTH")?></button>
-                    <button id="BtnNextMonth"><?php echo __("NEXT_MONTH")?></button>
+                    <button id="BtnPreviousMonth"><?php echo __("PREV_MONTH") ?></button>
+                    <button id="BtnNextMonth"><?php echo __("NEXT_MONTH") ?></button>
                     &nbsp;&nbsp;&nbsp;
                     Date: <input type="text" id="dateSelect" size="20"/>
                     &nbsp;&nbsp;&nbsp;
-<!--                    <button id="BtnDeleteAll">Delete All</button>-->
+                    <!--                    <button id="BtnDeleteAll">Delete All</button>-->
                     <!--            <button id="BtnICalTest">iCal Test</button>
                                 <input type="text" id="iCalSource" size="30" value="extra/fifa-world-cup-2010.ics"/>-->
                 </div>
@@ -55,7 +55,7 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
             </div>
             <div id="calDebug"></div>
             <?php echo $this->element('add_event_form'); ?>
-            <div id="display-event-form" title="<?php echo __("VIEW_AGENDA")?>">
+            <div id="display-event-form" title="<?php echo __("VIEW_AGENDA") ?>">
             </div>		
             <p>&nbsp;</p>
         </div><!-- end tab 1 -->
@@ -64,7 +64,7 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
             $totalwidth = "";
             $accordionwidth = 330 + (7 * 2); //width+margins*total lists
             if ($listcount > 0) {
-                $listcount = $listcount+1; //newlist form takes space
+                $listcount = $listcount + 1; //newlist form takes space
                 $allaccordionwidth = $accordionwidth * $listcount;
                 $totalwidth = $allaccordionwidth + 40; //extra padding
                 $totalwidth = 'style="width:' . $totalwidth . 'px"';
@@ -80,15 +80,16 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
                     $tasklisttitle = '';
                     $realcount = count($data);
                     $end = $realcount - 1;
-                    $endtasklisthtml = '<p><br/><a class="jQbutton newtaskButton" href="javascript:void(0)">'.__("ADD_TASK").'</a></p>';
+                    $endtasklisthtml = '<p><br/><a class="jQbutton newtaskButton" href="javascript:void(0)">' . __("ADD_TASK") . '</a></p>';
 
                     foreach ($data as $key => $task):
                         $tmptasklistid = $task['tasklist']['id'];
                         $addending = false;
                         if ($tmptasklistid != $tasklistid) {
                             $tasklistid = $tmptasklistid;
-                            $output.='<div class="accordion_container"><div id="accordion-' . $tasklistid . '" class="accordion">';
-                            $tasklisttitle = '<div class="tasklisttitle_container"><h2 id="tasklist_title-' . $tasklistid . '" class="tasklist_title">' . $task['tasklist']['title'] . '</h2><div class="list_controls invisible"><span class="edit_title">'.__("EDIT").'</span><span class="remove_list">'.__("DELETE_LIST").'</span></div></div>';
+                            $tasklisttitle = '<div class="tasklisttitle_container"><h2 id="tasklist_title-' . $tasklistid . '" class="tasklist_title">' . $task['tasklist']['title'] . '</h2><div class="list_controls invisible"><span class="edit_title">' . __("EDIT") . '</span><span class="remove_list">' . __("DELETE_LIST") . '</span></div></div>';
+
+                            $output.='<div class="accordion_container" id="accordion_container-'.$tasklistid.'">' . $tasklisttitle . '<div id="accordion-' . $tasklistid . '" class="accordion">';
                         }
                         else
                             $tasklisttitle = "";
@@ -103,7 +104,7 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
                         if ($key == $end)
                             $addending = true;
 
-                        $output.= $addending ? $endtasklisthtml . "</div></div>" : "";
+                        $output.= $addending ? "</div>$endtasklisthtml</div>" : "";
 
 
                     endforeach;

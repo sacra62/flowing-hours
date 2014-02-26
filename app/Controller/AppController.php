@@ -41,6 +41,5 @@ class AppController extends Controller {
         Configure::write('Config.language', $lang);
         $this->Session->write('Config.language',$lang);
         
-        
     }
 }

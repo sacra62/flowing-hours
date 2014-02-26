@@ -5,7 +5,7 @@ div.accordion h3.ui-accordion-header{
     font-size: 120%;
     margin-top: 10px;
 }
-div.accordion h2{
+div.accordion_container h2{
     font-size: 130%;
     line-height: 18px;
     margin: 0 10px;
@@ -17,7 +17,7 @@ div.accordion h2{
     display: inline;
     cursor: pointer;
 }
-div.accordion .list_controls{
+div.accordion_container .list_controls{
     float: right;
     margin-right: 10px;
 }
@@ -25,14 +25,14 @@ div.accordion .list_controls{
 .tasklisttitle_container.active .list_controls{
     display: none;
 }
-div.accordion span.edit_title,div.accordion span.remove_list{
+div.accordion_container span.edit_title,div.accordion_container span.remove_list{
     margin-left: 10px;
     font-weight: bold;
     font-size: 110%;
     margin-top: 2px;
     cursor: pointer;
 }
-div.accordion span.edit_title:hover,div.accordion span.remove_list:hover{
+div.accordion_container span.edit_title:hover,div.accordion_container span.remove_list:hover{
     color: green;
 }
 
@@ -47,7 +47,7 @@ div.accordion span.edit_title:hover,div.accordion span.remove_list:hover{
 .accordion_container{
     float: left;
 }
-div.accordion{
+div.accordion_container, #newtasklistcontainer.accordion{
     float: left;
     width: 330px;/*must be the same as in the $accordionwidth variable in the home.ctp*/
     background: #D3DCE3;
@@ -58,6 +58,8 @@ div.accordion{
     margin: 0 7px;
     padding: 4px 3px 3px 3px;
 }
+
+
 div.accordion .task a{
     cursor: pointer;
 }

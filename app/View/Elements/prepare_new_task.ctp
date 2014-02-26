@@ -1,4 +1,4 @@
-<?php if (isset($tasklisttitle)) echo $tasklisttitle; ?>
+<?php // if (isset($tasklisttitle)) echo $tasklisttitle; ?>
 
 <div class="task_container">
     <?php if (!empty($task['id'])): ?>

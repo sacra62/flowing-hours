@@ -1,8 +1,8 @@
 
 
 function resetNewTaskDialog(tasklists_id){
-    $("#accordion-"+tasklists_id).find(".newtask").remove();
-    $("#accordion-"+tasklists_id).find(".newtaskButton").toggle();
+    $("#accordion_container-"+tasklists_id).find(".newtask").remove();
+    $("#accordion_container-"+tasklists_id).find(".newtaskButton").toggle();
     //    $("#newtask textarea, #newtask input.text_edit").each(function() {
     //        $(this).val("");
     //        $(this).css({
@@ -238,12 +238,12 @@ $(function() {
     //            $(".newlistname").val("");
     //        }
     });
-    $(".accordion").on('mouseenter  mouseleave'," .tasklisttitle_container",function(){
+    $(".accordion_container").on('mouseenter  mouseleave',".tasklisttitle_container",function(){
         var $this = $(this);
         $this.find(".list_controls").toggleClass("invisible");
     });
     //this syntax of ON on("click", ".edit_title",function() seems to work with newly added,cloned elements
-    $(".accordion .tasklisttitle_container").on("click", ".edit_title",function(){
+    $(".accordion_container .tasklisttitle_container").on("click", ".edit_title",function(){
         //clone add list form
         //if already has a form open, return
         var $this = $(this);
@@ -265,11 +265,11 @@ $(function() {
         
     });
     
-    $(".accordion .tasklisttitle_container").on("click", ".remove_list",function(){
+    $(".accordion_container .tasklisttitle_container").on("click", ".remove_list",function(){
         //clone add list form
         //if already has a form open, return
         var $this = $(this);
-        var $listid = $this.parents(".accordion").attr("id").replace("accordion-","");
+        var $listid = $this.parents(".accordion_container").attr("id").replace("accordion_container-","");
         var $container = $this.parents(".tasklisttitle_container");
         if($container.hasClass(".active")) return;
         $container.addClass("active")
@@ -294,7 +294,7 @@ $(function() {
                                 _showErrorMsgDialogBox(result);
                             }
                             else{
-                                $this.parents(".accordion").hide('slow');
+                               $this.parents(".accordion_container").hide('slow');
                                 //decrease width
                                 var width = parseInt($("#tasklistcontainer").css("width").replace("px",""));
                                 var totalwidth = width-parseInt($("#accordionwidth").attr("rel"));//can be just picked up dynamically
@@ -319,7 +319,7 @@ $(function() {
         
     });
     
-    $(".accordion .tasklisttitle_container").on("click", ".newlistsave",function(){
+    $(".accordion_container .tasklisttitle_container").on("click", ".newlistsave",function(){
         var parent = $(this).parents(".tasklisttitle_container");
         var listname = parent.find(".newlistname");
         if(listname.val()=="") return false;
@@ -418,8 +418,10 @@ $(function() {
     $("#tasklistcontainer").on("click", ".newtask_save",function(){
         var allGood = true;
         var thistaskbox = $(this).parents(".newtask");
-        var tasklists_id = $(this).parents(".accordion").attr("id").replace("accordion-", "");
-        thistaskbox.find("textarea, input.text_edit").each(function() {
+        var tasklists_id = $(this).parents(".accordion_container").attr("id").replace("accordion_container-", "");
+        //user may not want to enter date or estimated time now, so dont make them mandatory
+        //thistaskbox.find("textarea, input.text_edit").each(function() {
+        thistaskbox.find("textarea").each(function() {
             var val = $(this).val();
             $(this).css({
                 backgroundColor:'transparent'
@@ -491,7 +493,7 @@ $(function() {
             else {
                 
                 //success - add the task to the list
-                $("#accordion-"+tasklists_id).find(".newtaskButton").parent().before(result);
+                $("#accordion_container-"+tasklists_id).find(".accordion").append(result);
                 $("#accordion-"+tasklists_id).accordion( "refresh" );
                 resetNewTaskDialog(tasklists_id);
                 _getEstimatedHoursForAWeek(form);
@@ -505,8 +507,10 @@ $(function() {
 
         var cancel = true;
         var thistaskbox = $(this).parents(".newtask");
-        var tasklists_id = $(this).parents(".accordion").attr("id").replace("accordion-", "");
-        thistaskbox.find("textarea, input.text_edit").each(function() {
+        var tasklists_id = $(this).parents(".accordion_container").attr("id").replace("accordion_container-", "");
+        //only check text area which is title and decription
+        //thistaskbox.find("textarea, input.text_edit").each(function() {
+        thistaskbox.find("textarea").each(function() {
             var val = $(this).val();
             if(val != "" && val != "0" &&  val!=$(this).attr("title")) {
                 cancel = false;
@@ -689,7 +693,10 @@ $(function() {
         var allGood = true;
         var $task = $(this).closest("div.task").attr("id");
         //input[type='text']:not([name='reported_hours'])
-        $("#"+$task+" textarea, #"+$task+" input[type='text']").each(function() {
+        //only check for title and desc- all else is optional. but when dates are entered, do check them 
+        //@TODO - check dates when entered. else not.
+        //$("#"+$task+" textarea, #"+$task+" input[type='text']").each(function() {
+        $("#"+$task+" textarea").each(function() {
             var val = $(this).val();
             $(this).css({
                 backgroundColor:'transparent'

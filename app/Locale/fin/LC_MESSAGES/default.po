@@ -130,3 +130,31 @@ msgstr "Poistaa"
 
 msgid "STATUS"
 msgstr "Tila:"
+
+
+msgid "LOGIN"
+msgstr "Käyttäjätunnus "
+
+msgid "REGISTER_ACCOUNT"
+msgstr "Rekisteröi tili "
+
+msgid "EMAIL"
+msgstr "Sähköposti"
+
+msgid "PASSWORD"
+msgstr "Salasana"
+
+msgid "REMEMBER_ME"
+msgstr "Muista minut"
+
+msgid "FORGOT_PASSWORD"
+msgstr "Olen unohtanut salasanani"
+
+msgid "SUBMIT"
+msgstr "Jatka"
+
+msgid "MY_ACCOUNT"
+msgstr "Oma tilini"
+
+msgid "CHANGE_PASSWORD"
+msgstr "Change password"
