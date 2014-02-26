@@ -36,9 +36,11 @@ class TasksController extends Controller {
             $user = $this->Session->read('Auth');
             $this->request->data['users_id'] = $user['User']['id'];
 
-
             //date time needs to be fixed
+            //dates maybe empty
+            if(!empty($this->request->data['start_date']))
             $this->request->data['start_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['start_date'])));
+            if(!empty($this->request->data['end_date']))
             $this->request->data['end_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['end_date'])));
             $this->Task->create();
             try {
@@ -54,7 +56,9 @@ class TasksController extends Controller {
                     return true;
                 }
             } catch (Exception $e) {
-                return "Field missing";
+                //when doing unit testing - use the return statment 
+                //return "Field missing";
+                die("0");
             }
         }
     }
@@ -163,8 +167,11 @@ class TasksController extends Controller {
             $user = $this->Session->read('Auth');
             $this->request->data['users_id'] = $user['User']['id'];
             //date time needs to be fixed
-            $this->request->data['start_date'] = date("Y-m-d G:i", strtotime(str_replace(",", "", $this->request->data['start_date'])));
-            $this->request->data['end_date'] = date("Y-m-d G:i", strtotime(str_replace(",", "", $this->request->data['end_date'])));
+            //dates maybe empty
+            if(!empty($this->request->data['start_date']))
+            $this->request->data['start_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['start_date'])));
+            if(!empty($this->request->data['end_date']))
+            $this->request->data['end_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['end_date'])));
             if ($newtask = $this->Task->save($this->request->data)) {
                 $newtask['Task']['title'] = $task['task']['title'];
                 $view = new View($this, false);

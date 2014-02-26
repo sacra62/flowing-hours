@@ -1,4 +1,46 @@
-
+//Text to span and span to text script 
+    $.fn.spantoinput = function(id) {
+        
+        var $thisid = $(this).attr("rel");
+        var $thisval = $(this).html();
+        if($thisid=="desc") {
+            var input = $('<textarea />', {
+                'name': $thisid, 
+                'value': $thisval
+                ,
+                'class':'text_edit'
+            }); 
+            input.val($thisval);
+        }else if($thisid=="status"){
+            var checked_done = 'checked="checked"';
+            var checked_notdone= 'checked="checked"';
+            if($thisval=="Unfinished") checked_done = ""; else checked_notdone = "";
+            var input = '<input class="text_edit" type="radio" value="0" '+checked_notdone+' name="'+$thisid+'">Unfinished'+'<input class="text_edit" type="radio" value="1" '+checked_done+'  name="'+$thisid+'">Done';
+        }
+        else{
+            var input = $('<input />', {
+                'type': 'text', 
+                'name': $thisid, 
+                'value': $thisval
+                ,
+                'class':'text_edit'
+            });
+        }
+        
+        $(this).parent().append(input);
+        $(this).remove();
+        if($thisid=="estimated_hours" || $thisid=="reported_hours") input.attr("size","2");
+        if($thisid=="start_date" || $thisid=="end_date") {
+            input.datetimepicker({
+                dateFormat: "d MM, yy",
+                timeFormat: "HH:mm",
+                minDate: 0
+            });
+            if($thisval!="")
+            input.datetimepicker('setDate', $thisval);
+        }
+        if($thisid=="desc")input.focus();
+    };
 
 function resetNewTaskDialog(tasklists_id){
     $("#accordion_container-"+tasklists_id).find(".newtask").remove();
@@ -566,48 +608,7 @@ $(function() {
             });
         }
     }
-    //Text to span and span to text script 
-    $.fn.spantoinput = function(id) {
-        
-        var $thisid = $(this).attr("rel");
-        var $thisval = $(this).html();
-        if($thisid=="desc") {
-            var input = $('<textarea />', {
-                'name': $thisid, 
-                'value': $thisval
-                ,
-                'class':'text_edit'
-            }); 
-            input.val($thisval);
-        }else if($thisid=="status"){
-            var checked_done = 'checked="checked"';
-            var checked_notdone= 'checked="checked"';
-            if($thisval=="Unfinished") checked_done = ""; else checked_notdone = "";
-            var input = '<input class="text_edit" type="radio" value="0" '+checked_notdone+' name="'+$thisid+'">Unfinished'+'<input class="text_edit" type="radio" value="1" '+checked_done+'  name="'+$thisid+'">Done';
-        }
-        else{
-            var input = $('<input />', {
-                'type': 'text', 
-                'name': $thisid, 
-                'value': $thisval
-                ,
-                'class':'text_edit'
-            });
-        }
-        
-        $(this).parent().append(input);
-        $(this).remove();
-        if($thisid=="estimated_hours" || $thisid=="reported_hours") input.attr("size","2");
-        if($thisid=="start_date" || $thisid=="end_date") {
-            input.datetimepicker({
-                dateFormat: "d MM, yy",
-                timeFormat: "HH:mm",
-                minDate: 0
-            });
-            input.datetimepicker('setDate', $thisval);
-        }
-        if($thisid=="desc")input.focus();
-    };
+    
     
     //edit task function - for ajax html to work we need to define a top level scope like the container element
     //or the click wont register

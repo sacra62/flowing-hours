@@ -22,8 +22,8 @@
                         <p><label><?php echo __("ESTIMATED_HOURS")?></label> <span class="text_edit" rel="estimated_hours"><?php echo $task['estimated_hours']; ?></span></p>
                         <p><label><?php echo __("REPORTED_HOURS")?></label> <span class="text_edit" rel="reported_hours"><?php echo empty($task['reported_hours']) ? "0" : $task['reported_hours']; ?></span></p>
                         <hr/>
-                        <p><label><?php echo __("START_DATE")?></label> <span class="text_edit" rel="start_date" class="date"><?php echo $this->Time->format('j F, Y G:i', $task['start_date']); ?></span></p>
-                        <p><label><?php echo __("END_DATE")?></label> <span class="text_edit" rel="end_date" class="date"><?php echo $this->Time->format('j F, Y G:i', $task['end_date']); ?></span></p>
+                        <p><label><?php echo __("START_DATE")?></label> <span class="text_edit" rel="start_date" class="date"><?php if(!empty($task['start_date'])) echo $this->Time->format('j F, Y G:i', $task['start_date']); ?></span></p>
+                        <p><label><?php echo __("END_DATE")?></label> <span class="text_edit" rel="end_date" class="date"><?php if(!empty($task['end_date'])) echo $this->Time->format('j F, Y G:i', $task['end_date']); ?></span></p>
                         <div style="display:none;" class="edittask_controls"><a class="jQbutton edittask_save" href="javascript:void(0)"><?php echo __("SAVE")?></a><a class="jQbutton edittask_cancel" href="javascript:void(0)"><?php echo __("CANCEL")?></a></div>
                         <div class="clear"></div>
                         <input type="hidden" value="<?php echo $task['tasklists_id']; ?>" name="tasklists_id" class="tasklists_id"/>
