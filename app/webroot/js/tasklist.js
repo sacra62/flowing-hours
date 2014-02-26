@@ -208,13 +208,8 @@ function _startAccordion(){
     
     $('.accordion').sortable({
         axis: "y",
-        handle: "h3",
-        stop: function( event, ui ) {
-          // IE doesn't register the blur when sorting
-          // so trigger focusout handlers to remove .ui-state-focus
-          ui.item.children( "h3" ).triggerHandler( "focusout" );
-        }
-    }); // end $('.sortable').sortable
+        handle: "h3"
+    }); 
     //
     //
     //disable sorting when an accordion is active so that the user can not drag and drop it into another accordion
@@ -234,6 +229,31 @@ $(function() {
     
     _startAccordion();
     _init();
+    
+    //setup filter lists
+    $(".filtercontainer").on("click","a",function(){
+        var $this = $(this);
+        var $id = $this.attr("id");
+        var $tasklist = $("#tasklistcontainer");
+        var $filterid = "#filtertype_"+$id;
+        if($this.hasClass("jq_active")){
+            $(".filtercontainer  a.jQbutton").removeClass("jq_active");
+
+            $("#tasklist").find($filterid).toggle();
+            $tasklist.toggle("show");
+
+        }
+        else{
+            $(".filtercontainer  .jQbutton").removeClass("jq_active");
+            $this.addClass("jq_active");
+            $(".filteredlist").hide();
+            $("#tasklist").find($filterid).show();
+            $tasklist.hide();
+        }
+        
+        
+    });
+    
     
     ////list functions
     

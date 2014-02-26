@@ -1,4 +1,3 @@
-<?php if (isset($tasklisttitle)) echo $tasklisttitle; ?>
 <div class="accordion_container" id="accordion_container-<?php echo $tasklist['id']; ?>">
     <div class="tasklisttitle_container">
         <h2 id="tasklist_title-<?php echo $tasklist['id']; ?>" class="tasklist_title"><?php echo $tasklist['title']; ?></h2>

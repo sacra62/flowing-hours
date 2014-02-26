@@ -3,9 +3,9 @@
     <div class="settings_container">
         <div class="fleft invisible" >Misc Icons will be here.</div>
         <div class="fright filtercontainer">
-            <div class="fright"><a class="jQbutton"><?php echo __("FILTER_WEEK")?></a></div>
-            <div class="fright"><a class="jQbutton"><?php echo __("FILTER_MONTH")?></a></div>
-            <div class="fright"><a class="jQbutton"><?php echo __("FILTER_YEAR")?></a></div>
+            <div class="fright"><a class="jQbutton" id="weekly"><?php echo __("FILTER_WEEK")?></a></div>
+            <div class="fright"><a class="jQbutton " id="monthly"><?php echo __("FILTER_MONTH")?></a></div>
+            <div class="fright"><a class="jQbutton " id="yearly"><?php echo __("FILTER_YEAR")?></a></div>
         </div>
         <div class="energybar fright">
         

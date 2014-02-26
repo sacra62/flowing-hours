@@ -60,6 +60,15 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
             <p>&nbsp;</p>
         </div><!-- end tab 1 -->
         <div id="tasklist">
+            <?php 
+            //set filtered data
+            
+            foreach($filtereddata as $filtertitle=>$filter){
+                echo $this->element('prepare_new_filtered_list',array("filtertitle"=>$filtertitle,"filter"=>$filter));
+            }
+            
+            ?>
+            
             <?php
             $totalwidth = "";
             $accordionwidth = 330 + (7 * 2); //width+margins*total lists

@@ -40,7 +40,7 @@ div.accordion_container span.edit_title:hover,div.accordion_container span.remov
     font-weight: bold!important;
     display: inline!important;
 }
-#tasklistcontainer {
+#tasklistcontainer,.filteredlist {
     overflow: auto;
     min-height: 300px;
 }
@@ -62,10 +62,10 @@ div.accordion_container, #newtasklistcontainer.accordion{
 div.accordion{
     padding: 10px 0;
 }
-div.accordion .task a{
+div.accordion .task a,.filtercontainer a{
     cursor: pointer;
 }
-div.accordion .task a:hover{
+div.accordion .task a:hover,.filtercontainer a:hover{
     color: orange;
 }
 div#tasklist{
@@ -128,7 +128,7 @@ div#tasklist{
     padding: 0!important;
 
 }
- 
+
 #tasklistcontainer #newtasklistcontainer.idle:hover{
     background: #D3DCE3;
     cursor: pointer;
@@ -244,4 +244,9 @@ div#tasklist{
     -webkit-transition: padding 150ms ease-in;
     transition: padding 150ms ease-in;
 
+}
+.jq_active{
+    border: 1px solid #AAA;
+    background: #FFF url(images/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x;
+    font-weight: normal;
 }

@@ -128,9 +128,73 @@ class PagesController extends AppController {
 //                ));
         $this->set('listcount', count($tasklists));
 
-
-        //get user settings
         $this->loadModel('Tasks');
+
+        //get filters data
+        $filterdata = $this->Tasks->query("SELECT * FROM tasks WHERE users_id='" . $user['id'] . "' order by start_date");
+        $month = $year = $week = null;
+        
+        
+        $monthly = array();
+        foreach ($filterdata as $row) {
+            $r_month = strtotime($row['tasks']['start_date']);
+            if (empty($r_month)) {
+                    $monthly["Uncategorized"][] = $row['tasks'];
+
+            } else
+            {
+            if ($month != date('m', $r_month) || $year != date('Y', $r_month)) {
+                $month = date('m', $r_month);
+                $year = date('Y', $r_month);
+            }
+            $monthly[date('F Y', $r_month)][] = $row['tasks'];
+            }
+            
+
+        }
+        
+        $month = $year = $week = null;
+        $weekly = array();
+        foreach ($filterdata as $row) {
+            $r_month = strtotime($row['tasks']['start_date']);
+            if (empty($r_month)) {
+                    $weekly["Uncategorized"][] = $row['tasks'];
+
+            } else
+            {
+            if ($week!= date('W', $r_month) || $month != date('m', $r_month) || $year != date('Y', $r_month)) {
+                $month = date('m', $r_month);
+                $year = date('Y', $r_month);
+                $week = date('W', $r_month);
+            }
+            $title = "Week ".$week." ".date('F Y', $r_month);
+            $weekly[$title][] = $row['tasks'];
+            }
+            
+
+        }
+        
+        $yearly = array();
+        $month = $year = $week = null;
+        foreach ($filterdata as $row) {
+            $r_month = strtotime($row['tasks']['start_date']);
+            if (empty($r_month)) {
+                    $yearly["Uncategorized"][] = $row['tasks'];
+
+            } else
+            {
+            if ($year != date('Y', $r_month)) {
+                $year = date('Y', $r_month);
+            }
+            $yearly[date('Y', $r_month)][] = $row['tasks'];
+            }
+            
+
+        }
+        $filtereddata = array("weekly"=>$weekly,"monthly"=>$monthly,"yearly"=>$yearly);
+        //print_r($monthly);exit;
+        $this->set('filtereddata', $filtereddata);
+        //get user settings
         $settings = $this->Tasks->query("SELECT settings FROM users WHERE id='" . $user['id'] . "'");
 
         //if settings exist -json decode
