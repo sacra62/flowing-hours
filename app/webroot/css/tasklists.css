@@ -59,7 +59,9 @@ div.accordion_container, #newtasklistcontainer.accordion{
     padding: 4px 3px 3px 3px;
 }
 
-
+div.accordion{
+    padding: 10px 0;
+}
 div.accordion .task a{
     cursor: pointer;
 }

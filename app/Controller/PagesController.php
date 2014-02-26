@@ -101,35 +101,44 @@ class PagesController extends AppController {
         if (isset($user['User'])) {
             $this->loadTasks($user['User']);
         }
-        
-        
+
+
         parent::beforeFilter();
-        
+    }
+
+    function sortTasks($taska, $taskb) {
+        return $taska['task']['ordering'] - $taskb['task']['ordering'];
     }
 
     function loadTasks($user) {
         $this->loadModel('Tasklist');
-        $userdata = $this->Tasklist->query("SELECT tasklist.*,task.* FROM tasklists tasklist LEFT  JOIN tasks task ON (tasklist.users_id=task.users_id AND task.tasklists_id=tasklist.id AND tasklist.users_id = '".$user['id']."') WHERE tasklist.users_id='".$user['id']."' ORDER BY tasklist.ordering ASC");
- 
-        $this->set('data', $userdata);
+        $tasklists = $this->Tasklist->query("SELECT tasklist.* FROM tasklists tasklist WHERE tasklist.users_id='" . $user['id'] . "' ORDER BY tasklist.ordering ASC");
+
+//        echo "<pre>";
+//        print_r($tasklists);exit;
+        foreach ($tasklists as $key => $list) {
+            $tasklists[$key]["tasks"] = $this->Tasklist->query("SELECT task.* FROM tasks task JOIN tasklists tasklist ON (tasklist.users_id=task.users_id AND task.tasklists_id=tasklist.id AND tasklist.users_id = '" . $user['id'] . "') WHERE task.users_id='" . $user['id'] . "' AND task.tasklists_id=" . $list['tasklist']['id'] . " ORDER BY task.ordering ASC, task.start_date ASC");
+        }
+
+        $this->set('data', $tasklists);
 
         //count the number of total lists
-        $total = $this->Tasklist->find('count', array(
-        'conditions' => array('Tasklist.users_id' => $user['id'])
-    ));
-        $this->set('listcount', $total);
-        
-        
+//        $total = $this->Tasklist->find('count', array(
+//            'conditions' => array('Tasklist.users_id' => $user['id'])
+//                ));
+        $this->set('listcount', count($tasklists));
+
+
         //get user settings
         $this->loadModel('Tasks');
-        $settings = $this->Tasks->query("SELECT settings FROM users WHERE id='".$user['id'] . "'");
-   
-      //if settings exist -json decode
+        $settings = $this->Tasks->query("SELECT settings FROM users WHERE id='" . $user['id'] . "'");
+
+        //if settings exist -json decode
         $settings = $settings[0]['users']['settings'];
         $settings = !empty($settings) ? json_decode($settings) : array();
-        
+
         $this->set('settings', $settings);
-        
+
 //        
 //        $this->loadModel('Tasks');
 //        //$userdata = $this->Tasks->findAllByUsersId($user['id']);
@@ -138,7 +147,6 @@ class PagesController extends AppController {
 ////                       // ,'group'=>   array('Tasks.tasklists_id')
 ////                        ));
 //        
-
     }
-    
+
 }

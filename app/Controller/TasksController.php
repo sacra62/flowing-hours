@@ -38,10 +38,10 @@ class TasksController extends Controller {
 
             //date time needs to be fixed
             //dates maybe empty
-            if(!empty($this->request->data['start_date']))
-            $this->request->data['start_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['start_date'])));
-            if(!empty($this->request->data['end_date']))
-            $this->request->data['end_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['end_date'])));
+            if (!empty($this->request->data['start_date']))
+                $this->request->data['start_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['start_date'])));
+            if (!empty($this->request->data['end_date']))
+                $this->request->data['end_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['end_date'])));
             $this->Task->create();
             try {
                 if ($this->Task->save($this->request->data)) {
@@ -168,10 +168,10 @@ class TasksController extends Controller {
             $this->request->data['users_id'] = $user['User']['id'];
             //date time needs to be fixed
             //dates maybe empty
-            if(!empty($this->request->data['start_date']))
-            $this->request->data['start_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['start_date'])));
-            if(!empty($this->request->data['end_date']))
-            $this->request->data['end_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['end_date'])));
+            if (!empty($this->request->data['start_date']))
+                $this->request->data['start_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['start_date'])));
+            if (!empty($this->request->data['end_date']))
+                $this->request->data['end_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['end_date'])));
             if ($newtask = $this->Task->save($this->request->data)) {
                 $newtask['Task']['title'] = $task['task']['title'];
                 $view = new View($this, false);
@@ -185,20 +185,22 @@ class TasksController extends Controller {
     function updateTaskListBelonging() {
 
         if ($this->request->is('ajax') && count($this->request->data)) {
-
-            $task = $this->Task->findById($this->request->data['id']);
-            if (!$task) {
-                die("task not found"); //something went wrong
-            }
-
+            $tasksordering = $this->request->data['tasks_ordering'];
             $user = $this->Session->read('Auth');
             $this->request->data['users_id'] = $user['User']['id'];
-            try {
-                if ($this->Task->save($this->request->data)) {
-                    die("1");
+            unset($this->request->data['tasks_ordering']);
+            if (is_array($tasksordering)) {
+                foreach ($tasksordering as $key => $taskid) {
+                    $this->request->data['id'] = $taskid;
+                    $this->request->data['ordering'] = $key;
+
+                    try {
+                        $this->Task->save($this->request->data);
+                    } catch (Exception $e) {
+                        die($e->getMessage());
+                    }
                 }
-            } catch (Exception $e) {
-                die($e->getMessage());
+                die("1");
             }
         }
     }
@@ -206,10 +208,6 @@ class TasksController extends Controller {
     function deleteTask() {
         if ($this->request->is('ajax') && count($this->request->data)) {
 
-            $task = $this->Task->findById($this->request->data['id']);
-            if (!$task) {
-                die("0"); //something went wrong
-            }
             if ($this->Task->delete($this->request->data['id'])) {
                 die("1");
             }
@@ -253,11 +251,12 @@ class TasksController extends Controller {
         echo json_encode($array);
         die();
     }
+
     function beforeFilter() {
-        
+
         parent::beforeFilter();
-        
     }
+
 }
 
 ?>

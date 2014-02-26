@@ -1,46 +1,46 @@
 //Text to span and span to text script 
-    $.fn.spantoinput = function(id) {
+$.fn.spantoinput = function(id) {
         
-        var $thisid = $(this).attr("rel");
-        var $thisval = $(this).html();
-        if($thisid=="desc") {
-            var input = $('<textarea />', {
-                'name': $thisid, 
-                'value': $thisval
-                ,
-                'class':'text_edit'
-            }); 
-            input.val($thisval);
-        }else if($thisid=="status"){
-            var checked_done = 'checked="checked"';
-            var checked_notdone= 'checked="checked"';
-            if($thisval=="Unfinished") checked_done = ""; else checked_notdone = "";
-            var input = '<input class="text_edit" type="radio" value="0" '+checked_notdone+' name="'+$thisid+'">Unfinished'+'<input class="text_edit" type="radio" value="1" '+checked_done+'  name="'+$thisid+'">Done';
-        }
-        else{
-            var input = $('<input />', {
-                'type': 'text', 
-                'name': $thisid, 
-                'value': $thisval
-                ,
-                'class':'text_edit'
-            });
-        }
+    var $thisid = $(this).attr("rel");
+    var $thisval = $(this).html();
+    if($thisid=="desc") {
+        var input = $('<textarea />', {
+            'name': $thisid, 
+            'value': $thisval
+            ,
+            'class':'text_edit'
+        }); 
+        input.val($thisval);
+    }else if($thisid=="status"){
+        var checked_done = 'checked="checked"';
+        var checked_notdone= 'checked="checked"';
+        if($thisval=="Unfinished") checked_done = ""; else checked_notdone = "";
+        var input = '<input class="text_edit" type="radio" value="0" '+checked_notdone+' name="'+$thisid+'">Unfinished'+'<input class="text_edit" type="radio" value="1" '+checked_done+'  name="'+$thisid+'">Done';
+    }
+    else{
+        var input = $('<input />', {
+            'type': 'text', 
+            'name': $thisid, 
+            'value': $thisval
+            ,
+            'class':'text_edit'
+        });
+    }
         
-        $(this).parent().append(input);
-        $(this).remove();
-        if($thisid=="estimated_hours" || $thisid=="reported_hours") input.attr("size","2");
-        if($thisid=="start_date" || $thisid=="end_date") {
-            input.datetimepicker({
-                dateFormat: "d MM, yy",
-                timeFormat: "HH:mm",
-                minDate: 0
-            });
-            if($thisval!="")
+    $(this).parent().append(input);
+    $(this).remove();
+    if($thisid=="estimated_hours" || $thisid=="reported_hours") input.attr("size","2");
+    if($thisid=="start_date" || $thisid=="end_date") {
+        input.datetimepicker({
+            dateFormat: "d MM, yy",
+            timeFormat: "HH:mm",
+            minDate: 0
+        });
+        if($thisval!="")
             input.datetimepicker('setDate', $thisval);
-        }
-        if($thisid=="desc")input.focus();
-    };
+    }
+    if($thisid=="desc")input.focus();
+};
 
 function resetNewTaskDialog(tasklists_id){
     $("#accordion_container-"+tasklists_id).find(".newtask").remove();
@@ -177,17 +177,26 @@ function _startAccordion(){
             var content = ui.draggable.next();
             ui.draggable.appendTo(this);
             content.appendTo(this);
-            
             var taskid = ui.draggable.attr("id").replace("task_","");
             //            ui.draggable.addClass("task_container");//somehow this is removed. we need this.
             var tasklistid = ui.draggable.parents(".accordion").attr("id").replace("accordion-","");
+            //get the ids of all the accordion items and save their ordering
+            //$("#accordion").accordion( "refresh" );
+            var $childtasks = $("#task_"+taskid).parents("div.accordion").find("div.task[id^=task]");
+            var array = new Array();
+            $.each($childtasks, function( index, task ) {
+                var $element = $(task).attr("id").replace("task_","");
+                array.push($element);
+            });
+
             $.ajax({
                 type: "POST",
                 url: "tasks/updateTaskListBelonging",
                 dataType: "HTML",
                 data: {
                     "id":taskid,
-                    "tasklists_id":tasklistid
+                    "tasklists_id":tasklistid,
+                    "tasks_ordering":array
                 },
                 success:function( result ) {
                     if(result!="1") _showErrorMsgDialogBox(result);
@@ -198,54 +207,13 @@ function _startAccordion(){
     });
     
     $('.accordion').sortable({
-        start: function(e, ui) {
-            console.log(e);
-console.log(ui);
-console.log("casdasd");
-            container = $(e.target);
-console.log(e);
-console.log(ui);
-return;
-            var parent_id = container.parent().parent().attr('id');
-            expanded_ones = [];
-            var count = 0;
-            var summary = '';
-            var child = '';
-            var active = '';
-
-            // now close all other sections
-            $.each($('#' + parent_id + ' .accordion'), function() {
-                // get the child element since that has the div id I need
-                child = $(this).children('div');
-
-                // get the active information to see if it is open or closed
-                active = $(this).accordion('option', 'active');
-
-                // check to see if this one is expanded
-                if (parseInt(active, 10) == active) {
-                    // store this id so we can open it later
-                    expanded_ones[count] = $(child).attr('id');
-                    count++;
-
-                    // and close the accordion
-                    $(this).accordion({
-                        active: false
-                    });
-                } // end if(parseInt(active) == active)
-            }); // end $.each($('#' + parent_id + ' .accordion'), function()
-        },
-        // end start: function(e, ui)
-        stop: function(e, ui) {
-            container = $(e.target);
-
-            var parent_elem = '';
-
-            // expand the ones that were originally expanded
-            for (var i = 0; i < expanded_ones.length; i++) {
-                parent_elem = $('#' + expanded_ones[i]).parent();
-                $(parent_elem).accordion('option', 'active', 0);
-            } // end for(var i = 0; i < expanded_ones; i++)
-        } // end stop: function(e, ui)
+        axis: "y",
+        handle: "h3",
+        stop: function( event, ui ) {
+          // IE doesn't register the blur when sorting
+          // so trigger focusout handlers to remove .ui-state-focus
+          ui.item.children( "h3" ).triggerHandler( "focusout" );
+        }
     }); // end $('.sortable').sortable
     //
     //
@@ -336,7 +304,7 @@ $(function() {
                                 _showErrorMsgDialogBox(result);
                             }
                             else{
-                               $this.parents(".accordion_container").hide('slow');
+                                $this.parents(".accordion_container").hide('slow');
                                 //decrease width
                                 var width = parseInt($("#tasklistcontainer").css("width").replace("px",""));
                                 var totalwidth = width-parseInt($("#accordionwidth").attr("rel"));//can be just picked up dynamically

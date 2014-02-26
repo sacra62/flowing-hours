@@ -72,39 +72,28 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
             ?>
             <div id="tasklistcontainer" <?php echo $totalwidth ?>>
                 <?php
-                //echo "<pre>";
-                //print_r($data);exit;
+//                echo "<pre>";
+//                print_r($data);
+//                exit;
                 $output = "";
                 if (count($data)):
-                    $tasklistid = $newtaskid = -1;
-                    $tasklisttitle = '';
-                    $realcount = count($data);
-                    $end = $realcount - 1;
-                    $endtasklisthtml = '<p><br/><a class="jQbutton newtaskButton" href="javascript:void(0)">' . __("ADD_TASK") . '</a></p>';
 
-                    foreach ($data as $key => $task):
-                        $tmptasklistid = $task['tasklist']['id'];
-                        $addending = false;
-                        if ($tmptasklistid != $tasklistid) {
-                            $tasklistid = $tmptasklistid;
-                            $tasklisttitle = '<div class="tasklisttitle_container"><h2 id="tasklist_title-' . $tasklistid . '" class="tasklist_title">' . $task['tasklist']['title'] . '</h2><div class="list_controls invisible"><span class="edit_title">' . __("EDIT") . '</span><span class="remove_list">' . __("DELETE_LIST") . '</span></div></div>';
+                    foreach ($data as $key => $tasks):
+                        $tasklistid = $tasks['tasklist']['id'];
 
-                            $output.='<div class="accordion_container" id="accordion_container-'.$tasklistid.'">' . $tasklisttitle . '<div id="accordion-' . $tasklistid . '" class="accordion">';
+                        $tasklisttitle = '<div class="tasklisttitle_container"><h2 id="tasklist_title-' . $tasklistid . '" class="tasklist_title">' . $tasks['tasklist']['title'] . '</h2><div class="list_controls invisible"><span class="edit_title">' . __("EDIT") . '</span><span class="remove_list">' . __("DELETE_LIST") . '</span></div></div>';
+
+                        $output.='<div class="accordion_container" id="accordion_container-' . $tasklistid . '">' . $tasklisttitle . '<div id="accordion-' . $tasklistid . '" class="accordion">';
+
+
+
+                        foreach ($tasks['tasks'] as $task) {
+                            $output.= $this->element('prepare_new_task', array("task" => $task['task'], "edit" => true));
                         }
-                        else
-                            $tasklisttitle = "";
 
-                        $tasklistid = $task['tasklist']['id'];
-                        $output.= $this->element('prepare_new_task', array("tasklisttitle" => $tasklisttitle, "task" => $task['task'], "edit" => true));
+                        $endtasklisthtml = '<p><br/><a class="jQbutton newtaskButton" href="javascript:void(0)">' . __("ADD_TASK") . '</a></p>';
 
-                        //for every ending tasklist container
-                        if ($realcount > 0 && $key > 0 && $key != $end)
-                            $addending = $data[$key + 1]['tasklist']['id'] != $tmptasklistid ? true : false;
-                        //for the ending tasklist container
-                        if ($key == $end)
-                            $addending = true;
-
-                        $output.= $addending ? "</div>$endtasklisthtml</div>" : "";
+                        $output.= "</div>$endtasklisthtml</div>";
 
 
                     endforeach;
