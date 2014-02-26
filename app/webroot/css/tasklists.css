@@ -36,7 +36,7 @@ div.accordion_container span.edit_title:hover,div.accordion_container span.remov
     color: green;
 }
 
-#tasklistcontainer  label{
+#tasklist  label{
     font-weight: bold!important;
     display: inline!important;
 }
@@ -71,19 +71,19 @@ div.accordion .task a:hover,.filtercontainer a:hover{
 div#tasklist{
     overflow: auto;/*for scrollbar*/
 }
-#tasklistcontainer hr{
+#tasklist hr{
     margin-bottom: 10px;
 }
-#tasklistcontainer .newtask{
+#tasklist .newtask{
     padding: 1em 2.2em;
     overflow: auto;
     width: 280px;
     margin: 10px 0;
 }
-#tasklistcontainer .hasDatepicker{
+#tasklist .hasDatepicker{
     width: 168px;
 }
-#tasklistcontainer input[type=radio]{
+#tasklist input[type=radio]{
     float: none;
     margin: 0 5px;
 }

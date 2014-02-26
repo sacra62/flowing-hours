@@ -14,7 +14,7 @@
                     <?php if (!empty($task['id'])): ?>
                         <div class="task_container">
 
-                            <div class="task" id="task_<?php echo $task['id']; ?>" >
+                            <div class="task" id="filtered_task_<?php echo $task['id']; ?>" >
 
                                 <h3><?php echo $task['title']; ?></h3>
                                 <div>
@@ -23,7 +23,7 @@
                                             <input type="hidden" value="<?php echo $task['id']; ?>" name="id">
                                             <?php
                                             if (isset($edit)) {
-                                                echo '<p><a class="jQbutton  task_edit" id="task_edit_' . $task['id'] . '">' . __("EDIT") . '</a> <a class="jQbutton  task_delete" id="task_delete_' . $task['id'] . '">' . __("DELETE") . '</a></p>';
+                                                echo '<p><a class="jQbutton  task_edit" id="filtered_task_edit_' . $task['id'] . '">' . __("EDIT") . '</a> <a class="jQbutton  task_delete" id="task_delete_' . $task['id'] . '">' . __("DELETE") . '</a></p>';
                                             }
                                             ?>
                                             <p>
