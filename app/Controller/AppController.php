@@ -37,7 +37,7 @@ class AppController extends Controller {
     function beforeFilter() {
         //change the language
         $ses_lang =  $this->Session->read('Config.language');
-        $lang = isset($this->request->query['lang']) ? $this->request->query['lang'] : (!empty($ses_lang)? $ses_lang : "en_us");
+        $lang = isset($this->request->query['lang']) ? $this->request->query['lang'] : (!empty($ses_lang)? $ses_lang : "en");
         Configure::write('Config.language', $lang);
         $this->Session->write('Config.language',$lang);
         
