@@ -1,0 +1,14 @@
+/* 
+    Document   : settings
+    Created on : Feb 27, 2014, 12:11:19 PM
+    Author     : Henry
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+.usersettings input{
+    width: 20px;
+    float: none;
+}
+

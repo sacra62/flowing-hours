@@ -159,12 +159,12 @@ msgstr "My Account"
 msgid "CHANGE_PASSWORD"
 msgstr "Change password"
 
-msgid "Sttt"
-msgstr "assss"
+msgid "PERSONALITY_QUESTIONNAIRE"
+msgstr "Personality Questionnaire"
 
 
-msgid "Sttt"
-msgstr "assss"
+msgid "SETTINGS"
+msgstr "Settings"
 
 msgid "Sttt"
 msgstr "assss"

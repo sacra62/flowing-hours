@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Application level Controller
  *
@@ -32,14 +33,21 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+
     public $components = array('DebugKit.Toolbar');
-    
+
     function beforeFilter() {
+        @$this->Security->unlockedActions = array('saveSettings');
+        //$this->Session = new SessionHandler();
         //change the language
-        $ses_lang =  $this->Session->read('Config.language');
-        $lang = isset($this->request->query['lang']) ? $this->request->query['lang'] : (!empty($ses_lang)? $ses_lang : "en");
+        
+        $ses_lang = $this->Session->read('Config.language');
+        $lang = isset($this->request->query['lang']) ? $this->request->query['lang'] : (!empty($ses_lang) ? $ses_lang : "en");
         Configure::write('Config.language', $lang);
-        $this->Session->write('Config.language',$lang);
+        $this->Session->write('Config.language', $lang);
+        
         
     }
+    
+    
 }

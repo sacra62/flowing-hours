@@ -157,4 +157,10 @@ msgid "MY_ACCOUNT"
 msgstr "Oma tilini"
 
 msgid "CHANGE_PASSWORD"
-msgstr "Change password"
+msgstr "Vaihda salasana"
+
+msgid "PERSONALITY_QUESTIONNAIRE"
+msgstr "Persoonallisuusmittariin"
+
+msgid "SETTINGS"
+msgstr "Asetukset"

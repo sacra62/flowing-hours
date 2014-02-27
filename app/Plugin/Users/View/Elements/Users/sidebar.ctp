@@ -9,6 +9,7 @@
 			<li><?php echo $this->Html->link(__('MY_ACCOUNT'), array('action' => 'edit',$this->Session->read('Auth.User.id')));?>
 			<li><?php echo $this->Html->link(__('CHANGE_PASSWORD'), array('action' => 'change_password')); ?>
 		<?php endif ?>
-		
+		<li><?php echo $this->Html->link(__('SETTINGS'), array('action' => 'settings')); ?></li>
+
 	</ul>
 </div>

@@ -238,15 +238,13 @@ class UsersController extends UsersAppController {
      */
     public function index() {
         if ($this->Session->read('Auth.User.is_admin')) :
-                    $this->set('users', $this->Paginator->paginate($this->modelClass));
+            $this->set('users', $this->Paginator->paginate($this->modelClass));
 
             $this->render("/users/index_admin");
         else:
             $this->render("/users/index");
         endif;
     }
-
-   
 
     /**
      * The homepage of a users giving him an overview about everything
@@ -256,6 +254,67 @@ class UsersController extends UsersAppController {
     public function dashboard() {
         $user = $this->{$this->modelClass}->read(null, $this->Auth->user('id'));
         $this->set('user', $user);
+    }
+
+    /**
+     * 
+     *
+     * @return void
+     */
+    public function settings() {
+        //will fetch user settings and show here, including calendar wallpaper, app wallpaper, user peronality etc
+        $db = ConnectionManager::getDataSource("default");
+        $query = 'SELECT * FROM user_preference ORDER BY ordering';
+        $questions = $db->fetchAll($query);
+        $this->set('questions', $questions);
+        
+        
+        $user = $this->Session->read('Auth');
+        $settings = $this->User->query("SELECT settings FROM users WHERE id='" . $user['User']['id'] . "'");
+        //if settings exist -json decode
+        $settings = $settings[0]['users']['settings'];
+        $settings = !empty($settings) ? json_decode($settings) : array();
+        $this->set('settings', (array)$settings);
+        
+    }
+/**
+     * takes userid, and an array of settings with value pair
+     */
+    function adjustUserSettings($userid, $dupsetting) {
+
+        $this->loadModel('User');
+        $olduser = $this->User->findById($userid);
+        $settings = $olduser['User']['settings'];
+        $settings = !empty($settings) ? $settings : array();
+
+        //updating
+        $settings = (array) json_decode($settings);
+        foreach ($dupsetting as $key => $set) {
+            $settings[$key] = $set;
+        }
+
+
+        return json_encode($settings);
+    }
+
+    /**
+     * The homepage of a users giving him an overview about everything
+     *
+     * @return void
+     */
+    public function saveSettings() {
+        
+        $user = $this->Session->read('Auth');
+        $olduser = $this->User->findById($user['User']['id']);
+        if (count($this->request->data)) {
+           
+            $settings = $this->adjustUserSettings($user['User']['id'], $this->request->data);
+            $olduser['User']['settings'] = $settings;
+            if ($olduserupdated = $this->User->save($olduser)) {
+                die("1"); //something went wrong
+            }
+        }
+        die("0");
     }
 
     /**
@@ -280,7 +339,7 @@ class UsersController extends UsersAppController {
      * @return void
      */
     public function edit($userId = null) {
-         try {
+        try {
             $result = $this->{$this->modelClass}->edit($userId, $this->request->data);
             if ($result === true) {
                 $this->Session->setFlash(__d('users', 'User saved'));
