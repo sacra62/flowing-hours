@@ -402,7 +402,7 @@ form .error-message {
 .message {
 	clear: both;
 	color: #fff;
-	font-size: 140%;
+	font-size: 100%;
 	font-weight: bold;
 	margin: 0 0 1em 0;
 	padding: 5px;

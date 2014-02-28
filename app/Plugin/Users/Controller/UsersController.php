@@ -206,7 +206,7 @@ class UsersController extends UsersAppController {
             return;
         }
 
-        $this->Auth->allow('add', 'reset', 'verify', 'logout', 'view', 'reset_password', 'login', 'resend_verification');
+        $this->Auth->allow('saveSettings', 'add', 'reset', 'verify', 'logout', 'view', 'reset_password', 'login', 'resend_verification');
 
         if (!is_null(Configure::read('Users.allowRegistration')) && !Configure::read('Users.allowRegistration')) {
             $this->Auth->deny('add');
@@ -226,6 +226,7 @@ class UsersController extends UsersAppController {
                     $this->modelClass . '.active' => 1,
                     $this->modelClass . '.email_verified' => 1)));
 
+
         $this->Auth->loginRedirect = '/';
         $this->Auth->logoutRedirect = array('plugin' => Inflector::underscore($this->plugin), 'controller' => 'users', 'action' => 'login');
         $this->Auth->loginAction = array('admin' => false, 'plugin' => Inflector::underscore($this->plugin), 'controller' => 'users', 'action' => 'login');
@@ -238,12 +239,12 @@ class UsersController extends UsersAppController {
      */
     public function index() {
         if ($this->Session->read('Auth.User.is_admin')) :
-            $this->set('users', $this->Paginator->paginate($this->modelClass));
-
-            $this->render("/users/index_admin");
-        else:
-            $this->render("/users/index");
+            $this->redirect(array('action' => 'index_admin'));
         endif;
+    }
+
+    public function index_admin() {
+        $this->set('users', $this->Paginator->paginate($this->modelClass));
     }
 
     /**
@@ -267,17 +268,17 @@ class UsersController extends UsersAppController {
         $query = 'SELECT * FROM user_preference ORDER BY ordering';
         $questions = $db->fetchAll($query);
         $this->set('questions', $questions);
-        
-        
+
+
         $user = $this->Session->read('Auth');
         $settings = $this->User->query("SELECT settings FROM users WHERE id='" . $user['User']['id'] . "'");
         //if settings exist -json decode
         $settings = $settings[0]['users']['settings'];
         $settings = !empty($settings) ? json_decode($settings) : array();
-        $this->set('settings', (array)$settings);
-        
+        $this->set('settings', (array) $settings);
     }
-/**
+
+    /**
      * takes userid, and an array of settings with value pair
      */
     function adjustUserSettings($userid, $dupsetting) {
@@ -303,11 +304,11 @@ class UsersController extends UsersAppController {
      * @return void
      */
     public function saveSettings() {
-        
+
         $user = $this->Session->read('Auth');
         $olduser = $this->User->findById($user['User']['id']);
         if (count($this->request->data)) {
-           
+
             $settings = $this->adjustUserSettings($user['User']['id'], $this->request->data);
             $olduser['User']['settings'] = $settings;
             if ($olduserupdated = $this->User->save($olduser)) {
@@ -570,11 +571,14 @@ class UsersController extends UsersAppController {
 
                 $this->{$this->modelClass}->id = $this->Auth->user('id');
                 $this->{$this->modelClass}->saveField('last_login', date('Y-m-d H:i:s'));
-
+                
+                //send admin to the admin interface
+                $this->Auth->loginRedirect = $this->Auth->user('is_admin') ? '/users/index' : "/";
+                 
                 if ($this->here == $this->Auth->loginRedirect) {
                     $this->Auth->loginRedirect = '/';
                 }
-                $this->Session->setFlash(sprintf(__d('users', '%s you have successfully logged in'), $this->Auth->user('username')));
+                $this->Session->setFlash(sprintf(__d('users', '%s you have successfully logged in'), $this->Auth->user('first_name') . " " . $this->Auth->user('last_name')));
                 if (!empty($this->request->data)) {
                     $data = $this->request->data[$this->modelClass];
                     if (empty($this->request->data[$this->modelClass]['remember_me'])) {
@@ -664,7 +668,7 @@ class UsersController extends UsersAppController {
             $this->Cookie->destroy();
         }
         $this->RememberMe->destroyCookie();
-        $this->Session->setFlash(sprintf(__d('users', '%s you have successfully logged out'), $user[$this->{$this->modelClass}->displayField]));
+        $this->Session->setFlash(sprintf(__d('users', '%s you have successfully logged out'), $user['first_name'] . " " . $user['last_name']));
         $this->redirect($this->Auth->logout());
     }
 
