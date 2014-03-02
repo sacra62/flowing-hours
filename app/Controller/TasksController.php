@@ -108,10 +108,10 @@ class TasksController extends Controller {
             $stardate2 = date('Y-m-d', strtotime($year . "W" . $weeknumber . 7));
 
             $db = ConnectionManager::getDataSource("default");
-            $query = 'SELECT SUM(estimated_hours) as estimatdhours FROM tasks WHERE users_id="' . $user['User']['id'] . '" AND start_date BETWEEN "' . $stardate1 . '" AND "' . $stardate2 . '"';
+            $query = 'SELECT SUM(estimated_hours) as estimatedhours FROM tasks WHERE users_id="' . $user['User']['id'] . '" AND start_date BETWEEN "' . $stardate1 . '" AND "' . $stardate2 . '"';
             $totalhours = $db->fetchAll($query);
 
-            echo $totalhours[0][0]['estimatdhours'];
+            echo $totalhours[0][0]['estimatedhours'];
             exit;
         }
     }
