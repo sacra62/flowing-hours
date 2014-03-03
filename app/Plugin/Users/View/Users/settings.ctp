@@ -37,5 +37,6 @@ echo $this->Html->script('settings.js');
 <?php
 //all the settings are here:
 echo $this->element('Users.Settings/personality');
+echo $this->element('Users.Settings/calendar');
 ?>
 

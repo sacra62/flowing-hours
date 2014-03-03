@@ -215,3 +215,27 @@ msgstr "Sukunimi"
 msgid "E-mail (used as login)"
 msgstr "Sähköposti (käytetään sisään)"
 
+##for these feedabck, best is to store strings in the DB like FEEDBACK_GREATJOB 
+msgid "Great job!"
+msgstr "Hyvin tehty!"
+
+msgid "Wow, you have really got things done!"
+msgstr "Vau, oletpa ollut toimelijas!"
+
+msgid "It seems you have lots of work and no breaks. How about a break now?"
+msgstr "Sinulla näyttää olevan paljon töitä eikä yhtään taukoja. Pitäisikö sinun pitää tauko nyt?"
+
+msgid "You haven't checked on your tasks. Do you have too much to do?"
+msgstr "Et ole saanut tehtäviäsi tehtyä. Onko sinulla liikaa tekemistä?"
+
+msgid "Hey, you are doing really great!"
+msgstr "Hei, sinulla menee todella hyvin!"
+
+msgid "Is everything alright? Have you been sick or something? If yes, we sympethize with you."
+msgstr "Onko kaikki kunnossa? Oletko ollut sairaana? Jos kyllä, paranemisia."
+
+msgid "You still need plenty of work to do."
+msgstr "Sinulla on vielä paljon tekemistä."
+
+msgid "Push more, before the weekend, you can complete remaining %d hours"
+msgstr "Jos vielä tsemppaat, saat suoritettua jäljellä olevat d% tuntia."

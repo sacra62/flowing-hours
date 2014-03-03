@@ -8,39 +8,33 @@
  * @copyright Copyright 2010 - 2013, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+App::uses('Folder', 'Utility');
+App::uses('File', 'Utility');
+$wallpapersFolder = new Folder('img/wallpapers');
+$wallpapers = $wallpapersFolder->find('.*\.jpg');
+$usersettings = $this->Session->read('Auth.User.settings');
+$usersettings = (array) json_decode($usersettings);
 ?>
-<div class="users form">
-	<h2><?php echo __d('users', 'Add User'); ?></h2>
-	<fieldset>
-		<?php
-			echo $this->Form->create($model);
-			echo $this->Form->input('username', array(
-				'label' => __d('users', 'Username')));
-                        echo $this->Form->input('first_name', array(
-					'label' => __d('users', 'First Name'),
-					'error' => array('isValid' => __d('users', 'Must be a valid name'))));
-				echo $this->Form->input('last_name', array(
-					'label' => __d('users', 'Last Name')));
-			echo $this->Form->input('email', array(
-				'label' => __d('users', 'E-mail (used as login)'),
-				'error' => array('isValid' => __d('users', 'Must be a valid email address'),
-				'isUnique' => __d('users', 'An account with that email already exists'))));
-			echo $this->Form->input('password', array(
-				'label' => __d('users', 'Password'),
-				'type' => 'password'));
-			echo $this->Form->input('temppassword', array(
-				'label' => __d('users', 'Password (confirm)'),
-				'type' => 'password'));
-			$tosLink = $this->Html->link(__d('users', 'Terms of Service'), array('controller' => 'pages', 'action' => 'tos', 'plugin' => null));
-			echo $this->Form->input('tos', array(
-				'label' => __d('users', 'I have read and agreed to ') . $tosLink));
-			echo $this->Form->end(__d('users', 'Submit'));
-		?>
-	</fieldset>
+<div class=" calendar usersettings" id="calendar" style="display: none">
+    <h2><?php echo __('Calendar Wallpaper'); ?></h2>
+    <form id="calendar_form" action="">
+        <?php
+        foreach ($wallpapers as $wall) {
+            ?>
+            <div>
+                <?php
+                $walltitle = explode(".", $wall);
+                $uservalue = $walltitle[0] == $usersettings['calendar_wallpaper'] ? ' checked ="checked"' : "";
+                ?>
+                <input type="radio" <?php echo $uservalue ?> value="<?php echo $walltitle[0] ?>" name="calendar_wallpaper" />
+
+
+            </div>   
+
+    <?php
+}
+?>
+    </form>
 </div>
-<?php //@abrar for admin show admin sidebar?>
-<?php 
-if($this->Session->read('Auth.User.is_admin')) : echo $this->element('Users.Users/admin_sidebar');  ?>
-<?php else: echo $this->element('Users.Users/sidebar');?>
-<?php endif; ?>
+
 

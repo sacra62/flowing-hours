@@ -571,7 +571,7 @@ class User extends UsersAppModel {
             $postData[$this->alias]['password'] = $this->hash($postData[$this->alias]['password'], 'sha1', true);
             //@abrar add default values
 
-            $postData[$this->alias]['settings'] = '{"energy_hours":"25","calendar_wallpaper":"scenica","g_energy_hours":"40","g_punctual":"1"}';
+            $postData[$this->alias]['settings'] = '{"energy_hours":"25","calendar_wallpaper":"scenica","app_theme":"scenica","g_energy_hours":"40","g_punctual":"1"}';
 
             $this->create();
             $this->data = $this->save($postData, false);
