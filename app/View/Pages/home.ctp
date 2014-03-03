@@ -39,7 +39,7 @@ $wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpape
                     <button id="BtnPreviousMonth"><?php echo __("PREV_MONTH") ?></button>
                     <button id="BtnNextMonth"><?php echo __("NEXT_MONTH") ?></button>
                     &nbsp;&nbsp;&nbsp;
-                    Date: <input type="text" id="dateSelect" size="20"/>
+                    <?php echo __("DATE") ?>: <input type="text" id="dateSelect" size="20"/>
                     &nbsp;&nbsp;&nbsp;
                     <!--                    <button id="BtnDeleteAll">Delete All</button>-->
                     <!--            <button id="BtnICalTest">iCal Test</button>

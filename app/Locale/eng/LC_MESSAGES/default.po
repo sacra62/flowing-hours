@@ -183,6 +183,9 @@ msgid "NO"
 msgstr "No"
 msgid "WEEK"
 msgstr "Week"
+msgid "DATE"
+msgstr "Date"
+
 
 msgid "Sttt"
 msgstr "assss"

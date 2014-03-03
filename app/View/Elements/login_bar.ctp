@@ -1,9 +1,4 @@
-<script>
-//some translations
-var __unfinished="<?php echo __("Unfinished")?>";
-var __done="<?php echo __("Done")?>";
 
-</script>
 
 <h1 class="fleft">
     <?php

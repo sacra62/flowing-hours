@@ -51,7 +51,6 @@
 
 	// keep track of options for each instance
 	var allOptions = new Array();
-	
 	// using jshashset.js library
 	var myCalendars = new Hashtable();
 	
@@ -2830,6 +2829,7 @@
 		 @ @return number - Index of day within the week.
 		 */
 		this.getWeekIndex = function(dayName){
+                    console.log(__days);console.log("adasd");
 			if(dayName.toUpperCase() == "SUN" || dayName.toUpperCase() == "SUNDAY"){
 				return 0;
 			}else if(dayName.toUpperCase() == "MON" || dayName.toUpperCase() == "MONDAY"){
@@ -2851,7 +2851,10 @@
 	
 	};
 	// static properties
-	Calendar.dayNames = new Array("Sun","Mon","Tue","Wed","Thu","Fri","Sat");
+        // //@abrar added language specific days
+	//Calendar.dayNames = new Array("Sun","Mon","Tue","Wed","Thu","Fri","Sat");
+        Calendar.dayNames = __daysshort; //defined in default.php layout
+        //console.log(Calendar.dayNames);
 	/**
 	 * Sort function for sorting agenda items by start date.
 	 *

@@ -30,7 +30,8 @@ $(document).ready(function(){
         dataType: "json",
         type: "POST",
         url: "tasks/loadTasks",                                        //the code behind method
-        success: function(data) {      
+        success: function(data) {   
+            
             //using the value returned by the code behind in a for loop to print all the existing events from the DB
             for (var i = 0; i < data.length; i++) {
                 var stdate = new Date(data[i].Task.start_date.toString());   //Retrieving the startdate
@@ -42,7 +43,9 @@ $(document).ready(function(){
                 //                    if (allDay == "true")
                 //                        alldayValue = true;
 
-
+                //format date according to locale
+                data[i].Task.start_date = stdate.toLocaleString(__locale, __dateformat_options);
+                data[i].Task.end_date = endate.toLocaleString(__locale, __dateformat_options);
 
                 jfcalplugin.addAgendaItem(                  //This is the method that adds the event to the calander. Refer the documentation for more details of this method
                     "#mycal",                                      //The Div element for my calander
@@ -96,7 +99,8 @@ $(document).ready(function(){
         if(divElm.data("qtip")){
             divElm.qtip("destroy");
         }
-		
+        
+
         var displayData = "";
         var data = agendaItem.data;
 
@@ -109,10 +113,12 @@ $(document).ready(function(){
         if(allDay){
             displayData += "(All day event)<br><br>";
         }else{
-            displayData += "<b>Starts:</b> " + startDate + "<br><br>" + "<b>Ends:</b> " + endDate + "<br><br>";
-            displayData += "<b>Status:</b> " + (data.task.status=="0" ? "Unfinished": "Done")+ "<br><br>";
-            displayData += "<b>Estimated Hours:</b> " + data.task.estimated_hours+ "<br><br>";
-            displayData += "<b>Reported Hours:</b> " + data.task.reported_hours+ "<br><br>";
+            displayData+="<b>"+__calendarstrings['Starts']+"</b> " + startDate + "<br><br>" +
+            "<b>"+__calendarstrings['Ends']+"</b> " + endDate + "<br><br>"
+            + "<b>"+__calendarstrings['STATUS']+"</b> " + (data.task.status=="0" ? __calendarstrings['Unfinished']: __calendarstrings['Done'])+ "<br><br>"
+            + "<b>"+__calendarstrings['ESTIMATED_HOURS']+"</b> " + data.task.estimated_hours+ "<br><br>"
+            +"<b>"+__calendarstrings['REPORTED_HOURS']+"</b> " + data.task.reported_hours+ "<br><br>";
+            
         }
         //        for (var propertyName in data) {
         //            displayData += "<b>" + propertyName + ":</b> " + data[propertyName] + "<br>"
@@ -219,18 +225,23 @@ $(document).ready(function(){
     /**
 	 * Initialize jquery ui datepicker. set date format to yyyy-mm-dd for easy parsing
 	 */
+    
+    //$("#dateSelect").datepicker($.datepicker.regional["fr"]); 
+//    $( "#dateSelect" ).datepicker( "option",
+//        $.datepicker.regional[__localecode]);
     $("#dateSelect").datepicker({
         showOtherMonths: true,
         selectOtherMonths: true,
         changeMonth: true,
         changeYear: true,
         showButtonPanel: true,
-        dateFormat: 'yy-mm-dd'
+        dateFormat: "dd-mm-yy"//        dateFormat: "d MM, yy"
     });
-	
     /**
 	 * Set datepicker to current date
 	 */
+       
+    
     $("#dateSelect").datepicker('setDate', new Date());
     /**
 	 * Use reference to plugin object to a specific year/month
@@ -238,12 +249,12 @@ $(document).ready(function(){
     $("#dateSelect").bind('change', function() {
         var selectedDate = $("#dateSelect").val();
         var dtArray = selectedDate.split("-");
-        var year = dtArray[0];
+        var year = dtArray[2];
         // jquery datepicker months start at 1 (1=January)		
         var month = dtArray[1];
         // strip any preceeding 0's		
         month = month.replace(/^[0]+/g,"")		
-        var day = dtArray[2];
+        var day = dtArray[0];
         // plugin uses 0-based months so we subtrac 1
         jfcalplugin.showMonth("#mycal",year,parseInt(month-1).toString());
     });	
@@ -498,7 +509,7 @@ $(document).ready(function(){
                     url: 'tasks/setEditTaskIdInSession',
                     data:{
                         "editTaskId":$(this).find(".editaskid").attr("rel")
-                        },
+                    },
                     success:function(data){
                         window.location.href = "#tasklist";
                         location.reload();
@@ -537,11 +548,11 @@ $(document).ready(function(){
                         );				
                 }else{
                     $("#display-event-form").append(
-                        "<b>Starts:</b> " + startDate + "<br><br>" +
-                        "<b>Ends:</b> " + endDate + "<br><br>"
-                        + "<b>Status:</b> " + (data.task.status=="0" ? "Unfinished": "Done")+ "<br><br>"
-                        + "<b>Estimated Hours:</b> " + data.task.estimated_hours+ "<br><br>"
-                        +"<b>Reported Hours:</b> " + data.task.reported_hours+ "<br><br>"
+                        "<b>"+__calendarstrings['Starts']+"</b> " + startDate + "<br><br>" +
+                        "<b>"+__calendarstrings['Ends']+"</b> " + endDate + "<br><br>"
+                        + "<b>"+__calendarstrings['STATUS']+"</b> " + (data.task.status=="0" ? __calendarstrings['Unfinished']: __calendarstrings['Done'])+ "<br><br>"
+                        + "<b>"+__calendarstrings['ESTIMATED_HOURS']+"</b> " + data.task.estimated_hours+ "<br><br>"
+                        +"<b>"+__calendarstrings['REPORTED_HOURS']+"</b> " + data.task.reported_hours+ "<br><br>"
                         );				
                 }
             //                for (var propertyName in data) {

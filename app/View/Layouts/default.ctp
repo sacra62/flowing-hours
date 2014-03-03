@@ -36,6 +36,49 @@ $user = $this->Session->read('Auth');
         echo $this->fetch('script');
         if (isset($user['User']) && $this->params['controller'] == "pages") {
             ?>
+
+            <script>
+                //some translations
+                var __unfinished="<?php echo __("Unfinished") ?>";
+                var __done="<?php echo __("Done") ?>";
+
+                //used by frontier calendar
+                var __daysshort = new Array("<?php echo __("Sun") ?>","<?php echo __("Mon") ?>","<?php echo __("Tue") ?>","<?php echo __("Wed") ?>","<?php echo __("Thu") ?>","<?php echo __("Fri") ?>","<?php echo __("Sat") ?>");
+
+
+
+                var __days = new Array();
+                __days['Sunday'] = "<?php echo __("Sunday") ?>";
+                __days['Monday'] = "<?php echo __("Monday") ?>";
+                __days['Tuesday'] = "<?php echo __("Tuesday") ?>";
+                __days['Wednesday'] = "<?php echo __("Wednesday") ?>";
+                __days['Thursday'] = "<?php echo __("Thursday") ?>";
+                __days['Friday'] = "<?php echo __("Friday") ?>";
+                __days['Saturday'] = "<?php echo __("Saturday") ?>";
+
+                var __calendarstrings = new Array();
+                __calendarstrings['Starts'] = "<?php echo __("Starts") ?>";
+                __calendarstrings['Ends'] = "<?php echo __("Ends") ?>";
+                __calendarstrings['STATUS'] = "<?php echo __("STATUS") ?>";
+                __calendarstrings['Unfinished'] = "<?php echo __("Unfinished") ?>";
+                __calendarstrings['Done'] = "<?php echo __("Done") ?>";
+                __calendarstrings['ESTIMATED_HOURS'] = "<?php echo __("ESTIMATED_HOURS") ?>";
+                __calendarstrings['REPORTED_HOURS'] = "<?php echo __("REPORTED_HOURS") ?>";
+                
+                //used by frontier calendar to show stat and end dates
+                var __locale = "<?php echo Configure::read('Config.language')=="fi"? "fi-FI" : "en-US";?>";
+                var __localecode = "<?php echo Configure::read('Config.language');?>";
+                var __dateformat_options= {
+                weekday: "long", 
+                year: "numeric", 
+                month: "long", 
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric"
+            };
+
+            </script>
+
             <!-- Include CSS for JQuery Frontier Calendar plugin (Required for calendar plugin) -->
             <link rel="stylesheet" type="text/css" href="css/frontierCalendar/jquery-frontier-cal-1.3.2.css" />
             <!-- Include CSS for color picker plugin (Not required for calendar plugin. Used for example.) -->
