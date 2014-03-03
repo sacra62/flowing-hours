@@ -204,3 +204,14 @@ msgstr "Alkaa:"
 msgid "Ends"
 msgstr "päättyy:"
 
+msgid "Edit User"
+msgstr "Muokkaa käyttäjää"
+
+
+msgid "First Name"
+msgstr "Etunimi"
+msgid "Last Name"
+msgstr "Sukunimi"
+msgid "E-mail (used as login)"
+msgstr "Sähköposti (käytetään sisään)"
+
