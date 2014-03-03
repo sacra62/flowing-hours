@@ -170,7 +170,8 @@ msgstr "New Password (again)"
 
 msgid "SUCCESSFULLY_LOGGED_IN"
 msgstr "%s you have successfully logged in."
-
+msgid "SUCCESSFULLY_LOGGED_OUT"
+msgstr "%s you have successfully logged out."
 
 msgid "CALENDAR_WALLPAPER"
 msgstr "Calendar Wallpaper"
