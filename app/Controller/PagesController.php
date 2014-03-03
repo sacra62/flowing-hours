@@ -97,13 +97,15 @@ class PagesController extends AppController {
         $this->Auth->allow('index', 'view');
         $user = $this->Session->read('Auth');
 
+        
+        parent::beforeFilter();
+        
         //load user tasks
         if (isset($user['User'])) {
             $this->loadTasks($user['User']);
         }
 
 
-        parent::beforeFilter();
     }
 
     function sortTasks($taska, $taskb) {
@@ -111,6 +113,8 @@ class PagesController extends AppController {
     }
 
     function loadTasks($user) {
+
+
         $this->loadModel('Tasklist');
         $tasklists = $this->Tasklist->query("SELECT tasklist.* FROM tasklists tasklist WHERE tasklist.users_id='" . $user['id'] . "' ORDER BY tasklist.ordering ASC");
 
@@ -133,65 +137,63 @@ class PagesController extends AppController {
         //get filters data
         $filterdata = $this->Tasks->query("SELECT * FROM tasks WHERE users_id='" . $user['id'] . "' order by start_date");
         $month = $year = $week = null;
+
+
+        //Locale should be in finnish automaitcally because we call parent::beforeFilter which is AppController but its not working
+        //forcefully setting the locale
+        $lang = $this->Session->read('Config.language', 'en_US');
+        if (substr($lang, 0, 2) == "fi") {
+            setlocale(LC_ALL, 'fi_FI', 'Finnish', 'fi', 'fi_FI.ISO-8859-1', 'fi_FI.ISO8859-1', 'fi-FI', 'fi_FI@euro');
+        }
         
         
         $monthly = array();
+        $uncat = __("Uncategorized");
         foreach ($filterdata as $row) {
             $r_month = strtotime($row['tasks']['start_date']);
             if (empty($r_month)) {
-                    $monthly["Uncategorized"][] = $row['tasks'];
-
-            } else
-            {
-            if ($month != date('m', $r_month) || $year != date('Y', $r_month)) {
-                $month = date('m', $r_month);
-                $year = date('Y', $r_month);
+                $monthly[$uncat][] = $row['tasks'];
+            } else {
+                if ($month != date('m', $r_month) || $year != date('Y', $r_month)) {
+                    $month = date('m', $r_month);
+                    $year = date('Y', $r_month);
+                }
+               
+                $monthly[strftime("%B %Y",$r_month)][] = $row['tasks'];
             }
-            $monthly[date('F Y', $r_month)][] = $row['tasks'];
-            }
-            
-
         }
-        
+
         $month = $year = $week = null;
         $weekly = array();
         foreach ($filterdata as $row) {
             $r_month = strtotime($row['tasks']['start_date']);
             if (empty($r_month)) {
-                    $weekly["Uncategorized"][] = $row['tasks'];
-
-            } else
-            {
-            if ($week!= date('W', $r_month) || $month != date('m', $r_month) || $year != date('Y', $r_month)) {
-                $month = date('m', $r_month);
-                $year = date('Y', $r_month);
-                $week = date('W', $r_month);
+                $weekly[$uncat][] = $row['tasks'];
+            } else {
+                if ($week != date('W', $r_month) || $month != date('m', $r_month) || $year != date('Y', $r_month)) {
+                    $month = date('m', $r_month);
+                    $year = date('Y', $r_month);
+                    $week = date('W', $r_month);
+                }
+                $title = __("WEEK")." " . $week . " " . strftime("%B %Y",$r_month);
+                $weekly[$title][] = $row['tasks'];
             }
-            $title = "Week ".$week." ".date('F Y', $r_month);
-            $weekly[$title][] = $row['tasks'];
-            }
-            
-
         }
-        
+
         $yearly = array();
         $month = $year = $week = null;
         foreach ($filterdata as $row) {
             $r_month = strtotime($row['tasks']['start_date']);
             if (empty($r_month)) {
-                    $yearly["Uncategorized"][] = $row['tasks'];
-
-            } else
-            {
-            if ($year != date('Y', $r_month)) {
-                $year = date('Y', $r_month);
+                $yearly[$uncat][] = $row['tasks'];
+            } else {
+                if ($year != date('Y', $r_month)) {
+                    $year = date('Y', $r_month);
+                }
+                $yearly[strftime("%Y",$r_month)][] = $row['tasks'];
             }
-            $yearly[date('Y', $r_month)][] = $row['tasks'];
-            }
-            
-
         }
-        $filtereddata = array("weekly"=>$weekly,"monthly"=>$monthly,"yearly"=>$yearly);
+        $filtereddata = array("weekly" => $weekly, "monthly" => $monthly, "yearly" => $yearly);
         //print_r($monthly);exit;
         $this->set('filtereddata', $filtereddata);
         //get user settings

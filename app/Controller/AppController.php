@@ -35,6 +35,7 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
 
     public $components = array('Auth','DebugKit.Toolbar','Session');
+    
     function beforeFilter() {
         //for some odd reason if we dont unlock this action it fails completely. this is an ajax request.
         //i tried adding it to auth->allow method in the Users controller but it did not work! silly cakephp

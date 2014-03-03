@@ -181,6 +181,8 @@ msgstr "Yes"
 
 msgid "NO"
 msgstr "No"
+msgid "WEEK"
+msgstr "Week"
 
 msgid "Sttt"
 msgstr "assss"
