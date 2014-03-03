@@ -1,145 +1,103 @@
 msgid "MY_PROFILE"
-msgstr "Oma profiili"
-
+msgstr "Profiilini"
+msgid "MY_ACCOUNT"
+msgstr "Profiilini"
 msgid "LOGOUT"
-msgstr "Ulos"
-
+msgstr "Kirjaudu ulos"
 msgid "LANGUAGE_CODE"
-msgstr "Englaneksi"
-
+msgstr "Englanniksi"
 msgid "LOGOUT_QUESTION"
 msgstr "Oletko varma, että haluat kirjautua ulos?"
-
 msgid "HELLO"
-msgstr "Mories"
-
+msgstr "Morjes"
 msgid "TASKLIST"
 msgstr "Tehtäväluettelo"
-
 msgid "CALENDAR"
 msgstr "Kalenteri"
-
 msgid "PREV_MONTH"
 msgstr "Edellinen kuukausi"
-
 msgid "NEXT_MONTH"
-msgstr "Ensi kuussa "
-
+msgstr "Seuraava kuukausi"
 msgid "VIEW_AGENDA"
-msgstr "Katso esityslistan kohta "
-
+msgstr "Katso esityslista"
 msgid "ADD_TASK"
 msgstr "Lisää tehtävä"
-
 msgid "EDIT"
-msgstr "Muokata"
-
+msgstr "Muokkaa"
 msgid "DELETE_LIST"
 msgstr "Poista lista"
-
 msgid "FILTER_WEEK"
-msgstr "Viikko suodatin"
-
+msgstr "Viikkofiltteri"
 msgid "FILTER_MONTH"
-msgstr "Kuukausi suodatin"
-
+msgstr "Kuukausifiltteri"
 msgid "FILTER_YEAR"
-msgstr "Vuosi suodatin"
-
+msgstr "Vuosifiltteri"
 msgid "ENERGYLEVEL_HOURSWEEK"
-msgstr "Energiataso (tuntia / viikko):"
-
+msgstr "Energiataso (tuntia/viikko):"
 msgid "LOW"
 msgstr "Alhainen"
-
 msgid "MEDIUM"
-msgstr "Keskikokoinen"
-
+msgstr "Medium"
 msgid "HIGH"
 msgstr "Korkea"
-
 msgid "NAME_TASK"
-msgstr "Nimeä tehtävä ..."
-
+msgstr "Nimeä tehtävä"
 msgid "DESCRIBE_TASK"
-msgstr "Kuvata sitä ..."
-
+msgstr "Kuvaile tehtävää"
 msgid "ESTIMATED_HOURS"
-msgstr "Arvioitu aika:"
-
+msgstr "Arvioi työtunnit:"
 msgid "REPORTED_HOURS"
-msgstr "Raportoitu Tunnit:"
-
+msgstr "Todelliset työtunnit:"
 msgid "START_DATE"
 msgstr "Aloituspäivä:"
-
 msgid "END_DATE"
 msgstr "Päättymispäivä:"
-
 msgid "SAVE"
-msgstr "Tallentaa"
-
+msgstr "Tallenna"
 msgid "CANCEL"
-msgstr "Peruuttaa"
-
+msgstr "Peruuta"
 msgid "CONFIRMATION"
-msgstr "Vahvistus"
-
+msgstr "Vahvista"
 msgid "CANCEL_MESSAGE_MIDDLEOFSOMETHING"
-msgstr "Olit keskellä, oletko varma että haluat perua?"
-
-
+msgstr "Työ oli kesken, oletko varma että haluat perua?"
 msgid "OOPS"
 msgstr "Oho"
-
 msgid "MSG_SOMETHINGWENTWRONG"
 msgstr "Jokin meni pieleen, yritä uudelleen."
-
 msgid "MSG_NOT_TOO_FAST"
 msgstr "Ei liian nopeasti"
-
 msgid "MSG_MISSINGVALUES"
-msgstr "Joillakin aloilla on virheellinen / puuttuvat arvot."
-
+msgstr "Joissain kentissä on virheelliset/puuttuvat arvot."
 msgid "MSG_AREYOUSURE"
 msgstr "Oletko varma?"
-
 msgid "MSG_AREYOUSURE_DELETETASK"
 msgstr "Oletko varma, että haluat poistaa tämän tehtävän?"
-
 msgid "MSG_HEYYOU"
 msgstr "Hei!"
-
 msgid "ALERT"
-msgstr "Alert!"
-
+msgstr "Varoitus!"
 msgid "MSG_AREYOURSURE_DELETELIST"
-msgstr "Oletko varma, että haluat poistaa tämän listan? Kaikki tehtävät tässä luettelossa poistetaan. Voit aina vetää ja pudottaa tehtäviä toiseen listaan​​."
-
+msgstr "Oletko varma, että haluat poistaa tämän listan? Kaikki tehtävät tässä luettelossa poistetaan. Voit myös vetää ja pudottaa tehtäviä toiseen listaan​​."
 msgid "MSG_SOMETHING_WENTWRONG"
 msgstr "Jokin meni pieleen"
-
 msgid "ADD_LIST"
-msgstr "Lisää lista ..."
-
+msgstr "Lisää lista"
 msgid "ADD_TASK"
 msgstr "Lisää tehtävä"
-
 msgid "DELETE"
-msgstr "Poistaa"
-
+msgstr "Poista"
 msgid "STATUS"
 msgstr "Tila:"
-
-
+##Front page 
 msgid "LOGIN"
-msgstr "Käyttäjätunnus "
-
+msgstr "Kirjaudu sisään"
+## After login
+msgid "SUCCESSFULLY_LOGGED_IN"
+msgstr "%s olet kirjautunut onnistuneesti sisään"
+msgid "SUCCESSFULLY_LOGGED_OUT"
+msgstr "%s olet kirjautunut onnistuneesti ulos"
 msgid "REGISTER_ACCOUNT"
 msgstr "Rekisteröi tili "
-
-msgid "EMAIL"
-msgstr "Sähköposti"
 
 msgid "PASSWORD"
 msgstr "Salasana"
@@ -149,18 +107,57 @@ msgstr "Muista minut"
 
 msgid "FORGOT_PASSWORD"
 msgstr "Olen unohtanut salasanani"
+msgid "Forgot your password?"
+msgstr "Unohtuiko salasana?"
 
-msgid "SUBMIT"
-msgstr "Jatka"
+msgid "Please enter the email you used for registration and you'll get an email with further instructions."
+msgstr "Kirjoita sähköpostiosoite, jota käytit rekisteröintiin ja saat sähköpostitse lisäohjeita."
 
-msgid "MY_ACCOUNT"
-msgstr "Oma tilini"
+msgid "Your Email"
+msgstr "Sähköposti"
 
+msgid "EMAIL"
+msgstr "Sähköposti"
+msgid "Unfinished"
+msgstr "Kesken"
+msgid "Done"
+msgstr "Tehty"
+msgid "Please enter your old password because of security reasons and then your new password twice."
+msgstr "Turvallisuussyistä syötä vanha salasanasi kerran ja uusi salasanasi kajdesti"
+msgid "Old Password"
+msgstr "Vanha salasanasi"
+msgid "New Password"
+msgstr "Uusi salasana"
+msgid "CONFIRM_PASS_AGAIN"
+msgstr "Uusi salasana uudestaan"
+msgid "SETTINGS"
+msgstr "Asetukset"
+msgid "Personal Settings"
+msgstr "Henkilökohtaiset asetukset"
 msgid "CHANGE_PASSWORD"
 msgstr "Vaihda salasana"
+msgid "SUBMIT"
+msgstr "Jatka"
+msgid "CALENDAR_WALLPAPER"
+msgstr "Kalenterin taustakuva"
 
+
+msgid "Work hours"
+msgstr "Työtunnit"
+
+msgid "How many hours do you work in a week?"
+msgstr "Kuinka monta tuntia työskentelet viikossa?"
+
+msgid "Task Completion Time"
+msgstr "Tehtävien tekeminen"
+msgid "Do you usually complete your tasks in time?"
+msgstr "Teetkö tehtävät yleensä ajoissa valmiiksi?"
+msgid "App Theme"
+msgstr "Työtunnit"
 msgid "PERSONALITY_QUESTIONNAIRE"
 msgstr "Persoonallisuusmittariin"
 
-msgid "SETTINGS"
-msgstr "Asetukset"
+msgid "YES"
+msgstr "Kyllä"
+msgid "NO"
+msgstr "Ei"

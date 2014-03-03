@@ -65,7 +65,7 @@ msgid "DESCRIBE_TASK"
 msgstr "Describe it..."
 
 msgid "ESTIMATED_HOURS"
-msgstr "Estimated Hours:"
+msgstr "Working hours:"
 
 msgid "REPORTED_HOURS"
 msgstr "Reported Hours:"
@@ -162,18 +162,24 @@ msgstr "Change password"
 msgid "PERSONALITY_QUESTIONNAIRE"
 msgstr "Personality Questionnaire"
 
-
 msgid "SETTINGS"
 msgstr "Settings"
 
-msgid "Sttt"
-msgstr "assss"
+msgid "CONFIRM_PASS_AGAIN"
+msgstr "New Password (again)"
 
-msgid "Sttt"
-msgstr "assss"
+msgid "SUCCESSFULLY_LOGGED_IN"
+msgstr "%s you have successfully logged in."
 
-msgid "Sttt"
-msgstr "assss"
+
+msgid "CALENDAR_WALLPAPER"
+msgstr "Calendar Wallpaper"
+
+msgid "YES"
+msgstr "Yes"
+
+msgid "NO"
+msgstr "No"
 
 msgid "Sttt"
 msgstr "assss"

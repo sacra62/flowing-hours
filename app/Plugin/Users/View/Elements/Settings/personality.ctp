@@ -16,9 +16,9 @@
             <?php
             foreach ($questions as $us) {
                 ?>
-                <strong><?php echo $us['user_preference']['question_title'] ?></strong>
+                <strong><?php echo __($us['user_preference']['question_title']) ?></strong>
                 <div>
-                    <?php echo $us['user_preference']['question_description'] ?>
+                    <?php echo __($us['user_preference']['question_description']) ?>
                     <?php
                     $uservalue = $settings[$us['user_preference']['code']];
 
@@ -34,8 +34,8 @@
                     if ($us['user_preference']['type'] == "radio") {
                         ?>
                         <br/>
-                        <input type="<?php echo $us['user_preference']['type'] ?>" value="1" <?php if ($uservalue == 1) echo 'checked="checked"'; ?> name="<?php echo $us['user_preference']['code'] ?>" />Yes
-                        <input type="<?php echo $us['user_preference']['type'] ?>" value="0" <?php if ($uservalue == 0) echo 'checked="checked"'; ?> name="<?php echo $us['user_preference']['code'] ?>" />No
+                        <input type="<?php echo $us['user_preference']['type'] ?>" value="1" <?php if ($uservalue == 1) echo 'checked="checked"'; ?> name="<?php echo $us['user_preference']['code'] ?>" /><?php echo __("YES")?>
+                        <input type="<?php echo $us['user_preference']['type'] ?>" value="0" <?php if ($uservalue == 0) echo 'checked="checked"'; ?> name="<?php echo $us['user_preference']['code'] ?>" /><?php echo __("NO")?>
 
                         <?php
                     }

@@ -14,8 +14,8 @@ $.fn.spantoinput = function(id) {
     }else if($thisid=="status"){
         var checked_done = 'checked="checked"';
         var checked_notdone= 'checked="checked"';
-        if($thisval=="Unfinished") checked_done = ""; else checked_notdone = "";
-        var input = '<input class="text_edit" type="radio" value="0" '+checked_notdone+' name="'+$thisid+'">Unfinished'+'<input class="text_edit" type="radio" value="1" '+checked_done+'  name="'+$thisid+'">Done';
+        if($thisval==__unfinished) checked_done = ""; else checked_notdone = "";
+        var input = '<input class="text_edit" type="radio" value="0" '+checked_notdone+' name="'+$thisid+'">'+__unfinished+'<input class="text_edit" type="radio" value="1" '+checked_done+'  name="'+$thisid+'">'+__done;
     }
     else{
         var input = $('<input />', {
@@ -622,7 +622,7 @@ $(function() {
             //exception for the staus radio buttons - we will make it a simple trigger later
             if($(this).attr("type")=="radio"){
                 if($(this).is(":checked")){
-                    $(this).parent().html("").html('<label>Status:</label><span class="text_edit" rel="status"> '+($(this).val()=="0" ? "Unfinished" : "Done")+'</span>');
+                    $(this).parent().html("").html('<label>Status:</label><span class="text_edit" rel="status"> '+($(this).val()=="0" ? __unfinished : __done)+'</span>');
                 }
                 else return;
             }

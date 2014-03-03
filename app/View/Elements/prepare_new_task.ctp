@@ -18,7 +18,7 @@
                             <span rel="desc" class="text_edit"><?php echo $task['desc']; ?></span>
                         </p>
                         <hr/>
-                        <p><label><?php echo __("STATUS")?></label> <span class="text_edit" rel="status"><?php echo empty($task['status']) ? "Unfinished" : "Done"; ?></span></p>
+                        <p><label><?php echo __("STATUS")?></label> <span class="text_edit" rel="status"><?php echo empty($task['status']) ? __("Unfinished") : __("Done"); ?></span></p>
                         <p><label><?php echo __("ESTIMATED_HOURS")?></label> <span class="text_edit" rel="estimated_hours"><?php echo $task['estimated_hours']; ?></span></p>
                         <p><label><?php echo __("REPORTED_HOURS")?></label> <span class="text_edit" rel="reported_hours"><?php echo empty($task['reported_hours']) ? "0" : $task['reported_hours']; ?></span></p>
                         <hr/>

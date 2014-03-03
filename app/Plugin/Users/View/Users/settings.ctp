@@ -24,9 +24,9 @@ echo $this->Html->script('settings.js');
 <div class="users form settings">
     <h2><?php echo __('SETTINGS'); ?></h2>
     <ul>
-        <li><a href="javascript:;" id="user_questionnaire_settings">Personality Settings</a></li>
-        <li><a href="javascript:;" id="calendar_settings">Calendar Wallpaper</a></li>
-        <li><a href="javascript:;" id="app_settings">App Wallpaper</a></li>    
+        <li><a href="javascript:;" id="user_questionnaire_settings"><?php echo __("Personal Settings")?></a></li>
+        <li><a href="javascript:;" id="calendar_settings"><?php echo __("CALENDAR_WALLPAPER")?></a></li>
+        <li><a href="javascript:;" id="app_settings"><?php echo __("App Theme")?></a></li>    
     </ul>
 
 </div>
