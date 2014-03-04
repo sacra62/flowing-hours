@@ -16,31 +16,21 @@
     padding:3px; vertical-align: middle; white-space:nowrap; overflow: hidden;
 }
 
-.flowinghours input, .flowinghours textarea {
-background-color: #CCF;
-}
 /* for calendar wallpapers 
 */
-
-
-.JFrontierCal.wallpaper .JFrontierCal-Day-Cell{
-    background: none!important;
-}
 .JFrontierCal.wallpaper  .JFrontierCal-Day-Cell-Today{
-    background-color: #333 !important;
+    background-color: #92c4bb !important;
 }
-/*ofcourse there should be more detailed theme with every class */
 .JFrontierCal.scenica{
-    background: url('../img/wallpapers/scenica.jpg');
+    background: url('../../../img/wallpapers/scenica.jpg');
 }
 
 .JFrontierCal.cal_green{
-    background: url('../img/wallpapers/cal_green.jpg');
+    background: url('../../../img/wallpapers/cal_green.jpg');
 }
 .JFrontierCal.cal_love{
-    background: url('../img/wallpapers/cal_love.jpg');
+    background: url('../../../img/wallpapers/cal_love.jpg');
 }
 .JFrontierCal.cal_soothing{
-    background: url('../img/wallpapers/cal_soothing.jpg');
+    background: url('../../../img/wallpapers/cal_soothing.jpg');
 }
-

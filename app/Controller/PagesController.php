@@ -121,7 +121,7 @@ class PagesController extends AppController {
 //        echo "<pre>";
 //        print_r($tasklists);exit;
         foreach ($tasklists as $key => $list) {
-            $tasklists[$key]["tasks"] = $this->Tasklist->query("SELECT task.* FROM tasks task JOIN tasklists tasklist ON (tasklist.users_id=task.users_id AND task.tasklists_id=tasklist.id AND tasklist.users_id = '" . $user['id'] . "') WHERE task.users_id='" . $user['id'] . "' AND task.tasklists_id=" . $list['tasklist']['id'] . " ORDER BY task.ordering ASC, task.start_date ASC");
+            $tasklists[$key]["tasks"] = $this->Tasklist->query("SELECT task.* FROM tasks task JOIN tasklists tasklist ON (tasklist.users_id=task.users_id AND task.tasklists_id=tasklist.id AND tasklist.users_id = '" . $user['id'] . "') WHERE task.status=0 AND  task.users_id='" . $user['id'] . "' AND task.tasklists_id=" . $list['tasklist']['id'] . " ORDER BY task.ordering ASC, task.start_date ASC");
         }
 
         $this->set('data', $tasklists);
@@ -135,7 +135,7 @@ class PagesController extends AppController {
         $this->loadModel('Tasks');
 
         //get filters data
-        $filterdata = $this->Tasks->query("SELECT * FROM tasks WHERE users_id='" . $user['id'] . "' order by start_date");
+        $filterdata = $this->Tasks->query("SELECT * FROM tasks WHERE users_id='" . $user['id'] . "' AND status=0  order by start_date");
         $month = $year = $week = null;
 
 

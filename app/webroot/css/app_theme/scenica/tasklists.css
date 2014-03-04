@@ -2,11 +2,10 @@
 /* task list css */
 div.accordion h3.ui-accordion-header{
     font-weight: bold;
-    font-size: 120%;
     margin-top: 10px;
 }
 div.accordion_container h2{
-    font-size: 130%;
+    font-size: 120%;
     line-height: 18px;
     margin: 0 10px;
     min-height: 19px;
@@ -28,7 +27,6 @@ div.accordion_container .list_controls{
 div.accordion_container span.edit_title,div.accordion_container span.remove_list{
     margin-left: 10px;
     font-weight: bold;
-    font-size: 110%;
     margin-top: 2px;
     cursor: pointer;
 }
@@ -50,7 +48,7 @@ div.accordion_container span.edit_title:hover,div.accordion_container span.remov
 div.accordion_container, #newtasklistcontainer.accordion{
     float: left;
     width: 330px;/*must be the same as in the $accordionwidth variable in the home.ctp*/
-    background: #D3DCE3;
+    background: #CCC;
     border-radius: 3px;
     -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(0, 0, 0, 0.1);
@@ -66,7 +64,6 @@ div.accordion .task a,.filtercontainer a{
     cursor: pointer;
 }
 div.accordion .task a:hover,.filtercontainer a:hover{
-    color: orange;
 }
 div#tasklist{
     overflow: auto;/*for scrollbar*/
@@ -130,7 +127,7 @@ div#tasklist{
 }
 
 #tasklistcontainer #newtasklistcontainer.idle:hover{
-    background: #D3DCE3;
+    background: #DADADA;
     cursor: pointer;
     min-height: 30px;
     -webkit-box-shadow: none;
@@ -142,9 +139,17 @@ div#tasklist{
     width: 87%;
 }
 #tasklistcontainer #newtasklistcontainer,  #tasklistcontainer .edittitlecontainer{
-    background: #D3DCE3;
+/*    background: #D3DCE3;*/
 }
 
+
+.flowinghours input, .flowinghours textarea {
+    background-color: ghostwhite;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(0, 0, 0, 0.1);
+    padding: 3px;
+}
 
 .flowingdefaultText { width: 300px; }
 .flowingdefaultTextActive { color: #a1a1a1; font-style: italic; }
@@ -158,7 +163,7 @@ div#tasklist{
 .flowinghours  #tasklistcontainer textarea.newtask_title,  .flowinghours  #tasklistcontainer textarea.newtask_desc,div.task textarea{
     border: none;
     width: 100%;
-    padding-left: 0;
+/*    padding-left: 0;*/
 }
 .flowinghours  #tasklistcontainer .newtask_title:focus, .newtask_desc:focus,div.task textarea:focus{
     outline: 0;
@@ -218,7 +223,7 @@ div#tasklist{
 }
 
 .flowinghours .energybar  #energybar_hours{
-    border:0; color:#f6931f; font-weight:bold;
+    border:0; font-weight:bold;
     font-size: 160%;
 }
 

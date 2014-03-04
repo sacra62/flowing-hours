@@ -577,25 +577,6 @@ $(function() {
     
     });
     
-    //if tab is #tasklist then check if an editask is set, if yes, then set its id
-    if(location.hash=="#tasklist"){ 
-        var editid = $("#editaskid").attr("rel");
-        if(editid) {
-            //find the accordion for this id
-            var panelitem = $("div#task_"+editid);
-            var panelindex = $( "div.task" ).index( panelitem );
-            $('.accordion').accordion("option","active",panelindex);
-            //open for editing
-            $("#task_edit_"+editid)[0].click();
-            //not working, but thats fine :(
-            //found so destory it now
-            $.ajax({
-                url: 'tasks/destoryEditTaskIdInSession',
-                success:function(data){
-                }
-            });
-        }
-    }
     
     
     //edit task function - for ajax html to work we need to define a top level scope like the container element
@@ -732,7 +713,8 @@ $(function() {
                 if(result=="0") _showGenericErrorDialogBox();
                 else {
                     //success - add the task to the list
-                    $("#"+$task).find(".task_inner").html($('.task_inner', result).html());
+                    var weneed = $('.task_inner', $.parseHTML(result));
+                    $("#"+$task).find(".task_inner").html(weneed);
                     $("#accordion").accordion( "refresh" );
                     _init();//so that the default text works,
                     _getEstimatedHoursForAWeek(form);
@@ -746,7 +728,26 @@ $(function() {
     
     });
     
-    
+    //if tab is #tasklist then check if an editask is set, if yes, then set its id
+    if(location.hash=="#tasklist"){ 
+        var editid = $("#editaskid").attr("rel");
+        var editlistid = $("#editasklistid").attr("rel");
+        if(editid && editlistid) {
+            //find the accordion for this id
+            var panelitem = $("#accordion-"+editlistid+" div#task_"+editid);
+            var panelindex = $("#accordion-"+editlistid+" div.task" ).index( panelitem );
+            $('#accordion-'+editlistid).accordion("option","active",panelindex);
+            //open for editing
+            $("#tasklistcontainer a#task_edit_"+editid)[0].click();
+            //not working, but thats fine :(
+            //found so destory it now
+            $.ajax({
+                url: 'tasks/destoryEditTaskIdInSession',
+                success:function(data){
+                }
+            });
+        }
+    }
     
     
 });

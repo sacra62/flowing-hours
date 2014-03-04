@@ -5,7 +5,6 @@
 $(function() {
     $(".users.settings").on("click","a",function(){
         var $id = "#"+$(this).attr("id").replace("_settings","");
-        console.log($id);
         $( $id ).dialog({
             modal: true, 
             zIndex: 10000, 
@@ -15,6 +14,11 @@ $(function() {
             buttons: {
                 Save: function () {
                     saveSettings($(this),$id);
+                    console.log($id);
+                    if($id=="#app_theme"){
+                    window.location.reload();
+                    }
+                    
                 }
             },
             close: function (event, ui) {
@@ -29,19 +33,19 @@ $(function() {
 function saveSettings(dlg,formparent){
     //all is good. we need to set tasklist id 
     
-        var formid = formparent+"_form";
-        var form = $(formid);
-        $.post( baseURL+"users/saveSettings",form.serialize(), function( result ) {
-            if(result!="1"){
-                alert("something went wrong");
-            }
-            else {
+    var formid = formparent+"_form";
+    var form = $(formid);
+    $.post( baseURL+"users/saveSettings",form.serialize(), function( result ) {
+        if(result!="1"){
+            alert("something went wrong");
+        }
+        else {
                 
-                //success - add the task to the list
-               dlg.dialog("close");
-            }
+            //success - add the task to the list
+            dlg.dialog("close");
+        }
         
         
-        // no issues go ahead and save.
-        });
+    // no issues go ahead and save.
+    });
 }

@@ -39,9 +39,9 @@ class TasksController extends Controller {
             //date time needs to be fixed
             //dates maybe empty
             if (!empty($this->request->data['start_date']))
-                $this->request->data['start_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['start_date'])));
+                $this->request->data['start_date'] = date("Y-m-d G:i", strtotime(str_replace(",", "", $this->request->data['start_date'])));
             if (!empty($this->request->data['end_date']))
-                $this->request->data['end_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['end_date'])));
+                $this->request->data['end_date'] = date("Y-m-d G:i", strtotime(str_replace(",", "", $this->request->data['end_date'])));
             $this->Task->create();
             try {
                 if ($this->Task->save($this->request->data)) {
@@ -169,11 +169,12 @@ class TasksController extends Controller {
             //date time needs to be fixed
             //dates maybe empty
             if (!empty($this->request->data['start_date']))
-                $this->request->data['start_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['start_date'])));
+                $this->request->data['start_date'] = date("Y-m-d G:i", strtotime(str_replace(",", "", $this->request->data['start_date'])));
             if (!empty($this->request->data['end_date']))
-                $this->request->data['end_date'] = date("Y-m-d h:i", strtotime(str_replace(",", "", $this->request->data['end_date'])));
+                $this->request->data['end_date'] = date("Y-m-d G:i", strtotime(str_replace(",", "", $this->request->data['end_date'])));
+            
             if ($newtask = $this->Task->save($this->request->data)) {
-                $newtask['Task']['title'] = $task['task']['title'];
+                $newtask['Task']['title'] = $task['Task']['title'];
                 $view = new View($this, false);
                 echo $view->element('prepare_new_task', array("task" => $newtask['Task'], "edit" => true));
                 exit;
@@ -219,7 +220,7 @@ class TasksController extends Controller {
         if ($this->request->is('ajax')) {
             $user = $this->Session->read('Auth');
 
-            $userdata = $this->Task->find("all", array('conditions' => array('Task.users_id =' => $user['User']['id'])));
+            $userdata = $this->Task->find("all", array('conditions' => array('Task.users_id =' => $user['User']['id'],'Task.status =' => 0)));
             foreach ($userdata as &$task) {
                 $task['Task']['start_date'] = date('j F, Y G:i', strtotime($task['Task']['start_date']));
                 $task['Task']['end_date'] = date('j F, Y G:i', strtotime($task['Task']['end_date']));
@@ -234,13 +235,16 @@ class TasksController extends Controller {
     function setEditTaskIdInSession() {
         if ($this->request->is('ajax')) {
             $this->Session->write('Tasks.editTaskId', $this->request->data['editTaskId']);
+            $this->Session->write('Tasks.editTaskListId', $this->request->data['editTaskListId']);
             die("1");
         }
+        die("0");
     }
 
     function destoryEditTaskIdInSession() {
         if ($this->request->is('ajax')) {
             $this->Session->delete('Tasks.editTaskId');
+            $this->Session->delete('Tasks.editTaskListId');
             die("1");
         }
     }

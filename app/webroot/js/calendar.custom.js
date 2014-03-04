@@ -55,8 +55,9 @@ $(document).ready(function(){
                     alldayValue,
                     {
                         task: data[i].Task,
-                        editTaskId:data[i].Task.id //to help us keep the id of the task in the task list
-                    },
+                        editTaskId:data[i].Task.id, //to help us keep the id of the task in the task list
+                        editTaskListId:data[i].Task.tasklists_id
+                },
                     {
                         backgroundColor: $("#colorBackground").val(),
                         foregroundColor: $("#colorForeground").val()
@@ -502,13 +503,14 @@ $(document).ready(function(){
             Cancel: function() {
                 $(this).dialog('close');
             },
-            'Edit': function() {
+            Edit: function() {
                 //set the id in session and reload the page to taskslist
                 $.ajax({
                     type: "POST",
                     url: 'tasks/setEditTaskIdInSession',
                     data:{
-                        "editTaskId":$(this).find(".editaskid").attr("rel")
+                        "editTaskId":$(this).find(".editaskid").attr("rel"),
+                        "editTaskListId":$(this).find(".editasklistid").attr("rel")
                     },
                     success:function(data){
                         window.location.href = "#tasklist";
@@ -541,6 +543,7 @@ $(document).ready(function(){
                 $("#display-event-form").append(
                     "<br><b>" + title+ "</b><br><br>"+data.task.desc+ "<br><br>"
                     +"<span class='editaskid' rel='"+data.editTaskId+"' style='hidden'></span>"//this id to help open the correct task for editing
+                +"<span class='editasklistid' rel='"+data.editTaskListId+"' style='hidden'></span>"//this id to help open the correct task for editing
                     );				
                 if(allDay){
                     $("#display-event-form").append(

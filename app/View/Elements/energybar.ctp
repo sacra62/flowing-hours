@@ -17,9 +17,9 @@ $energyhours = isset($user_settings['energy_hours']) ? $user_settings['energy_ho
         </div>
         <div class="energy_def fleft">
             <div id="slider-horizontal" style="height:12px; width:250px"></div>
-            <label class="fleft" id="lbl1" style="color: blue"><?php echo __("LOW")?></label><span class="fleft">|</span>
-            <label class="fleft" id="lbl2" style="color: green"><?php echo __("MEDIUM")?></label><span class="fleft">|</span>
-            <label class="fleft" id="lbl3" style="color: red"><?php echo __("HIGH")?></label>
+            <label class="fleft" id="lbl1" ><?php echo __("LOW")?></label><span class="fleft">|</span>
+            <label class="fleft" id="lbl2" ><?php echo __("MEDIUM")?></label><span class="fleft">|</span>
+            <label class="fleft" id="lbl3" ><?php echo __("HIGH")?></label>
         </div>
         <div class="clear"></div>
         </div>

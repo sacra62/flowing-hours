@@ -1634,17 +1634,17 @@
 					});
 				}
 				d.addClass("JFrontierCal-Agenda-Item");
-				if(agi.getBackgroundColor() != null){
-					d.css("background-color",agi.getBackgroundColor());
-				}
-				if(agi.getForegroundColor() != null){
-					d.css("color",agi.getForegroundColor());
-				}
-				d.css("position","absolute");
-				d.css("left",startX+"px");
-				d.css("top",nextY+"px");					
-				d.css("width",width+"px");
-				d.css("white-space","nowrap");
+//				if(agi.getBackgroundColor() != null){
+//					d.css("background-color",agi.getBackgroundColor());
+//				}
+//				if(agi.getForegroundColor() != null){
+//					d.css("color",agi.getForegroundColor());
+//				}
+//				d.css("position","absolute");
+//				d.css("left",startX+"px");
+//				d.css("top",nextY+"px");					
+//				d.css("width",width+"px");
+//				d.css("white-space","nowrap");
 				// round corners for webkit & safari (poor IE :( )
 				if(leftEnd){
 					d.css("-moz-border-radius-bottomleft","3px");

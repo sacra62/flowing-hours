@@ -114,6 +114,8 @@ $wallpaper = isset($user_settings['calendar_wallpaper']) ? $user_settings['calen
 
             </div>
             <span style="display:none;" rel="<?php echo $this->Session->read('Tasks.editTaskId') ? $this->Session->read('Tasks.editTaskId') : ""; ?>" id="editaskid"></span>
+                        <span style="display:none;" rel="<?php echo $this->Session->read('Tasks.editTaskListId') ? $this->Session->read('Tasks.editTaskListId') : ""; ?>" id="editasklistid"></span>
+
             <span style="display:none" rel="<?php echo $accordionwidth ?>" id="accordionwidth"></span>
 
         </div>

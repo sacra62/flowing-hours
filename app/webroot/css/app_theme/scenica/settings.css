@@ -17,4 +17,6 @@
     margin: 10px;
 }
 
-
+.settings li{
+    line-height: 20px;
+}

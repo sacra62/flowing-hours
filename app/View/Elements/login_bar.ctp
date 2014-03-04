@@ -2,9 +2,8 @@
 
 <h1 class="fleft">
     <?php
-    $homepagelink = $this->Session->read('Auth.User.is_admin') ? array('controller' => 'users', 'action' => 'index') : "/";
-    echo $this->Html->link(
-            'Flowing Hours', $homepagelink, array('class' => 'marginLR10'));
+    $homepagelink = $this->Session->read('Auth.User.is_admin') ? array('controller' => 'users', 'action' => 'index') : FULL_BASE_URL . $this->webroot;
+    echo '<a href="'.$homepagelink.'" class="marginLR10"><img src="'.FULL_BASE_URL . $this->webroot.'img/logo.png"/>';
     ?></h1>
 
 <div class="fleft"><?php

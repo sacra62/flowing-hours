@@ -10,6 +10,17 @@
 /*label {
     font-size: 1em;
 }*/
+body{
+    background: #777;
+}
+
+a:hover{
+    color: #fff;
+}
+a{
+    color: #003D4C;/*#91c4ba;*/
+}
+
 fieldset{
     margin: 0;
 }
@@ -31,7 +42,6 @@ table tr td,table {
     padding: 0;
 }
 .flowinghours{
-    font-size: 70%;
 }
 .ui-dialog-content table tr td{
     vertical-align: middle;
@@ -69,27 +79,39 @@ root {
 
 
 /*users css */
-body .users {
-    background-color: #99CCCC;
-}
 
-
-div .actions {
-    background-color: #99CCCC;
-}
 .users fieldset {
     padding-top: 5px;
     margin:10px;
     width:300px;
-    color:#333; 
-    background-color:#CCFF99;
+    background-color:#777;
     position: relative;
 } 
+fieldset legend {
+    color: #FFF;
+
+}
+
+.users.form{
+    background: #777;
+}
+
+
+.actions li a{
+    background: #CBDCCC url(../../jquery-ui/scenica/images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+}
+
+.actions li a:hover,.actions li a:active{
+    color: white;
+
+    background: #63AB9D url(../../jquery-ui/scenica/images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
+}
+
 .users  form div {
-clear: both;
-margin-bottom: 1em;
-padding: .5em;
-vertical-align: text-top;
+    clear: both;
+    margin-bottom: 1em;
+    padding: .5em;
+    vertical-align: text-top;
 }
 .users .submit input {
     margin-left: 18px;
@@ -109,22 +131,18 @@ a .users{
 
 
 #content{
-    background-color:#FFFF99;
+    background-color:#CCC;
     padding-top: 20px;
 }
 
-
-
-/*New Tasklist css */
-/*
-#newtask_title, #newtask_desc,div.task textarea{
-    background-color: #CCCCCC;
-}*/
-
-
-/*New Code for DatePicker css */
-
-.ui-timepicker-div dl dt { background-color: #66CC66;  float: left; clear:left; padding: 0 0 0 5px; }
-.ui-timepicker-div {
-    background-color: #66CC66;
+.success,
+.message,
+.cake-error,
+p.error,
+.error-message {
+    clear: both;
+    color: #fff;
+    background: #AA5D2F;
 }
+
+

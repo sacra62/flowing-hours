@@ -53,12 +53,16 @@ class AppController extends Controller {
         //get user settings
         $db = ConnectionManager::getDataSource("default");
         $userid = $this->Session->read('Auth.User.id');
+        if(!empty($userid)){
         $settings = $db->fetchAll("SELECT settings FROM users WHERE id='" . $userid . "'");
 
        
         //if settings exist -json decode
         $settings = $settings[0]['users']['settings'];
         $settings = !empty($settings) ? (array)json_decode($settings) : array();
+        }
+        else $settings = array("app_theme"=>"scenica");
+        
         $this->set('user_settings', $settings);
     }
 
