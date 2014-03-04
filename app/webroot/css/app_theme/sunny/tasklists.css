@@ -1,0 +1,252 @@
+
+/* task list css */
+div.accordion h3.ui-accordion-header{
+    font-weight: bold;
+    font-size: 120%;
+    margin-top: 10px;
+}
+div.accordion_container h2{
+    font-size: 130%;
+    line-height: 18px;
+    margin: 0 10px;
+    min-height: 19px;
+    min-width: 30px;
+    color: #000;
+    background: none;
+    font-weight: bold;
+    display: inline;
+    cursor: pointer;
+}
+div.accordion_container .list_controls{
+    float: right;
+    margin-right: 10px;
+}
+/* hide list controls when list is being edited etc */
+.tasklisttitle_container.active .list_controls{
+    display: none;
+}
+div.accordion_container span.edit_title,div.accordion_container span.remove_list{
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 110%;
+    margin-top: 2px;
+    cursor: pointer;
+}
+div.accordion_container span.edit_title:hover,div.accordion_container span.remove_list:hover{
+    color: green;
+}
+
+#tasklist  label{
+    font-weight: bold!important;
+    display: inline!important;
+}
+#tasklistcontainer,.filteredlist {
+    overflow: auto;
+    min-height: 300px;
+}
+.accordion_container{
+    float: left;
+}
+div.accordion_container, #newtasklistcontainer.accordion{
+    float: left;
+    width: 330px;/*must be the same as in the $accordionwidth variable in the home.ctp*/
+    background: #D3DCE3;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(0, 0, 0, 0.1);
+    float: left;
+    margin: 0 7px;
+    padding: 4px 3px 3px 3px;
+}
+
+div.accordion{
+    padding: 10px 0;
+}
+div.accordion .task a,.filtercontainer a{
+    cursor: pointer;
+}
+div.accordion .task a:hover,.filtercontainer a:hover{
+    color: orange;
+}
+div#tasklist{
+    overflow: auto;/*for scrollbar*/
+}
+#tasklist hr{
+    margin-bottom: 10px;
+}
+#tasklist .newtask{
+    padding: 1em 2.2em;
+    overflow: auto;
+    width: 280px;
+    margin: 10px 0;
+}
+#tasklist .hasDatepicker{
+    width: 168px;
+}
+#tasklist input[type=radio]{
+    float: none;
+    margin: 0 5px;
+}
+
+#tasklistcontainer #newtasklistcontainer, #tasklistcontainer.edittitlecontainer{
+    width: 245px;
+    padding: 10px;
+
+}
+#tasklistcontainer #newtasklistcontainer .placeholder,  #tasklistcontainer .edittitlecontainer .placeholder{
+    display: block;
+    padding: 7px;
+    cursor: pointer;
+    -webkit-transition: color 85ms ease-in;
+    transition: color 85ms ease-in;
+    font-size: 110%;
+}
+#tasklistcontainer #newtasklistcontainer .newlistname,  #tasklistcontainer .edittitlecontainer .newlistname{
+    background: rgba(0, 0, 0, 0.05);
+    border-color: #AAA;
+    -webkit-box-shadow: inset 0 1px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0 1px 8px rgba(0, 0, 0, 0.15);
+    display: block;
+    margin: 0;
+    min-height: 30px;
+    padding: 6px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    background-color: #E9E9E9;
+    border: 1px solid #BFBFBF;
+    border-radius: 3px;
+    width: 90%;
+    margin-bottom: 10px;
+
+}
+#tasklistcontainer #newtasklistcontainer.idle {
+    background: rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    min-height: 30px;
+    padding: 0!important;
+
+}
+
+#tasklistcontainer #newtasklistcontainer.idle:hover{
+    background: #D3DCE3;
+    cursor: pointer;
+    min-height: 30px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-transition: background 85ms ease-in,opacity 40ms ease-in,border-color 85ms ease-in;
+    transition: background 85ms ease-in,opacity 40ms ease-in,border-color 85ms ease-in;
+}
+#tasklistcontainer .edittitlecontainer{
+    width: 87%;
+}
+#tasklistcontainer #newtasklistcontainer,  #tasklistcontainer .edittitlecontainer{
+    background: #D3DCE3;
+}
+
+
+.flowingdefaultText { width: 300px; }
+.flowingdefaultTextActive { color: #a1a1a1; font-style: italic; }
+.flowinghours #tasklistcontainer .newtask_title{
+    font-size: 130%;
+    font-weight: bold;
+}
+.flowinghours  #tasklistcontainer .newtask_desc,div.task textarea{
+    font-size: 110%;
+}
+.flowinghours  #tasklistcontainer textarea.newtask_title,  .flowinghours  #tasklistcontainer textarea.newtask_desc,div.task textarea{
+    border: none;
+    width: 100%;
+    padding-left: 0;
+}
+.flowinghours  #tasklistcontainer .newtask_title:focus, .newtask_desc:focus,div.task textarea:focus{
+    outline: 0;
+}
+.flowinghours  #tasklistcontainer .newtask_controls,.edittask_controls{
+    float: right;
+}
+.flowinghours  #tasklistcontainer .newtask_controls a{
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 45%; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
+.ui-timepicker-rtl dl dt{ float: right; clear: right; }
+.ui-timepicker-rtl dl dd { margin: 0 45% 10px 10px; }
+
+/* side bar and top bar */
+.flowinghours .settings_top_container{
+    position: relative;
+}
+.flowinghours .user_settings{
+
+}
+
+.flowinghours .ui-slider-horizontal .ui-slider-handle {
+    top: -0.1em;
+}
+.flowinghours .energybar{
+    margin-right: 20px;
+}
+.flowinghours .energybar #slider-horizontal{
+    margin-bottom: 5px;
+}
+
+.flowinghours .energy_def {
+    margin-left: 30px;
+}
+
+.flowinghours .energy_def #lbl1{
+    width: 105px;
+}
+
+.flowinghours .energy_def #lbl2{
+    width: 45px;
+}
+.flowinghours .energy_def #lbl3{
+    width: 93px;
+
+}
+
+.flowinghours .energybar  #energybar_hours{
+    border:0; color:#f6931f; font-weight:bold;
+    font-size: 160%;
+}
+
+.flowinghours .jQbutton.success span{
+    background-color: #008000;
+    color: #FFF;
+}
+.flowinghours .energybar #save_energy span{
+    padding: .2em;
+}
+.flowinghours .energy_def label{
+    text-align: center;
+
+}
+.flowinghours .filtercontainer div{
+    margin-right: 10px;
+}
+.flowinghours .settings_container{
+    height: auto;
+    overflow: hidden;
+    padding: 10px 30px 10px 8px;
+    position: relative;
+    -webkit-transition: padding 150ms ease-in;
+    transition: padding 150ms ease-in;
+
+}
+.jq_active{
+    border: 1px solid #AAA;
+    background: #FFF url(images/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x;
+    font-weight: normal;
+}

@@ -18,27 +18,25 @@
  */
 $cakeDescription = __d('cake_dev', 'Flowing Hours');
 $user = $this->Session->read('Auth');
- $apptheme = $user_settings['app_theme'];
-
-
+$apptheme = $user_settings['app_theme'];
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-            <?php echo $this->Html->charset(); ?>
+<?php echo $this->Html->charset(); ?>
         <title>
-            <?php echo $cakeDescription ?>:
-        <?php echo $title_for_layout; ?>
+        <?php echo $cakeDescription ?>:
+            <?php echo $title_for_layout; ?>
         </title>
-        <?php
-        echo $this->Html->meta('icon');
-        echo $this->Html->css('cake.generic');
-        echo $this->Html->css('default.css');
-        echo $this->fetch('meta');
-        echo $this->fetch('css');
-        echo $this->fetch('script');
-        if (isset($user['User']) && $this->params['controller'] == "pages") {
-            ?>
+            <?php
+            echo $this->Html->meta('icon');
+            echo $this->Html->css('generic');
+             echo $this->Html->css('app_theme/' . $apptheme . '/default');
+            echo $this->fetch('meta');
+            echo $this->fetch('css');
+            echo $this->fetch('script');
+            if (isset($user['User']) && $this->params['controller'] == "pages") {
+                ?>
 
             <script>
                 //some translations
@@ -67,7 +65,7 @@ $user = $this->Session->read('Auth');
                 __calendarstrings['Done'] = "<?php echo __("Done") ?>";
                 __calendarstrings['ESTIMATED_HOURS'] = "<?php echo __("ESTIMATED_HOURS") ?>";
                 __calendarstrings['REPORTED_HOURS'] = "<?php echo __("REPORTED_HOURS") ?>";
-                            
+                                
                 //used by frontier calendar to show stat and end dates
                 var __locale = "<?php echo Configure::read('Config.language') == "fi" ? "fi-FI" : "en-US"; ?>";
                 var __localecode = "<?php echo Configure::read('Config.language'); ?>";
@@ -83,7 +81,7 @@ $user = $this->Session->read('Auth');
             </script>
 
             <!-- Include CSS for JQuery Frontier Calendar plugin (Required for calendar plugin) -->
-            <link rel="stylesheet" type="text/css" href="css/frontierCalendar/jquery-frontier-cal-1.3.2.css" />
+            <link rel="stylesheet" type="text/css" href="css/frontierCalendar/<?php echo $apptheme ?>/jquery-frontier-cal.css" />
             <!-- Include CSS for color picker plugin (Not required for calendar plugin. Used for example.) -->
             <link rel="stylesheet" type="text/css" href="css/colorpicker/colorpicker.css" />
             <!-- Include CSS for JQuery UI (Required for calendar plugin.) -->
@@ -116,39 +114,37 @@ $user = $this->Session->read('Auth');
             <script type="text/javascript" src="js/timepicker_addon.js"></script>
             <script type="text/javascript" src="js/energybar.js"></script>
 
-            <?php
-            //custom css at the end
-            echo $this->Html->css('tasklists.css');
-            echo $this->Html->css('calendar.css');
-        }
-        ?>
+    <?php
+    //custom css at the end
+    echo $this->Html->css('app_theme/' . $apptheme . '/tasklists');
+    echo $this->Html->css('app_theme/' . $apptheme . '/calendar');
+}
+?>
     </head>
-    <body class="apptheme_<?php echo $apptheme?>">
+    <body class="apptheme_<?php echo $apptheme ?>">
         <div id="container">
             <div id="header">
 
-                <?php
-                //calling on the login bar element /view/elements/login_bar
-                echo $this->element('login_bar', array("user" => $user));
-                ?>
+<?php
+//calling on the login bar element /view/elements/login_bar
+echo $this->element('login_bar', array("user" => $user));
+?>
             </div>
             <div id="content">
-                <?php echo $this->Session->flash(); ?>
+<?php echo $this->Session->flash(); ?>
                 <?php
 //if the user is logged in - show his calendar-
-//pick up the css from default.css
-//for every layout make a different css - pages_default.css, pages_tasklist.css
                 echo $this->fetch('content');
                 ?>
             </div>
             <div id="footer">
             </div>
         </div>
-        <?php
+<?php
 //echo $this->element('sql_dump');  
 //@abrar
 //By default scripts are cached, and you must explicitly print out the cache. To do this at the end of each page, include this line just before the ending </body> tag:
 //echo $this->Js->writeBuffer(); // Write cached scripts
-        ?>
+?>
     </body>
 </html>

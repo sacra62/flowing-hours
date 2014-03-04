@@ -10,24 +10,24 @@
  */
 $apptheme = $user_settings['app_theme'];
 
-echo $this->Html->css('jquery-ui/'.$apptheme.'/jquery-ui.css');
-echo $this->Html->css('settings.css');
+echo $this->Html->css('jquery-ui/' . $apptheme . '/jquery-ui');
+echo $this->Html->css('app_theme/' . $apptheme . '/settings');
 echo $this->Html->script('jquery-core/jquery-1.9.1.js');
-echo $this->Html->script('jquery-ui/'.$apptheme.'/jquery-ui.min.js');
+echo $this->Html->script('jquery-ui/' . $apptheme . '/jquery-ui.min.js');
 
 echo $this->Html->script('settings.js');
 ?>
 <script>
     $(function() {
-        baseURL = "<?php echo FULL_BASE_URL.$this->webroot ?>";
+        baseURL = "<?php echo FULL_BASE_URL . $this->webroot ?>";
     });
 </script>
 <div class="users form settings">
     <h2><?php echo __('SETTINGS'); ?></h2>
     <ul>
-        <li><a href="javascript:;" id="user_questionnaire_settings"><?php echo __("Personal Settings")?></a></li>
-        <li><a href="javascript:;" id="calendar_settings"><?php echo __("CALENDAR_WALLPAPER")?></a></li>
-        <li><a href="javascript:;" id="app_theme_settings"><?php echo __("App Theme")?></a></li>    
+        <li><a href="javascript:;" id="user_questionnaire_settings"><?php echo __("Personal Settings") ?></a></li>
+        <li><a href="javascript:;" id="calendar_settings"><?php echo __("CALENDAR_WALLPAPER") ?></a></li>
+        <li><a href="javascript:;" id="app_theme_settings"><?php echo __("App Theme") ?></a></li>    
     </ul>
 
 </div>
@@ -40,6 +40,5 @@ echo $this->Html->script('settings.js');
 echo $this->element('Users.Settings/personality');
 echo $this->element('Users.Settings/calendar');
 echo $this->element('Users.Settings/app_theme');
-
 ?>
 

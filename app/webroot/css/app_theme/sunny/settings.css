@@ -1,0 +1,20 @@
+/* 
+    Document   : settings
+    Created on : Feb 27, 2014, 12:11:19 PM
+    Author     : Henry
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+.usersettings input{
+    width: 20px;
+    float: none;
+}
+
+.usersettings #calendar_form div, .usersettings #app_theme_form div{
+    clear: none;
+    margin: 10px;
+}
+
+

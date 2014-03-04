@@ -1,0 +1,130 @@
+/* 
+    Document   : default.ctp.css
+    Created on : Oct 22, 2013, 1:24:35 PM
+    Author     : Henry
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* resetting what cakephp' generic css has */
+/*label {
+    font-size: 1em;
+}*/
+fieldset{
+    margin: 0;
+}
+form {
+    display: block;
+    margin: 0;
+    width: auto;
+}
+table tr td,table {
+    padding: 0;
+    margin: 0;
+    vertical-align: auto;
+    border: none;
+    border-bottom: 0;
+}
+.flowinghours input, .flowinghours textarea{
+
+    width: auto;
+    padding: 0;
+}
+.flowinghours{
+    font-size: 70%;
+}
+.ui-dialog-content table tr td{
+    vertical-align: middle;
+}
+form div{
+    clear: both;
+    margin-bottom: 0;
+    padding: 0;
+}
+td, th {
+    display: table-cell;
+    vertical-align: inherit;
+}
+/**/
+root { 
+    display: block;
+}
+.fleft{
+    float: left;
+}
+.fright{
+    float: right;
+}
+.clear{
+    clear: both;
+}
+.marginLR10{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.invisible{
+    display: none;
+}
+
+
+/*users css */
+body .users {
+    background-color: #99CCCC;
+}
+
+
+div .actions {
+    background-color: #99CCCC;
+}
+.users fieldset {
+    padding-top: 5px;
+    margin:10px;
+    width:300px;
+    color:#333; 
+    background-color:#CCFF99;
+    position: relative;
+} 
+.users  form div {
+clear: both;
+margin-bottom: 1em;
+padding: .5em;
+vertical-align: text-top;
+}
+.users .submit input {
+    margin-left: 18px;
+    width: 250px;
+}
+
+a .users{
+    margin-left: 25px;
+}
+
+.users table tr td {
+    padding: 6px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid #DDD;
+}
+
+
+#content{
+    background-color:#FFFF99;
+    padding-top: 20px;
+}
+
+
+
+/*New Tasklist css */
+/*
+#newtask_title, #newtask_desc,div.task textarea{
+    background-color: #CCCCCC;
+}*/
+
+
+/*New Code for DatePicker css */
+
+.ui-timepicker-div dl dt { background-color: #66CC66;  float: left; clear:left; padding: 0 0 0 5px; }
+.ui-timepicker-div {
+    background-color: #66CC66;
+}
