@@ -12,7 +12,7 @@
     float: none;
 }
 
-.usersettings #calendar_form div{
+.usersettings #calendar_form div, .usersettings #app_theme_form div{
     clear: none;
     margin: 10px;
 }

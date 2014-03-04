@@ -18,14 +18,17 @@
  */
 $cakeDescription = __d('cake_dev', 'Flowing Hours');
 $user = $this->Session->read('Auth');
+ $apptheme = $user_settings['app_theme'];
+
+
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <?php echo $this->Html->charset(); ?>
+            <?php echo $this->Html->charset(); ?>
         <title>
             <?php echo $cakeDescription ?>:
-            <?php echo $title_for_layout; ?>
+        <?php echo $title_for_layout; ?>
         </title>
         <?php
         echo $this->Html->meta('icon');
@@ -64,18 +67,18 @@ $user = $this->Session->read('Auth');
                 __calendarstrings['Done'] = "<?php echo __("Done") ?>";
                 __calendarstrings['ESTIMATED_HOURS'] = "<?php echo __("ESTIMATED_HOURS") ?>";
                 __calendarstrings['REPORTED_HOURS'] = "<?php echo __("REPORTED_HOURS") ?>";
-                
+                            
                 //used by frontier calendar to show stat and end dates
-                var __locale = "<?php echo Configure::read('Config.language')=="fi"? "fi-FI" : "en-US";?>";
-                var __localecode = "<?php echo Configure::read('Config.language');?>";
+                var __locale = "<?php echo Configure::read('Config.language') == "fi" ? "fi-FI" : "en-US"; ?>";
+                var __localecode = "<?php echo Configure::read('Config.language'); ?>";
                 var __dateformat_options= {
-                weekday: "long", 
-                year: "numeric", 
-                month: "long", 
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric"
-            };
+                    weekday: "long", 
+                    year: "numeric", 
+                    month: "long", 
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric"
+                };
 
             </script>
 
@@ -84,14 +87,16 @@ $user = $this->Session->read('Auth');
             <!-- Include CSS for color picker plugin (Not required for calendar plugin. Used for example.) -->
             <link rel="stylesheet" type="text/css" href="css/colorpicker/colorpicker.css" />
             <!-- Include CSS for JQuery UI (Required for calendar plugin.) -->
-            <link rel="stylesheet" type="text/css" href="css/jquery-ui/smoothness/jquery-ui-1.10.3.custom.css" />
+            <link rel="stylesheet" type="text/css" href="css/jquery-ui/<?php echo $apptheme ?>/jquery-ui.css" />
+
             <!--
             Include JQuery Core (Required for calendar plugin)
             ** This is our IE fix version which enables drag-and-drop to work correctly in IE. See README file in js/jquery-core folder. **
             -->
             <script type="text/javascript" src="js/jquery-core/jquery-1.9.1.js"></script>
+            <script type="text/javascript" src="js/jquery-ui/<?php echo $apptheme ?>/jquery-ui.min.js"></script>
+
             <!-- Include JQuery UI (Required for calendar plugin.) -->
-            <script type="text/javascript" src="js/jquery-ui/smoothness/jquery-ui-1.10.3.custom.min.js"></script>
             <!-- Include color picker plugin (Not required for calendar plugin. Used for example.) -->
             <script type="text/javascript" src="js/colorpicker/colorpicker.js"></script>
             <!-- Include jquery tooltip plugin (Not required for calendar plugin. Used for example.) -->
@@ -118,7 +123,7 @@ $user = $this->Session->read('Auth');
         }
         ?>
     </head>
-    <body>
+    <body class="apptheme_<?php echo $apptheme?>">
         <div id="container">
             <div id="header">
 

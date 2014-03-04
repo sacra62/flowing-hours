@@ -5,6 +5,7 @@
 $(function() {
     $(".users.settings").on("click","a",function(){
         var $id = "#"+$(this).attr("id").replace("_settings","");
+        console.log($id);
         $( $id ).dialog({
             modal: true, 
             zIndex: 10000, 

@@ -196,14 +196,7 @@ class PagesController extends AppController {
         $filtereddata = array("weekly" => $weekly, "monthly" => $monthly, "yearly" => $yearly);
         //print_r($monthly);exit;
         $this->set('filtereddata', $filtereddata);
-        //get user settings
-        $settings = $this->Tasks->query("SELECT settings FROM users WHERE id='" . $user['id'] . "'");
-
-        //if settings exist -json decode
-        $settings = $settings[0]['users']['settings'];
-        $settings = !empty($settings) ? json_decode($settings) : array();
-
-        $this->set('settings', $settings);
+        
 
 //        
 //        $this->loadModel('Tasks');

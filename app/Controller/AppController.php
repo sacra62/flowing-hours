@@ -22,6 +22,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 App::uses('Controller', 'Controller');
+App::uses('ConnectionManager', 'Model');
 
 /**
  * Application Controller
@@ -34,22 +35,31 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-    public $components = array('Auth','DebugKit.Toolbar','Session');
-    
+    public $components = array('Auth', 'DebugKit.Toolbar', 'Session');
+
     function beforeFilter() {
         //for some odd reason if we dont unlock this action it fails completely. this is an ajax request.
         //i tried adding it to auth->allow method in the Users controller but it did not work! silly cakephp
         @$this->Security->unlockedActions = array('saveSettings');
         //$this->Session = new SessionHandler();
         //change the language
-        
+
         $ses_lang = $this->Session->read('Config.language');
         $lang = isset($this->request->query['lang']) ? $this->request->query['lang'] : (!empty($ses_lang) ? $ses_lang : "en");
         Configure::write('Config.language', $lang);
         $this->Session->write('Config.language', $lang);
-        
-        
+
+
+        //get user settings
+        $db = ConnectionManager::getDataSource("default");
+        $userid = $this->Session->read('Auth.User.id');
+        $settings = $db->fetchAll("SELECT settings FROM users WHERE id='" . $userid . "'");
+
+       
+        //if settings exist -json decode
+        $settings = $settings[0]['users']['settings'];
+        $settings = !empty($settings) ? (array)json_decode($settings) : array();
+        $this->set('user_settings', $settings);
     }
-    
-    
+
 }

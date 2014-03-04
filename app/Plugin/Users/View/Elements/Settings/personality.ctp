@@ -19,7 +19,7 @@
                 <div>
                     <?php echo __($us['user_preference']['question_description']) ?>
                     <?php
-                    $uservalue = $settings[$us['user_preference']['code']];
+                    $uservalue = $user_settings[$us['user_preference']['code']];
 
                     $uservalue = isset($uservalue) ? $uservalue : $us['user_preference']['default'];
                     if ($us['user_preference']['type'] == "text") {

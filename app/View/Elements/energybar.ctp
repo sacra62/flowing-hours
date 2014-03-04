@@ -1,4 +1,5 @@
-<?php $energyhours = isset($settings->energy_hours) ? $settings->energy_hours : 0; ?>
+<?php 
+$energyhours = isset($user_settings['energy_hours']) ? $user_settings['energy_hours'] : 0; ?>
 <div class="settings_top_container">
     <div class="settings_container">
         <div class="fleft invisible" >Misc Icons will be here.</div>

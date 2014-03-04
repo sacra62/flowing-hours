@@ -20,7 +20,7 @@
 //echo $this->Html->script('calendar.custom');
 //@abrar - settings come from the PagesController set in the loadTasks function
 
-$wallpaper = isset($settings->calendar_wallpaper) ? $settings->calendar_wallpaper . " " . "wallpaper" : "";
+$wallpaper = isset($user_settings['calendar_wallpaper']) ? $user_settings['calendar_wallpaper'] . " " . "wallpaper" : "";
 ?>
 <div class="flowinghours">
 

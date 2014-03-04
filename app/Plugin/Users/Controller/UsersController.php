@@ -269,13 +269,6 @@ class UsersController extends UsersAppController {
         $questions = $db->fetchAll($query);
         $this->set('questions', $questions);
 
-
-        $user = $this->Session->read('Auth');
-        $settings = $this->User->query("SELECT settings FROM users WHERE id='" . $user['User']['id'] . "'");
-        //if settings exist -json decode
-        $settings = $settings[0]['users']['settings'];
-        $settings = !empty($settings) ? json_decode($settings) : array();
-        $this->set('settings', (array) $settings);
     }
 
     /**

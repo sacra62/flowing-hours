@@ -10,32 +10,30 @@
  */
 App::uses('Folder', 'Utility');
 App::uses('File', 'Utility');
-$wallpapersFolder = new Folder('img/wallpapers');
-$wallpapers = $wallpapersFolder->find('.*\.jpg');
-$usersettings = $this->Session->read('Auth.User.settings');
-$usersettings = (array) json_decode($usersettings);
+$themeFolder = new Folder('css/jquery-ui');
 
+$themes = $themeFolder->read();
+$usersettings = $user_settings; //set from the controller
 ?>
-<div class=" calendar usersettings" id="calendar" style="display: none" title="<?php echo __('Calendar Wallpaper'); ?>">
-    <form id="calendar_form" action="">
+<div class=" app_theme usersettings" id="app_theme" style="display: none" title="<?php echo __('App Theme'); ?>">
+    <form id="app_theme_form" action="">
         <?php
-        foreach ($wallpapers as $key=>$wall) {
+        foreach ($themes[0] as $key => $th) {
             ?>
-                <?php if($key%2==0) echo '<div class="clear"></div>';?>
+            <?php if ($key % 2 == 0) echo '<div class="clear"></div>'; ?>
 
             <div class="fleft">
                 <?php
-                $walltitle = explode(".", $wall);
-                $uservalue = $walltitle[0] == $usersettings['calendar_wallpaper'] ? ' checked ="checked"' : "";
+                $uservalue = $th == $usersettings['app_theme'] ? ' checked ="checked"' : "";
                 ?>
-                <input type="radio" <?php echo $uservalue ?> value="<?php echo $walltitle[0] ?>" name="calendar_wallpaper" /><?php echo  $this->Html->image(FULL_BASE_URL.$this->webroot.'img/wallpapers/thumbs/'.$wall) ?>
+                <input type="radio" <?php echo $uservalue ?> value="<?php echo $th ?>" name="app_theme" /><?php echo $this->Html->image(FULL_BASE_URL . $this->webroot . 'img/app_theme/theme_' . $th.'.png') ?>
 
 
             </div> 
 
-    <?php
-}
-?>
+            <?php
+        }
+        ?>
     </form>
 </div>
 

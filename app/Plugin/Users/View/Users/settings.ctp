@@ -8,13 +8,14 @@
  * @copyright Copyright 2010 - 2013, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-echo $this->Html->css('jquery-ui/smoothness/jquery-ui-1.10.3.custom.css');
+$apptheme = $user_settings['app_theme'];
+
+echo $this->Html->css('jquery-ui/'.$apptheme.'/jquery-ui.css');
 echo $this->Html->css('settings.css');
 echo $this->Html->script('jquery-core/jquery-1.9.1.js');
-echo $this->Html->script('jquery-ui/smoothness/jquery-ui-1.10.3.custom.min.js');
+echo $this->Html->script('jquery-ui/'.$apptheme.'/jquery-ui.min.js');
 
 echo $this->Html->script('settings.js');
-
 ?>
 <script>
     $(function() {
@@ -26,7 +27,7 @@ echo $this->Html->script('settings.js');
     <ul>
         <li><a href="javascript:;" id="user_questionnaire_settings"><?php echo __("Personal Settings")?></a></li>
         <li><a href="javascript:;" id="calendar_settings"><?php echo __("CALENDAR_WALLPAPER")?></a></li>
-        <li><a href="javascript:;" id="app_settings"><?php echo __("App Theme")?></a></li>    
+        <li><a href="javascript:;" id="app_theme_settings"><?php echo __("App Theme")?></a></li>    
     </ul>
 
 </div>
@@ -38,5 +39,7 @@ echo $this->Html->script('settings.js');
 //all the settings are here:
 echo $this->element('Users.Settings/personality');
 echo $this->element('Users.Settings/calendar');
+echo $this->element('Users.Settings/app_theme');
+
 ?>
 

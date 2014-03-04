@@ -12,7 +12,7 @@ App::uses('Folder', 'Utility');
 App::uses('File', 'Utility');
 $wallpapersFolder = new Folder('img/wallpapers');
 $wallpapers = $wallpapersFolder->find('.*\.jpg');
-$usersettings = $settings; //set from the controller
+$usersettings = $user_settings; //set from the controller
 ?>
 <div class=" calendar usersettings" id="calendar" style="display: none" title="<?php echo __('Calendar Wallpaper'); ?>">
     <form id="calendar_form" action="">
