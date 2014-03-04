@@ -12,7 +12,9 @@ App::uses('Folder', 'Utility');
 App::uses('File', 'Utility');
 $wallpapersFolder = new Folder('img/wallpapers');
 $wallpapers = $wallpapersFolder->find('.*\.jpg');
-$usersettings = $settings; //set from the controller
+$usersettings = $this->Session->read('Auth.User.settings');
+$usersettings = (array) json_decode($usersettings);
+
 ?>
 <div class=" calendar usersettings" id="calendar" style="display: none" title="<?php echo __('Calendar Wallpaper'); ?>">
     <form id="calendar_form" action="">
@@ -24,7 +26,6 @@ $usersettings = $settings; //set from the controller
             <div class="fleft">
                 <?php
                 $walltitle = explode(".", $wall);
-                
                 $uservalue = $walltitle[0] == $usersettings['calendar_wallpaper'] ? ' checked ="checked"' : "";
                 ?>
                 <input type="radio" <?php echo $uservalue ?> value="<?php echo $walltitle[0] ?>" name="calendar_wallpaper" /><?php echo  $this->Html->image(FULL_BASE_URL.$this->webroot.'img/wallpapers/thumbs/'.$wall) ?>

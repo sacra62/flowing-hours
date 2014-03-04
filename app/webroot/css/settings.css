@@ -12,3 +12,9 @@
     float: none;
 }
 
+.usersettings #calendar_form div{
+    clear: none;
+    margin: 10px;
+}
+
+

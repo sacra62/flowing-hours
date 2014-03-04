@@ -9,8 +9,7 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-<div class=" user_questionnaire usersettings" id="user_questionnaire" style="display: none">
-    <h2><?php echo __('PERSONALITY_QUESTIONNAIRE'); ?></h2>
+<div class=" user_questionnaire usersettings" id="user_questionnaire" style="display: none" title="<?php echo __('PERSONALITY_QUESTIONNAIRE'); ?>">
     <form id="user_questionnaire_form" action="">
         <dl>
             <?php
