@@ -114,10 +114,9 @@ class PagesController extends AppController {
 
     function loadTasks($user) {
 
-
+        
         $this->loadModel('Tasklist');
         $tasklists = $this->Tasklist->query("SELECT tasklist.* FROM tasklists tasklist WHERE tasklist.users_id='" . $user['id'] . "' ORDER BY tasklist.ordering ASC");
-
 //        echo "<pre>";
 //        print_r($tasklists);exit;
         foreach ($tasklists as $key => $list) {

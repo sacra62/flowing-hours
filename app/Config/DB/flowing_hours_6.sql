@@ -12,3 +12,4 @@ UPDATE  `user_preference` SET  `type` =  'radio' WHERE  `user_preference`.`id` =
 ALTER TABLE  `user_preference` ADD  `default` VARCHAR( 10 ) NOT NULL AFTER  `type`;
 UPDATE  `user_preference` SET  `default` =  '20' WHERE  `user_preference`.`id` =1;
 UPDATE  `user_preference` SET  `default` =  '1' WHERE  `user_preference`.`id` =2;
+UPDATE  `flowing_hours`.`feedbacks` SET  `message` =  'You haven''t checked on your tasks. Do you have too much to do?' WHERE  `feedbacks`.`id` =5;

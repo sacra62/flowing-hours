@@ -108,6 +108,8 @@ $apptheme = $user_settings['app_theme'];
             <!-- Include JQuery Frontier Calendar plugin -->
             <script type="text/javascript" src="js/frontierCalendar/jquery-frontier-cal-1.3.2.js"></script>
             <!-- tooltip and drag - only when calendar is active-->
+                        <script type="text/javascript" src="js/feedback.js"></script>
+
             <script type="text/javascript" src="js/frontierCalendar/tooltip.drag.js"></script>
             <script type="text/javascript" src="js/calendar.custom.js"></script>
             <script type="text/javascript" src="js/tasklist.js"></script>

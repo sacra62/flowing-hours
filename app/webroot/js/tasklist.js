@@ -526,7 +526,7 @@ $(function() {
                 $("#accordion_container-"+tasklists_id).find(".accordion").append(result);
                 $("#accordion-"+tasklists_id).accordion( "refresh" );
                 resetNewTaskDialog(tasklists_id);
-                _getEstimatedHoursForAWeek(form);
+                updateFeedback("savetask");//calling feedback module
             }
         
         
@@ -717,7 +717,7 @@ $(function() {
                     $("#"+$task).find(".task_inner").html(weneed);
                     $("#accordion").accordion( "refresh" );
                     _init();//so that the default text works,
-                    _getEstimatedHoursForAWeek(form);
+                     updateFeedback("updatetask");//calling feedback module
                 
                 }
             }

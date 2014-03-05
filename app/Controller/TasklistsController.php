@@ -38,7 +38,10 @@ class TasklistsController extends Controller {
             //date time needs to be fixed
             $this->request->data['title'] = $this->request->data['newlist_title'];
             //To Do //get the latest ordering and add one to it
-            $this->request->data['ordering'] = 0;
+            $tasklists_ordering = $this->Tasklist->query("SELECT MAX(ordering) as maxorder FROM tasklists tasklist WHERE tasklist.users_id='" . $user['User']['id'] . "'");
+            $this->request->data['ordering'] = ((int)$tasklists_ordering[0][0]['maxorder'])+1;
+            
+            
             $this->Tasklist->create();
             try {
                 if ($this->Tasklist->save($this->request->data)) {

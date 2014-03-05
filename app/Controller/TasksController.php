@@ -63,36 +63,6 @@ class TasksController extends Controller {
         }
     }
 
-    function saveList() {
-        if ($this->request->is('ajax') && count($this->request->data)) {
-            $this->loadModel('TaskList');
-
-            $user = $this->Session->read('Auth');
-            $this->request->data['users_id'] = $user['User']['id'];
-            //date time needs to be fixed
-            $this->request->data['title'] = $this->request->data['newlist_title'];
-            //To Do //get the latest ordering and add one to it
-            $this->request->data['ordering'] = 0;
-            $this->TaskList->create();
-            try {
-                if ($this->TaskList->save($this->request->data)) {
-
-                    //prepare new task html and send it back
-                    $this->request->data['id'] = $this->TaskList->getLastInsertId();
-                    $output = array_key_exists("dontoutput", $this->request->data) ? false : true;
-                    if ($output) {
-                        $view = new View($this, false);
-                        echo $view->element('prepare_new_list', array("tasklist" => $this->request->data, "edit" => true));
-                        exit;
-                    }
-                    return true;
-                }
-            } catch (Exception $e) {
-                return "Field missing";
-            }
-        }
-    }
-
     function calculateWeeklyHours() {
         if ($this->request->is('ajax') && count($this->request->data)) {
             $this->loadModel('Task');
@@ -108,10 +78,10 @@ class TasksController extends Controller {
             $stardate2 = date('Y-m-d', strtotime($year . "W" . $weeknumber . 7));
 
             $db = ConnectionManager::getDataSource("default");
-            $query = 'SELECT SUM(estimated_hours) as estimatdhours FROM tasks WHERE users_id="' . $user['User']['id'] . '" AND start_date BETWEEN "' . $stardate1 . '" AND "' . $stardate2 . '"';
+            $query = 'SELECT SUM(estimated_hours) as estimateddhours FROM tasks WHERE users_id="' . $user['User']['id'] . '" AND start_date BETWEEN "' . $stardate1 . '" AND "' . $stardate2 . '"';
             $totalhours = $db->fetchAll($query);
 
-            echo $totalhours[0][0]['estimatdhours'];
+            echo $totalhours[0][0]['estimatedhours'];
             exit;
         }
     }
@@ -172,7 +142,7 @@ class TasksController extends Controller {
                 $this->request->data['start_date'] = date("Y-m-d G:i", strtotime(str_replace(",", "", $this->request->data['start_date'])));
             if (!empty($this->request->data['end_date']))
                 $this->request->data['end_date'] = date("Y-m-d G:i", strtotime(str_replace(",", "", $this->request->data['end_date'])));
-            
+
             if ($newtask = $this->Task->save($this->request->data)) {
                 $newtask['Task']['title'] = $task['Task']['title'];
                 $view = new View($this, false);
@@ -220,7 +190,7 @@ class TasksController extends Controller {
         if ($this->request->is('ajax')) {
             $user = $this->Session->read('Auth');
 
-            $userdata = $this->Task->find("all", array('conditions' => array('Task.users_id =' => $user['User']['id'],'Task.status =' => 0)));
+            $userdata = $this->Task->find("all", array('conditions' => array('Task.users_id =' => $user['User']['id'], 'Task.status =' => 0)));
             foreach ($userdata as &$task) {
                 $task['Task']['start_date'] = date('j F, Y G:i', strtotime($task['Task']['start_date']));
                 $task['Task']['end_date'] = date('j F, Y G:i', strtotime($task['Task']['end_date']));
@@ -249,16 +219,107 @@ class TasksController extends Controller {
         }
     }
 
+    //called by feedback.js
     function getUserPref() {
         //user prefs
-        $array = array("g_punctual" => "0");
-        echo json_encode($array);
+        App::uses('ConnectionManager', 'Model');
+        $db = ConnectionManager::getDataSource("default");
+        $userid = $this->Session->read('Auth.User.id');
+        $settings = $db->fetchAll("SELECT settings FROM users WHERE id='" . $userid . "'");
+
+
+        //if settings exist -json decode
+        $settings = $settings[0]['users']['settings'];
+        $settings = !empty($settings) ? (array) json_decode($settings) : array();
+
+        $settings['cw_energy_hours'] = $settings['energy_hours'];
+        unset($settings['energy_hours']);unset($settings['calendar_wallpaper']);
+        unset($settings['app_theme']);
+        $settings['cw_unfinished_hours'] = 0;
+        $settings['cw_finished_hours'] = 0;
+        $settings['cw_total_hours'] = 0;
+
+        $settings['lfw_unfinished_hours'] = 0;
+        $settings['lfw_finished_hours'] = 0;
+        $settings['lfw_total_hours'] = 0;
+
+        //get current weeks unfinished hours
+
+        $currentdate = date("Y-m-d");
+        $currentweeknumber = sprintf("%02s", date("W", strtotime($currentdate))); //this weeks number - must be like 09 and not 9
+        $currentyear = date("Y", strtotime($currentdate)); //2014
+
+        $stardate1 = date('Y-m-d', strtotime($currentyear . "W" . $currentweeknumber));
+        $stardate2 = date('Y-m-d', strtotime($currentyear . "W" . $currentweeknumber . " +6 days"));
+
+
+
+        $query = 'SELECT * FROM tasks WHERE users_id="' . $userid . '" AND start_date BETWEEN "' . $stardate1 . '" AND "' . $stardate2 . '"';
+        $currentweekdata = $this->Task->query($query);
+        if (is_array($currentweekdata)) {
+            //see if they are finished or not
+            foreach ($currentweekdata as $tas) {
+               
+                $reported = (int) $tas['tasks']['reported_hours'];
+                $estimated = (int) $tas['tasks']['estimated_hours'];
+                if ($tas['tasks']['status'] == 0 && $reported <= $estimated) {
+                    $settings['cw_unfinished_hours'] += $estimated - $reported;
+                }
+
+                $settings['cw_finished_hours'] += $reported;
+            }
+            //these are total hours either worked or committed to work. if more than current week's energy, tell the 
+            //user to calm down.
+            $settings['cw_total_hours'] += $settings['cw_unfinished_hours'] + $settings['cw_finished_hours'];
+        }
+        //1 week ago
+
+        $lastweekstartdate1 = date("Y-m-d", strtotime("-1 week", strtotime($stardate1))); //2014
+        $lastweekstartdate2 = date("Y-m-d", strtotime("-1 week", strtotime($stardate2))); //2014
+
+        $query = 'SELECT * FROM tasks WHERE users_id="' . $userid . '" AND start_date BETWEEN "' . $lastweekstartdate1 . '" AND "' . $lastweekstartdate2 . '"';
+        $lastweekdata = $this->Task->query($query);
+        if (is_array($lastweekdata)) {
+            //see if they are finished or not
+            foreach ($lastweekdata as $tas) {
+                $reported = (int) $tas['tasks']['reported_hours'];
+                $estimated = (int) $tas['tasks']['estimated_hours'];
+                if ($tas['tasks']['status'] == 0 && $reported <= $estimated) {
+                    $settings['lfw_unfinished_hours'] += $estimated - $reported;
+                }
+
+                $settings['lfw_finished_hours'] += $reported;
+            }
+            //these are total hours either worked or committed to work. if more than current week's energy, tell the 
+            //user to calm down.
+            $settings['lfw_total_hours'] += $settings['lfw_unfinished_hours'] + $settings['lfw_finished_hours'];
+        }
+
+        //get feedback messages
+        
+        $query = 'SELECT * FROM feedbacks';
+        $feedbacks = $this->Task->query($query);
+        $feedbacksreturn = array();
+        //group by type
+        foreach($feedbacks as $feed){
+            $type = $feed['feedbacks']['type'];
+            $feed['feedbacks']['message'] = __($feed['feedbacks']['message'],$settings['cw_unfinished_hours']);
+            $feedbacksreturn[$type][] = $feed['feedbacks'];
+        }
+        $return['feedback'] = $feedbacksreturn;
+        $return['settings'] = $settings;
+        
+        echo json_encode($return);
         die();
     }
 
     function beforeFilter() {
 
         parent::beforeFilter();
+    }
+
+    function getEnergyData() {
+        
     }
 
 }

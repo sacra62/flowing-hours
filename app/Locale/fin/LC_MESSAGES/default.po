@@ -234,8 +234,11 @@ msgstr "Hei, sinulla menee todella hyvin!"
 msgid "Is everything alright? Have you been sick or something? If yes, we sympethize with you."
 msgstr "Onko kaikki kunnossa? Oletko ollut sairaana? Jos kyllä, paranemisia."
 
-msgid "You still need plenty of work to do."
+msgid "You still need plenty of work to do"
 msgstr "Sinulla on vielä paljon tekemistä."
 
 msgid "Push more, before the weekend, you can complete remaining %d hours"
 msgstr "Jos vielä tsemppaat, saat suoritettua jäljellä olevat d% tuntia."
+
+msgid "Feedback"
+msgstr "Palaute"

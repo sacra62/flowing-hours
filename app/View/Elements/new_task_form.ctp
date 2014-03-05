@@ -27,5 +27,5 @@
         <div style="display:none;" id="deletedialog" title="<?php echo __("MSG_AREYOUSURE")?>"><?php echo __("MSG_AREYOUSURE_DELETETASK")?></div>
         <div style="display:none;" id="feedbackdialog" title="<?php echo __("MSG_HEYYOU")?>"><?php echo __("ALERT")?></div>
         <div style="display:none;" id="deletelist" title="<?php echo __("MSG_AREYOUSURE")?>"><?php echo __("MSG_AREYOURSURE_DELETELIST")?></div>
-                <div style="display:none;" id="failuremsgdialog" title=<?php echo __("MSG_SOMETHING_WENTWRONG")?></div>
+                <div style="display:none;" id="failuremsgdialog" title="<?php echo __("MSG_SOMETHING_WENTWRONG")?>"></div>
 

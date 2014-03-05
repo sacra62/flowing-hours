@@ -13,7 +13,7 @@ $energyhours = isset($user_settings['energy_hours']) ? $user_settings['energy_ho
         <div class="fleft">
             <label for="energybar_hours"><?php echo __("ENERGYLEVEL_HOURSWEEK")?></label>
             <span id="energybar_hours" class="fleft" rel="<?php echo $energyhours ?>"><?php echo $energyhours ?></span>
-            <span class="jQbutton fright" id="save_energy" style="display: none;">Save</span>
+            <a class="jQbutton fright save_energy" id="save_energy" style="display: none;">Save</a>
         </div>
         <div class="energy_def fleft">
             <div id="slider-horizontal" style="height:12px; width:250px"></div>
@@ -29,6 +29,7 @@ $energyhours = isset($user_settings['energy_hours']) ? $user_settings['energy_ho
 
     </div>
 </div>
+<div style="display:none;" id="feedbackdlg" title="<?php echo __("Feedback")?>"></div>
 
 <script>
     $(function() {

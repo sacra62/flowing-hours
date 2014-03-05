@@ -14,11 +14,6 @@ $(function() {
             buttons: {
                 Save: function () {
                     saveSettings($(this),$id);
-                    console.log($id);
-                    if($id=="#app_theme"){
-                    window.location.reload();
-                    }
-                    
                 }
             },
             close: function (event, ui) {
@@ -43,6 +38,9 @@ function saveSettings(dlg,formparent){
                 
             //success - add the task to the list
             dlg.dialog("close");
+            if(formparent=="#app_theme"){
+            window.location.reload();
+            }
         }
         
         
