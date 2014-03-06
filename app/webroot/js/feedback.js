@@ -37,6 +37,12 @@ $(function() {
 //}
 
 
+//you may actually change the value of "event" to the id of the button which contains the id of the task or tells if it is save energy button
+// or just sent the task id if it is a task. and also send it the task was created or edited.
+// knowing all these values changes how often and when to show the feedback
+
+// just change this function's call in 3 different places to send more information : in the tasklists.js - when a task is updated and created
+// and in th energy.js when energy bar save button is pressed.
 function updateFeedback(event){
     $.ajax({
         type: "POST",
@@ -53,6 +59,8 @@ function updateFeedback(event){
                 console.log("energy ready");
                 var diff = 0;
                 //feedback loaded
+                //TODO - DOnt use the if condition below every time, better just use the showRandomMessage(); function and make it more intelligent
+                //
                 //if more hours saved than global, inform the user
                 if(event=="saveenergy"){
                     diff = __feedback.settings.cw_energy_hours - __feedback.settings.g_energy_hours;
@@ -65,8 +73,7 @@ function updateFeedback(event){
                 }
                 else{
                     //came from edit or update task
-                    //check per day hours
-                    //7 days
+                    
                     showRandomMessage();
                 }
             }
@@ -78,6 +85,10 @@ function updateFeedback(event){
 
 function showRandomMessage(){
     
+    //@Henry - create your own stats here, dont trust this feedback logic !! - to know how each setting is calculated see app/controllers/TasksController getUserPref
+    //1. maybe use javascript session or cookie to store when we showed user a feedback, if he is too quick and saving the same task over and over again, it may not make sense to show a feedback every time
+    // all the required stats are available, 
+    //2, in the updateFeedback function, dont stress the server side, better decide when to call server and when not.
     var avg_energy_per_day = Math.ceil(__feedback.settings.cw_energy_hours/7);
     var avg_work_per_day = Math.ceil(__feedback.settings.cw_total_hours/7);
     //var avg_hours = Math.ceil(__feedback.settings.cw_energy_hours/7);
@@ -100,12 +111,15 @@ function showRandomMessage(){
     
     console.log(diffscheduleHoursPercent);
     /// positive feedaback
+    //@Henry this approach of categorizing encouraging","positive as positive may not be correct
+    // use entirely your own approach. better use logic to determine the feedback "type" and dont use categories
+    
     //    var positivefeedback = Array("encouraging","positive");
     //    var negativefeedback = Array("persuasive","caring");
     //    //we have 2 positive methods
     //    var positiverandom = Math.floor(Math.random() * positivefeedback.length);
     //    var negativerandom = Math.floor(Math.random() * negativefeedback.length);
-    //    var levelrandom = Math.floor(Math.random() * 1);
+    //    var levelrandom = Math.floor(Math.random() * 2); //2 is the numbers of levels we have 0,1 (all messags must have same number of levels or when a level is suggested by the same which is not present then do level=level-1 until you find a message for that level
     
     //    if(diffscheduleHoursPercent>-15 && diffscheduleHoursPercent<=15){
     //        msglevel = 0;
@@ -134,12 +148,17 @@ function showRandomMessage(){
     //    }
 
 
+//this is just for the random - do some logic by uncommenting the above lines or write completely new
     var positivefeedback = Array("encouraging","positive","persuasive","caring");
     //we have 2 positive methods
     var positiverandom = Math.floor(Math.random() * positivefeedback.length);
     var levelrandom = Math.floor(Math.random() * 2);
     msglevel = levelrandom;
     msgtype = positivefeedback[positiverandom];
+    /// end of random logic
+    
+    
+    
     var msg = __feedback.feedback[msgtype][msglevel]['message'];
     _showFeedbackDialogBox(msg);
 //    if(diffscheduleHours>5){
