@@ -219,7 +219,14 @@ class TasksController extends Controller {
         }
     }
 
+    //@Henry this is the most important function
+    ////calculate the values correctly and understand what different stats mean - they are not perfect - fix them
     //called by feedback.js
+    //@TODO - whever a call comes to update the preferences (after saving a task, saving enegy etc) dont always return the data
+    // 1. save in the session the number of times this method was called and by what action. For example if a user is saving the same task again and again too quickly, better not show him a feedback every time, it will be annoying
+    // 2. also if you know that the user is not so punctual (in the user settings we ask if they are lazy -g_punctual- if they are then give more feedback else less
+    // 3. user settings affect how often and what kinds of feedback we give.
+
     function getUserPref() {
         //user prefs
         App::uses('ConnectionManager', 'Model');
@@ -262,14 +269,15 @@ class TasksController extends Controller {
                
                 $reported = (int) $tas['tasks']['reported_hours'];
                 $estimated = (int) $tas['tasks']['estimated_hours'];
+                
+                //if the task is not done then total unfinished hours are calculated like this
                 if ($tas['tasks']['status'] == 0 && $reported <= $estimated) {
                     $settings['cw_unfinished_hours'] += $estimated - $reported;
                 }
-
+                //if the task is done no need to take its unfinished hours into account as it is done
+                //total finished hours are simple
                 $settings['cw_finished_hours'] += $reported;
             }
-            //these are total hours either worked or committed to work. if more than current week's energy, tell the 
-            //user to calm down.
             $settings['cw_total_hours'] += $settings['cw_unfinished_hours'] + $settings['cw_finished_hours'];
         }
         //1 week ago
