@@ -100,7 +100,7 @@ function decideFeedback() {
         cw_energy_hours: energybar_hours,
         cw_unfinished_hours: __feedback.settings.lfw_total_hours,
         cw_finished_hours: __feedback.settings.cw_finished_hours,
-        energyLevel_Bar: energylevel_bar,
+        energyLevel_Bar: energylevel_bar
     };
 
     var energyLevel = {
@@ -112,7 +112,7 @@ function decideFeedback() {
     var avg_energy_per_day = Math.ceil(__feedback.settings.cw_energy_hours / 7);
     var d = new Date();
     var currentweekday = d.getDay();
-    if (curentday == 0)
+    if (currentweekday == 0)
         currentweekday = 7; //Sunday
     var shouldbe_totalscheduled = avg_energy_per_day * currentweekday;
 
@@ -154,82 +154,53 @@ function decideFeedback() {
     }
 }
 
-        function showFeedbackStartUp() {
+function showFeedbackStartUp() {
 
-            var avg_energy_per_day = Math.ceil(__feedback.settings.cw_energy_hours / 7);
-            var d = new Date();
-            var currentweekday = d.getDay();
-            if (curentday == 0)
-                currentweekday = 7; //Sunday
-            var shouldbe_totalscheduled = avg_energy_per_day * currentweekday;
+    var avg_energy_per_day = Math.ceil(__feedback.settings.cw_energy_hours / 7);
+    var d = new Date();
+    var currentweekday = d.getDay();
+    if (currentweekday == 0)
+        currentweekday = 7; //Sunday
+    var shouldbe_totalscheduled = avg_energy_per_day * currentweekday;
 
-            if (_feedback.settings.cw_finished_hours < shouldbe_totalscheduled) {
-                _showFeedbackDialogBox("According to your weekly energy level you are <strong>falling behind</strong>. By today you should have shceduled <strong>" + shouldbe_totalscheduled + "</strong> working hours but you only did <strong>" + __feedback.settings.cw_total_hours + "</strong>");
+    if (_feedback.settings.cw_finished_hours < shouldbe_totalscheduled) {
+        _showFeedbackDialogBox("According to your weekly energy level you are <strong>falling behind</strong>. By today you should have shceduled <strong>" + shouldbe_totalscheduled + "</strong> working hours but you only did <strong>" + __feedback.settings.cw_total_hours + "</strong>");
+    }
+    else if (_feedback.settings.cw_finished_hours > shouldbe_totalscheduled) {
+        _showFeedbackDialogBox("According to your weekly energy level you must <strong>slow down</strong>. By now you should have shceduled <strong>" + shouldbe_totalscheduled + "</strong> working hours you already did <strong>" + __feedback.settings.cw_total_hours + "</strong> hours");
+    }
+}
+
+function _showFeedbackDialogBox(msg) {
+    //remove data and cancel
+    var $dialog = $("#feedbackdlg").clone(true).removeAttr("id").addClass("feedbackdlg");
+    $dialog.html(msg);
+    $dialog.dialog({
+        modal: true,
+        zIndex: 10000,
+        autoOpen: true,
+        width: '300px',
+        resizable: false,
+        buttons: {
+            Ok: function() {
+                $(this).dialog("close");
             }
-            else if (_feedback.settings.cw_finished_hours > shouldbe_totalscheduled) {
-                _showFeedbackDialogBox("According to your weekly energy level you must <strong>slow down</strong>. By now you should have shceduled <strong>" + shouldbe_totalscheduled + "</strong> working hours you already did <strong>" + __feedback.settings.cw_total_hours + "</strong> hours");
-            }
+        },
+        close: function(event, ui) {
+            $(this).dialog("close");
         }
+    });
+}
 
-        function setCookie(cname)
-        {
-            var d = new Date();
-            cvalue = d.getMinutes();
-            document.cookie = cname + "=" + cvalue;
-        }
+function showRandomMessage() {
 
-        function getCookie()
-        {
-            var x = document.cookie;
-            return x;
-        }
-
-        function checkCookie()
-        {
-            var cookie = getCookie();
-            if (cookie != "")
-            {
-                if (cookie > 15)
-                    return 1;
-                else
-                    return 0;
-            }
-            else
-            {
-                setCookie("lastShownFeedback");
-            }
-        }
-
-        function _showFeedbackDialogBox(msg) {
-            //remove data and cancel
-            var $dialog = $("#feedbackdlg").clone(true).removeAttr("id").addClass("feedbackdlg");
-            $dialog.html(msg);
-            $dialog.dialog({
-                modal: true,
-                zIndex: 10000,
-                autoOpen: true,
-                width: '300px',
-                resizable: false,
-                buttons: {
-                    Ok: function() {
-                        $(this).dialog("close");
-                    }
-                },
-                close: function(event, ui) {
-                    $(this).dialog("close");
-                }
-            });
-        }
-
-        function showRandomMessage() {
-
-            //@Henry - create your own stats here, dont trust this feedback logic !!
-            // - to know how each setting is calculated see app/controllers/TasksController getUserPref
-            //1. maybe use javascript session or cookie to store when we showed user a feedback,
-            // if he is too quick and saving the same task over and over again,
-            // it may not make sense to show a feedback every time
-            // all the required stats are available, 
-            //2. in the updateFeedback function, dont stress the server side, better decide when to call server and when not.
+    //@Henry - create your own stats here, dont trust this feedback logic !!
+    // - to know how each setting is calculated see app/controllers/TasksController getUserPref
+    //1. maybe use javascript session or cookie to store when we showed user a feedback,
+    // if he is too quick and saving the same task over and over again,
+    // it may not make sense to show a feedback every time
+    // all the required stats are available, 
+    //2. in the updateFeedback function, dont stress the server side, better decide when to call server and when not.
 //    
 //    
 //    var avg_energy_per_day = Math.ceil(__feedback.settings.cw_energy_hours / 7);
@@ -253,55 +224,55 @@ function decideFeedback() {
 //    console.log(diffscheduleHoursPercent);
 //    
 //    
-            /// positive feedaback
-            //@Henry this approach of categorizing encouraging","positive as positive may not be correct
-            // use entirely your own approach. better use logic to determine the feedback "type" and dont use categories
+    /// positive feedaback
+    //@Henry this approach of categorizing encouraging","positive as positive may not be correct
+    // use entirely your own approach. better use logic to determine the feedback "type" and dont use categories
 
-            //    var positivefeedback = Array("encouraging","positive");
-            //    var negativefeedback = Array("persuasive","caring");
-            //    //we have 2 positive methods
-            //    var positiverandom = Math.floor(Math.random() * positivefeedback.length);
-            //    var negativerandom = Math.floor(Math.random() * negativefeedback.length);
-            //    var levelrandom = Math.floor(Math.random() * 2); //2 is the numbers of levels we have 0,1 (all messags must have same number of levels or when a level is suggested by the same which is not present then do level=level-1 until you find a message for that level
+    //    var positivefeedback = Array("encouraging","positive");
+    //    var negativefeedback = Array("persuasive","caring");
+    //    //we have 2 positive methods
+    //    var positiverandom = Math.floor(Math.random() * positivefeedback.length);
+    //    var negativerandom = Math.floor(Math.random() * negativefeedback.length);
+    //    var levelrandom = Math.floor(Math.random() * 2); //2 is the numbers of levels we have 0,1 (all messags must have same number of levels or when a level is suggested by the same which is not present then do level=level-1 until you find a message for that level
 
-            //    if(diffscheduleHoursPercent>-15 && diffscheduleHoursPercent<=15){
-            //        msglevel = 0;
-            //        msgtype = positivefeedback[positiverandom];
-            //    }
-            //    if(diffscheduleHoursPercent>15 && diffscheduleHoursPercent<=50){
-            //        msglevel = 1;
-            //       msgtype = positivefeedback[positiverandom];
-            //    }
-            //    if(diffscheduleHoursPercent<-50){
-            //        msglevel = 1;
-            //        msgtype = "persuasive";
-            //    }
-            //    /// negative feedaback
-            //    if(diffscheduleHoursPercent>=-50 && diffscheduleHoursPercent<-15){
-            //        msglevel = 0;
-            //        msgtype = negativefeedback[negativerandom];
-            //    }
-            //    if(diffscheduleHoursPercent<-50){
-            //        msglevel = 1;
-            //        msgtype = negativefeedback[negativerandom];
-            //    }
-            //    if(diffscheduleHoursPercent>50){
-            //        msglevel = 1;
-            //        msgtype = "caring";
-            //    }
+    //    if(diffscheduleHoursPercent>-15 && diffscheduleHoursPercent<=15){
+    //        msglevel = 0;
+    //        msgtype = positivefeedback[positiverandom];
+    //    }
+    //    if(diffscheduleHoursPercent>15 && diffscheduleHoursPercent<=50){
+    //        msglevel = 1;
+    //       msgtype = positivefeedback[positiverandom];
+    //    }
+    //    if(diffscheduleHoursPercent<-50){
+    //        msglevel = 1;
+    //        msgtype = "persuasive";
+    //    }
+    //    /// negative feedaback
+    //    if(diffscheduleHoursPercent>=-50 && diffscheduleHoursPercent<-15){
+    //        msglevel = 0;
+    //        msgtype = negativefeedback[negativerandom];
+    //    }
+    //    if(diffscheduleHoursPercent<-50){
+    //        msglevel = 1;
+    //        msgtype = negativefeedback[negativerandom];
+    //    }
+    //    if(diffscheduleHoursPercent>50){
+    //        msglevel = 1;
+    //        msgtype = "caring";
+    //    }
 
 //this is just for the random - do some logic by uncommenting the above lines or write completely new
-            var positivefeedback = Array("encouraging", "positive", "persuasive", "caring");
-            //we have 2 positive methods
-            var positiverandom = Math.floor(Math.random() * positivefeedback.length);
-            var levelrandom = Math.floor(Math.random() * 2);
-            msglevel = levelrandom;
-            msgtype = positivefeedback[positiverandom];
-            /// end of random logic
+    var positivefeedback = Array("encouraging", "positive", "persuasive", "caring");
+    //we have 2 positive methods
+    var positiverandom = Math.floor(Math.random() * positivefeedback.length);
+    var levelrandom = Math.floor(Math.random() * 2);
+    msglevel = levelrandom;
+    msgtype = positivefeedback[positiverandom];
+    /// end of random logic
 
-            var msg = __feedback.feedback[msgtype][msglevel]['message'];
+    var msg = __feedback.feedback[msgtype][msglevel]['message'];
 
-            _showFeedbackDialogBox(msg);
+    _showFeedbackDialogBox(msg);
 //    if(diffscheduleHours>5){
 //        _showFeedbackDialogBox("According to your weekly energy level you are <strong>falling behind</strong>. By today you should have shceduled <strong>"+shouldbe_totalscheduled+"</strong> working hours but you only did <strong>"+__feedback.settings.cw_total_hours+"</strong>");
 //    }
@@ -312,11 +283,11 @@ function decideFeedback() {
 //        _showFeedbackDialogBox("According to your weekly energy level you must <strong>slow down</strong>. By now you should have shceduled <strong>"+shouldbe_totalscheduled+"</strong> working hours you already did <strong>"+__feedback.settings.cw_total_hours+"</strong> hours");
 //
 //    }
-        }
+}
 
-        function showStartUpMessage() {
-            var diff = __feedback.settings.cw_energy_hours - __feedback.settings.g_energy_hours;
-            if (diff > 5) {
-                //_showFeedbackDialogBox("You are trying to work more than you can chew. You defined more working hours for this week than your average work power. Check the settings.");
-            }
+function showStartUpMessage() {
+    var diff = __feedback.settings.cw_energy_hours - __feedback.settings.g_energy_hours;
+    if (diff > 5) {
+        //_showFeedbackDialogBox("You are trying to work more than you can chew. You defined more working hours for this week than your average work power. Check the settings.");
+    }
 }
