@@ -77,6 +77,8 @@ $apptheme = $user_settings['app_theme'];
                     hour: "numeric",
                     minute: "numeric"
                 };
+                
+                showFeedbackStartUp();
 
             </script>
 

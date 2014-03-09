@@ -85,7 +85,7 @@ class TasksController extends Controller {
             exit;
         }
     }
-
+   
     function updateEnergy() {
 
         if ($this->request->is('ajax') && count($this->request->data)) {

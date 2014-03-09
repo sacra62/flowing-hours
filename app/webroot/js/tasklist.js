@@ -137,31 +137,7 @@ function _showGenericErrorDialogBox() {
 /*
  *recentlyadded task
  **/
-function _getEstimatedHoursForAWeek(form) {
-    $.post("tasks/calculateWeeklyHours", form.serialize(), function(hours) {
-        //checkhours is the feedback messaging system
-        //flowingfeedback.showSaveAfterFeedback();
-        var alreadyAddedTasks_hours = hours;
-        var msg = checkHours(alreadyAddedTasks_hours);
-        var dlg = $("#feedbackdialog").clone(true).html(msg);
-        dlg.removeAttr("id").addClass("feedbackdialog").dialog({
-            modal: true,
-            zIndex: 10000,
-            autoOpen: true,
-            width: 'auto',
-            resizable: false,
-            buttons: {
-                Ok: function() {
-                    $(this).dialog("close");
-                }
-            },
-            close: function(event, ui) {
-                $(this).dialog("close");
-            }
-        });
-    });
 
-}
 function _startAccordion() {
 
     $(".accordion").accordion({
@@ -452,7 +428,8 @@ $(function() {
         });
         $(this).toggle();
     });
-
+    
+    
     $("#tasklistcontainer").on("click", ".newtask_save", function() {
         var allGood = true;
         var thistaskbox = $(this).parents(".newtask");
@@ -532,8 +509,6 @@ $(function() {
                 resetNewTaskDialog(tasklists_id);
                 updateFeedback("savetask");//calling feedback module
             }
-
-
             // no issues go ahead and save.
         });
     });

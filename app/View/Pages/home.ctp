@@ -22,10 +22,11 @@
 
 $wallpaper = isset($user_settings['calendar_wallpaper']) ? $user_settings['calendar_wallpaper'] . " " . "wallpaper" : "";
 ?>
+
 <div class="flowinghours">
 
-    <?php echo $this->element('energybar'); ?>
 
+    <?php echo $this->element('energybar'); ?>
 
     <div id="tabs">
         <ul>
